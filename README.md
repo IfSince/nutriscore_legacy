@@ -19,9 +19,7 @@ den dort hinterlegten Pfad anpassen, beispielsweise **"xampp/htdocs/my-project"*
 Für das Installieren der node_modules im Frontend ist [NodeJS](https://nodejs.org/en/) mit [npm](https://www.npmjs.com/) notwendig. Anschließend können in der Konsole mit dem Befehl **npm install** alle Dependencies installiert werden.
 
 ## Tailwind
-Für die Styles wird das CSS-Framework [Tailwind](https://tailwindcss.com/docs/installation) verwendet. Wenn das Projekt nur lauffähig sein und nicht verändert werden soll, muss nichts dafür getan werden. Wenn die Styles verändert werden sollen, dann kann tailwind mit folgendem Befehl gestartet werden:   
-**"npx tailwindcss -i public/assets/styles/tailwind.css -o public/assets/styles/dist/tailwind.css --watch --minify"**   
-
+Für die Styles wird das CSS-Framework [Tailwind](https://tailwindcss.com/docs/installation) verwendet. Mit dem in der **package.json** hinterlegten **build-css** Skript kann tailwind gestartet werden. Dies ist nur notwendig, wenn die Styles der Seite angepasst werden sollen. In jedem neu angelegten Template ist außerdem die von Tailwind generierte **dist/tailwind.css** einzubinden. 
 
 # Öffnen des Projekts
 Um das Projekt zu starten, muss der Apache Server gestartet werden. Anschließend kann das Projekt beispielsweise im 
