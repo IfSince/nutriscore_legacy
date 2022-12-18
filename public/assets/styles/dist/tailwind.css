@@ -619,6 +619,10 @@ video {
   color: rgb(51 153 102 / var(--tw-text-opacity));
 }
 
+[data-quest-panel=false] {
+  display: none;
+}
+
 .absolute {
   position: absolute;
 }

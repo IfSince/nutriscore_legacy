@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-      "./templates/**/*.{html,php}",
+      "./templates/**",
       "./public/assets/scripts/**/*.js",
   ],
   theme: {

@@ -34,4 +34,8 @@
   [data-quest-step-selected=true] span {
     @apply text-green font-medium text-center;
   }
+
+  [data-quest-panel=false] {
+    @apply hidden;
+  }
 }
