@@ -21,14 +21,14 @@
     <form class="w-full" method="post">
       <h1 class="text-4xl text-center uppercase text-green tracking-wide font-medium mt-20 mb-4">Login</h1>
       <div class="w-full">
-        <label class="rounded-input__label" for="username">Username</label>
-        <input class="rounded-input" type="text" id="username">
+        <label class="default-input__label" for="username">Username</label>
+        <input class="default-input" type="text" id="username">
         <ul class="text-sm font-medium text-error"></ul>
       </div>
       
       <div class="w-full mt-4">
-        <label class="rounded-input__label" for="password">Password</label>
-        <input class="rounded-input" type="text" id="password">
+        <label class="default-input__label" for="password">Password</label>
+        <input class="default-input" type="text" id="password">
         <ul class="text-sm font-medium text-error"></ul>
       </div>
       

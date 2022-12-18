@@ -1,66 +1,29 @@
 <?php
-
 session_start();
 
-//Some Constants
 include_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config.php';
-
 include_once FUNCTIONS_DIRECTORY . 'routing.php';
-
-
-//$route = $_GET[ 'route' ] ?? 'login';
-//
-//if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-//
-//    switch ($route) {
-//        case 'register':
-//            redirect('?route=register', 'login');
-//            break;
-//        default:
-//            break;
-//    }
-//
-//    $templateFile = TEMPLATES_DIRECTORY . "{$route}.php";
-//
-//    if (file_exists($templateFile)) {
-//        include_once $templateFile;
-//    } else {
-//        echo 'Gewünschter Pfad nicht vorhanden 404';
-//    }
-//}
-
-
+include_once FUNCTIONS_DIRECTORY . 'registration' . DIRECTORY_SEPARATOR . 'register.php';
+include_once FUNCTIONS_DIRECTORY . 'validations' . DIRECTORY_SEPARATOR . 'printMessages.php';
+include_once FUNCTIONS_DIRECTORY . 'util' . DIRECTORY_SEPARATOR . 'getPostParam.php';
 
 $route = $_GET[ 'route' ] ?? 'login';
 $errors = [];
+$isValid = null;
 
-if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
-    switch( $route ){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    switch ($route) {
         case 'login':
-
+            // Login
             break;
         case 'register':
-            redirect( '?route=login', 'redirect' );
-            break;
+            [$errors, $isValid] = validateRegistration();
+            if ($isValid) {
+                $resultMessage = RegistrationMessages::SUCCESS_MESSAGE;
+            } else {
+                $resultMessage = RegistrationMessages::ERROR_MESSAGE;
+            }
     }
 }
 
-if ( $_SERVER[ 'REQUEST_METHOD' ] === 'GET' ) {
-    switch( $route ){
-        case 'logout':
-            redirect( '?route=login', 'logout' );
-            break;
-        case 'feed':
-            break;
-    }
-}
-
-/** @var string $template_file */
-$template_file = TEMPLATES_DIRECTORY . "{$route}.php";
-
-if ( file_exists( $template_file ) ) {
-    include_once $template_file;
-}
-else {
-    echo 'Page not found 404';
-}
+include_once TEMPLATES_DIRECTORY . "{$route}.php";

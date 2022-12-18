@@ -16,19 +16,23 @@ const accountQuestStep = new QuestStep(
 const personalQuestStep = new QuestStep(
     [
         new FormField('firstName', []),
-        new FormField('surname', [])
+        new FormField('surname', []),
+        new FormField('dateOfBirth', []),
+        new FormField('height', []),
+        new FormField('gender', []),
+        new FormField('weight', []),
+
     ],
     document.querySelector('[data-quest-step="personal"]'),
     'Personal'
 )
 
-const addressQuestStep = new QuestStep(
+const nutritionQuestStep = new QuestStep(
     [
-        new FormField('street', []),
-        new FormField('country', [])
+        new FormField('nutritionType', []),
     ],
-    document.querySelector('[data-quest-step="address"]'),
-    'Address'
+    document.querySelector('[data-quest-step="nutrition"]'),
+    'Nutrition'
 )
 
 const preferencesQuestStep = new QuestStep(
@@ -42,5 +46,5 @@ const preferencesQuestStep = new QuestStep(
 
 const registrationQuest = new Quest(
     'registrationForm',
-    [accountQuestStep, personalQuestStep, addressQuestStep, preferencesQuestStep]
+    [accountQuestStep, personalQuestStep, nutritionQuestStep, preferencesQuestStep]
 )
