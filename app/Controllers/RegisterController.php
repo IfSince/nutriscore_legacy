@@ -17,44 +17,38 @@ class RegisterController extends AbstractController {
 
     #[NoReturn]
     protected function handlePostRequest(): void {
-        $formInput = $_POST;
-        $validation = new RegisterFormValidator($formInput);
+        $formInput = filter_input_array(INPUT_POST);
 
-        $validation->setRules([
-            'username' => 'required|min:3|exists',
-            'email' => 'required|min:3',
-            'password' => 'password'
+        $validator = new RegisterFormValidator($formInput);
+
+        $validator->setRules([
+            'username' => 'required|min:4|max:16|whitespaces',
+            'email' => 'required|min:3|email',
+            'password' => 'required|min:8|matches:repeatPassword|uppercase|lowercase|number|specialchar|noWhitespaces',
+            'repeatPassword' => 'matches:password',
+            'tos' => 'required',
+            'firstName' => 'required|min:2|max:100',
+            'surname' => 'required|min:2|max:100',
+            'gender' => 'required',
+            'dateOfBirth' => 'required',
+            'height' => 'required',
+            'startingWeight' => 'required',
+            'nutritionType' => 'required',
+            'bmr' => 'required',
+            'activityLevel' => 'required',
+            'objective' => 'required',
         ]);
 
-        $validation->validate();
+        $validator->validate();
 
-        $this->view->render(self::REGISTER_TEMPLATE);
+        if ($validator->isValid()) {
+            $user = new User();
 
+            $user->register($formInput['username'], $formInput['email'], $formInput['password']);
+            header('Location: /login');
+        }
 
-//        if (!$validation->isValid()) {
-//            $this->view->render(
-//                view: self::REGISTER_TEMPLATE,
-//                data: [ 'errors' => $validation->getErrors() ]
-//            );
-//        }
-//
-//        $db = new Database();
-//        $user = new User($db);
-//
-//        try {
-//            $user->register(
-//                $formInput['username'],
-//                $formInput['email'],
-//                $formInput['password'],
-//            );
-//
-////            header('Location: /login');
-//        } catch (Exception $e) {
-//            $this->view->render(
-//                view: self::REGISTER_TEMPLATE,
-//                data: [ 'errors' => [$e->getMessage()] ]
-//            );
-//        }
+        $this->view->render(self::REGISTER_TEMPLATE, ['errors' => $validator->getErrors()]);
     }
 
 }

@@ -2,6 +2,7 @@ import {FormField} from "../quest/form-field.js"
 import {QuestStep} from "../quest/quest-step.js";
 import {Quest} from "../quest/quest.js";
 import {NutritionQuestStep} from './nutrition-quest-step.js';
+import {OtherQuestStep} from './other-quest-step.js';
 
 const accountQuestStep = new QuestStep(
     [
@@ -39,10 +40,11 @@ const nutritionQuestStep = new NutritionQuestStep(
     'Nutrition'
 )
 
-const othersQuestStep = new QuestStep(
+const othersQuestStep = new OtherQuestStep(
     [
         new FormField('bmr', []),
         new FormField('activityLevel', []),
+        new FormField('palLevel', []),
         new FormField('objective', []),
     ],
     document.querySelector('[data-quest-step="others"]'),

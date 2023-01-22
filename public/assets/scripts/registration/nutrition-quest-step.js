@@ -27,22 +27,14 @@ export class NutritionQuestStep extends QuestStep {
     constructor(formFields, domContainer, description, isSubmitStep = false) {
         super(formFields, domContainer, description)
 
-        this.init(formFields)
+        this.parseFormFields(formFields)
+
+        this.addNutritionTypeEventListener(formFields)
     }
 
-    init(formFields) {
-        this.parseFormFields(formFields)
+    addNutritionTypeEventListener() {
         this.nutritionType.element.addEventListener('change', () => this.onValueChange())
         this.onValueChange()
-    }
-    /**
-     *
-     * @param formFields {FormField[]}
-     */
-    parseFormFields(formFields) {
-        formFields.forEach((formField) => {
-            eval(`this.${formField.name} = formField`)
-        })
     }
 
     onValueChange() {

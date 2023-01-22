@@ -48,7 +48,7 @@ class FormValidator {
     protected function required(string $field): void {
         $var = $this->formInput[$field] ?? null;
         if (empty($var)) {
-            $this->errors[$field][] = "The field \"$field\" is required.";
+            $this->errors[$field][] = "This field is required.";
         }
     }
 
@@ -65,15 +65,45 @@ class FormValidator {
         }
     }
 
+    protected function uppercase(string $field): void {
+        if (!preg_match("/[A-Z]/", $this->formInput[$field])) {
+            $this->errors[$field][] = "This field requires at least one uppercase letter.";
+        }
+    }
+
+    protected function lowercase(string $field): void {
+        if (!preg_match("/[a-z]/", $this->formInput[$field])) {
+            $this->errors[$field][] = "This field requires at least one lowercase letter.";
+        }
+    }
+
+    protected function number(string $field): void {
+        if (!preg_match("/\d/", $this->formInput[$field])) {
+            $this->errors[$field][] = "This field requires at least one number.";
+        }
+    }
+
+    protected function specialchar(string $field): void {
+        if (!preg_match('/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};\':"\\|,.<>\/?]*$/', $this->formInput[$field])) {
+            $this->errors[$field][] = "This field requires at least one special character.";
+        }
+    }
+
+    protected function noWhitespaces(string $field): void {
+        if (preg_match("/\s/", $this->formInput[$field])) {
+            $this->errors[$field][] = "This field must not contain any whitespaces.";
+        }
+    }
+
     protected function email(string $field): void {
         if (!filter_var($this->formInput[$field], FILTER_VALIDATE_EMAIL)) {
-            $this->errors[$field][] = "The $field field must be a valid email address.";
+            $this->errors[$field][] = "This field must be a valid email address.";
         }
     }
 
     protected function matches(string $field, string $satisfier): void {
         if ($this->formInput[$field] !== $this->formInput[$satisfier]) {
-            $this->errors[$field][] = "The $field must match";
+            $this->errors[$field][] = "This field must match the $satisfier.";
         }
     }
 }

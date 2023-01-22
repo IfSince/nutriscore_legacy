@@ -1,6 +1,7 @@
 <?php
 function renderValue(string $fieldName): void {
-    echo filter_input(INPUT_POST, $fieldName) ?? null;
+    $value = filter_input(INPUT_POST, $fieldName) ?? null;
+    echo "value=\"$value\"";
 }
 
 function renderChecked(string $fieldName): void {
@@ -8,6 +9,22 @@ function renderChecked(string $fieldName): void {
 
     if (isset($value)) {
         echo 'checked';
+    }
+}
+
+function renderCheckedByValue(string $fieldName, $expectedValue): void {
+    $value = filter_input(INPUT_POST, $fieldName);
+
+    if ($value == $expectedValue) {
+        echo 'checked';
+    }
+}
+
+function renderSelectedByValue(string $fieldName, $expectedValue): void {
+    $value = filter_input(INPUT_POST, $fieldName);
+
+    if ($value == $expectedValue) {
+        echo 'selected';
     }
 }
 

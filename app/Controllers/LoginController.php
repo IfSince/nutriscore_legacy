@@ -27,7 +27,7 @@ class LoginController extends AbstractController {
 
             header('Location: /overview');
         } else {
-            $this->view->render(self::LOGIN_TEMPLATE, [ 'errors' => $validator->getErrors()]);
+            $this->view->render(self::LOGIN_TEMPLATE, ['errors' => $validator->getErrors()]);
         }
     }
 }

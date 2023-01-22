@@ -8,10 +8,22 @@ export class QuestStep {
      * @param isSubmitStep {boolean}
      */
     constructor(formFields, domContainer, description, isSubmitStep = false) {
-        this.formFields = formFields;
-        this.domContainer = domContainer;
-        this.description = description;
+        this.formFields = formFields
+        this.domContainer = domContainer
+        this.description = description
         this.isSubmitStep = isSubmitStep
+
+        this.parseFormFields(formFields)
+    }
+
+    /**
+     *
+     * @param formFields {FormField[]}
+     */
+    parseFormFields(formFields) {
+        formFields.forEach((formField) => {
+            eval(`this.${formField.name} = formField`)
+        })
     }
 
     validate() {

@@ -1,3 +1,6 @@
+<?php
+$errors = $data['errors'] ?? [];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,17 +15,6 @@
   <script type="module" src="assets/scripts/registration/registration-quest.js" defer></script>
 </head>
 <body class="flex md:justify-center md:items-center overflow-x-hidden lg:h-screen lg:w-screen">
-  <div class="absolute top-0 left-0 z-50">
-    <?php
-
-    if (isset($data['errors'])) {
-      foreach ($data['errors'] as $fieldErrors) {
-        echo '<div>' . $fieldErrors[0] . '</div>';
-      }
-    }
-
-    ?>
-  </div>
   <div class="w-full md:min-h-screen flex flex-col md:flex-row md:max-w-5xl lg:min-h-[600px] lg:h-fit
               lg:shadow-underlined lg:rounded-2xl lg:overflow-hidden test">
     <div class="fixed md:relative h-64 md:h-auto bg-green w-full pb-7 md:pb-0 px-7 shadow-lg md:shadow-none
@@ -39,30 +31,39 @@
         <div data-quest-panel="true" data-quest-step="account">
           <div class="w-full mt-8">
             <label class="default-input__label" for="username">Username</label>
-            <input class="default-input" type="text" name="username" id="username">
-            <ul class="text-sm font-medium text-red-500 pl-2 invisible peer-invalid:visible"></ul>
+            <input class="default-input" type="text" name="username" id="username" <?php renderValue('username');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'username'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="email">E-Mail</label>
-            <input class="default-input" type="text" name="email" id="email">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="text" name="email" id="email" <?php renderValue('email');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'email'); ?>
+            </ul>
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="password">Password</label>
             <input class="default-input" type="text" name="password" id="password">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'password'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="repeatPassword">Repeat password</label>
             <input class="default-input" type="text" name="repeatPassword" id="repeatPassword">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'repeatPassword'); ?>
+            </ul>
           </div>
           <div class="w-full mt-8 ml-2">
             <div class="flex items-center">
               <input class="accent-green focus:outline-2 focus:outline-green"
                      type="checkbox"
                      name="tos"
-                     id="tos">
+                     id="tos"
+                     <?php renderChecked('tos');?>>
               <label class="cursor-pointer pl-2" for="tos">
                 I agree to the
                 <a class="text-green cursor-pointer hover:underline focus:underline focus:outline-none" href="#">
@@ -70,19 +71,26 @@
                 </a>
               </label>
             </div>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'tos'); ?>
+            </ul>
           </div>
         </div>
         
         <div data-quest-panel="false" data-quest-step="personal">
           <div class="w-full mt-8">
             <label class="default-input__label" for="firstName">First name</label>
-            <input class="default-input" type="text" name="firstName" id="firstName">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="text" name="firstName" id="firstName" <?php renderValue('firstName');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'firstName'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="surname">Surname</label>
-            <input class="default-input" type="text" name="surname" id="surname">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="text" name="surname" id="surname" <?php renderValue('surname');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'surname'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <span class="default-input__label">Gender</span>
@@ -92,7 +100,8 @@
                        type="radio"
                        id="genderMale"
                        name="gender"
-                       value="male">
+                       value="male"
+                       <?php renderCheckedByValue('gender', 'male');?>>
                 <label class="text-gray-700 font-medium cursor-pointer pl-0.5 peer-checked:text-green"
                        for="genderMale">Male</label>
               </div>
@@ -101,7 +110,8 @@
                        type="radio"
                        id="genderFemale"
                        name="gender"
-                       value="female">
+                       value="female"
+                        <?php renderCheckedByValue('gender', 'female');?>>
                 <label class="text-gray-700 font-medium pl-0.5 peer-checked:text-green"
                        for="genderFemale">Female</label>
               </div>
@@ -110,100 +120,126 @@
                        type="radio"
                        id="genderOther"
                        name="gender"
-                       value="other">
+                       value="other"
+                        <?php renderCheckedByValue('gender', 'other');?>>
                 <label class="text-gray-700 font-medium cursor-pointer pl-0.5 peer-checked:text-green"
                        for="genderOther">Other</label>
               </div>
             </div>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'gender'); ?>
+            </ul>
           </div>
           <div class="w-full mt-6">
             <label class="default-input__label" for="dateOfBirth">Date of Birth</label>
-            <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" <?php renderValue('dateOfBirth');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'dateOfBirth'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="height">Height (in cm)</label>
-            <input class="default-input" type="text" name="height" id="height">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="number" name="height" id="height" <?php renderValue('height');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'height'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="startingWeight">Starting weight (in kg)</label>
-            <input class="default-input" type="text" name="startingWeight" id="startingWeight">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="number" name="startingWeight" id="startingWeight" <?php renderValue('startingWeight');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'startingWeight'); ?>
+            </ul>
           </div>
         </div>
-  
+
         <div data-quest-panel="false" data-quest-step="nutrition">
           <div class="w-full mt-8">
             <label class=default-input__label for="nutritionType">Nutrition type</label>
             <select class="default-input" name="nutritionType" id="nutritionType">
-              <option value="normal">Normal</option>
-              <option value="ketogenic">Ketogenic</option>
-              <option value="lowCarb">Low carb</option>
-              <option value="lowFat">Low fat</option>
-              <option value="highProtein">High protein</option>
-              <option value="hpHf">HP + HF</option>
-              <option value="dachReference">D-A-C-H Reference</option>
-              <option value="manually">Manually</option>
+              <option value="normal" <?php renderSelectedByValue('nutritionType', 'normal');?>>Normal</option>
+              <option value="ketogenic" <?php renderSelectedByValue('nutritionType', 'ketogenic');?>>Ketogenic</option>
+              <option value="lowCarb" <?php renderSelectedByValue('nutritionType', 'lowCarb');?>>Low carb</option>
+              <option value="lowFat" <?php renderSelectedByValue('nutritionType', 'lowFat');?>>Low fat</option>
+              <option value="highProtein" <?php renderSelectedByValue('nutritionType', 'highProtein');?>>High protein</option>
+              <option value="hpHf" <?php renderSelectedByValue('nutritionType', 'hpHf');?>>HP + HF</option>
+              <option value="dachReference" <?php renderSelectedByValue('nutritionType', 'dachReference');?>>D-A-C-H Reference</option>
+              <option value="manually" <?php renderSelectedByValue('nutritionType', 'manually');?>>Manually</option>
             </select>
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'nutritionType'); ?>
+            </ul>
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="protein">Protein</label>
-            <input class="default-input" type="text" name="protein" id="protein">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="number" name="protein" id="protein" <?php renderValue('protein');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'protein'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="carbohydrates">Carbohydrates</label>
-            <input class="default-input" type="text" name="carbohydrates" id="carbohydrates">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderValue('carbohydrates');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'carbohydrates'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="fat">Fat</label>
-            <input class="default-input" type="text" name="fat" id="fat">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="number" name="fat" id="fat" <?php renderValue('fat');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'fat'); ?>
+            </ul>
           </div>
         </div>
-  
+
         <div data-quest-panel="false" data-quest-step="others">
           <div class="w-full mt-8">
             <label class=default-input__label for="bmr">Basal Metabolic Rate</label>
             <select class="default-input" name="bmr" id="bmr">
-              <option value="harris">BMR (Harris Benedict)</option>
-              <option value="easy">BMR (easy)</option>
-              <option value="complicated">BMR (complicated)</option>
-              <option value="mifflin">BMR (Mifflin-St. Jeor)</option>
+              <option value="harris" <?php renderSelectedByValue('bmr', 'harris');?>>BMR (Harris Benedict)</option>
+              <option value="easy" <?php renderSelectedByValue('bmr', 'easy');?>>BMR (easy)</option>
+              <option value="complicated" <?php renderSelectedByValue('bmr', 'complicated');?>>BMR (complicated)</option>
+              <option value="mifflin" <?php renderSelectedByValue('bmr', 'mifflin');?>>BMR (Mifflin-St. Jeor)</option>
             </select>
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'bmr'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class=default-input__label for="activityLevel">Activity Level</label>
             <select class="default-input" name="activityLevel" id="activityLevel">
-              <option value="noExercise">No exercise</option>
-              <option value="exerciseOneToThree">Exercise 1-3/week</option>
-              <option value="exerciseThreeToFive">Exercise 3-5/week</option>
-              <option value="exerciseSixToSeven">Exercise 6-7/week</option>
-              <option value="exerciseDaily">Exercise daily</option>
-              <option value="palLevel">PAL Level</option>
-              <option value="met">MET</option>
-              <option value="metFactor">MET Factor</option>
-              <option value="palFactor">PAL Factor</option>
+              <option value="noExercise" <?php renderSelectedByValue('activityLevel', 'noExercise');?>>No exercise</option>
+              <option value="exerciseOneToThree" <?php renderSelectedByValue('activityLevel', 'exerciseOneToThree');?>>Exercise 1-3/week</option>
+              <option value="exerciseThreeToFive" <?php renderSelectedByValue('activityLevel', 'exerciseThreeToFive');?>>Exercise 3-5/week</option>
+              <option value="exerciseSixToSeven" <?php renderSelectedByValue('activityLevel', 'exerciseSixToSeven');?>>Exercise 6-7/week</option>
+              <option value="exerciseDaily" <?php renderSelectedByValue('activityLevel', 'exerciseDaily');?>>Exercise daily</option>
+              <option value="palLevel" <?php renderSelectedByValue('activityLevel', 'palLevel');?>>PAL Level</option>
+              <option value="met" <?php renderSelectedByValue('activityLevel', 'met');?>>MET</option>
+              <option value="metFactor" <?php renderSelectedByValue('activityLevel', 'metFactor');?>>MET Factor</option>
+              <option value="palFactor" <?php renderSelectedByValue('activityLevel', 'palFactor');?>>PAL Factor</option>
             </select>
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'activityLevel'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="palLevel">PAL Level</label>
-            <input class="default-input" type="text" name="palLevel" id="palLevel">
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderValue('palLevel');?>>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'palLevel'); ?>
+            </ul>
           </div>
           <div class="w-full mt-4">
             <label class=default-input__label for="objective">Objective</label>
-            <select class="default-input" name="objective" id="objective">
+            <select class="default-input" name="objective" id="objective" <?php renderValue('objective');?>>
               <option value="keep">Keep weight</option>
               <option value="loose">Loose weight</option>
               <option value="gain">Gain weight</option>
             </select>
-            <ul class="text-sm font-medium text-red-500 pl-2"></ul>
+            <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+              <?php renderErrors($errors, 'objective'); ?>
+            </ul>
           </div>
         </div>
       </form>

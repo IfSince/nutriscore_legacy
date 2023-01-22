@@ -16,14 +16,15 @@ class LoginFormValidator extends FormValidator {
     public function validate(): void {
         parent::validate();
 
-        $this->validateLoginData();
+        $this->validateLoginData($this->formInput['username']);
     }
 
-    protected function validateLoginData(): void {
-        $username = $this->formInput['username'];
-        $passwordHash = password_hash($this->formInput['password'], PASSWORD_DEFAULT);
-        $this->user->existsByUsernameAndPassword($username, $passwordHash);
+    private function validateLoginData(string $username): void {
+        $user = $this->user->findByUsernameAndFetch($username);
+        $passwordVerify = password_verify($this->formInput['password'], $this->user->getPassword());
 
-        $this->errors['general'][] = 'Username or password incorrect.';
+        if (empty($user) || !$passwordVerify) {
+            $this->errors['general'][] = 'Username or password incorrect.';
+        }
     }
 }

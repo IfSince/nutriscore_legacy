@@ -6,7 +6,17 @@ class User {
     private string $username;
     private string $email;
     private string $password;
-    private string $joinedAt;
+    private string $fistName;
+    private string $surname;
+    private string $gender;
+    private string $dateOfBirth;
+    private string $height;
+    private string $currentWeight;
+    private string $nutritionType;
+    private string $basalMetabolicRate;
+    private string $activityLevel;
+    private string $objective;
+    private string $startDate;
 
     public function __construct(Database $db = new Database()) {
         $this->db = $db;
@@ -18,15 +28,6 @@ class User {
         return $this->db->exists($sql, ['identifier' => $identifier]);
     }
 
-    public function existsByUsernameAndPassword(string $username, string $password): bool {
-        $sql = "SELECT 1
-                  FROM users
-                 WHERE lower(username) = lower(:username)
-                   AND password = :password";
-
-        return $this->db->exists($sql, ['username' => $username, 'password' => $password]);
-    }
-
     public function getUserIdByUsername(string $username): int {
         $sql = "SELECT id FROM users WHERE username = :username";
 
@@ -35,11 +36,13 @@ class User {
         return (int)$userData['id'];
     }
 
-    // Returns a boolean indicating if the user could be found
-    // If they were, saves their information in object's properties
-    public function find(int|string $identifier): bool {
-        $sql = "SELECT * FROM `users` WHERE `username` = :identifier";
-        $userData = $this->db->fetch($sql, ['identifier' => $identifier]);
+    public function findByUsernameAndFetch(string $username): bool {
+        $sql = "SELECT * FROM users WHERE username = :username";
+        $userData = $this->db->fetch($sql, ['username' => $username]);
+
+        if (!$this->db->count()) {
+            return false;
+        }
 
         foreach ($userData as $column => $value) {
             $this->{$column} = $value;
@@ -48,11 +51,7 @@ class User {
         return true;
     }
 
-    /**
-     * @throws Exception
-     */
     public function register(string $username, string $email, string $password): void {
-        //
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
         $values = [
@@ -71,5 +70,9 @@ class User {
     public function login(string $username): void {
         // Session erstellen
         $_SESSION['userId'] = $this->getUserIdByUsername($username);
+    }
+
+    public function getPassword(): string {
+        return $this->password;
     }
 }

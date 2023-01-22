@@ -32,7 +32,7 @@
 
         <div class="w-full">
           <label class="default-input__label" for="username">Username</label>
-          <input class="default-input" type="text" name="username" id="username" value="<?php renderValue('username');?>">
+          <input class="default-input" type="text" name="username" id="username" <?php renderValue('username');?>>
           <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
             <?php renderErrors($errors, 'username');?>
           </ul>
