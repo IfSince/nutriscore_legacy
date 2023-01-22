@@ -4,7 +4,7 @@
  * @param innerHTML {string | null}
  * @param classes {string[]?}
  * @param styles {Object?}
- * @param dataAttributes {Object?}
+ * @param attributes {Object?}
  * @returns {HTMLElement}
  */
 export function createDomElement(
@@ -12,7 +12,7 @@ export function createDomElement(
     innerHTML = null,
     classes = [],
     styles = {},
-    dataAttributes = {},
+    attributes = {},
 ) {
     const element = document.createElement(type);
     element.innerHTML = innerHTML;
@@ -24,9 +24,9 @@ export function createDomElement(
         });
     }
 
-    if (dataAttributes) {
-        Object.keys(dataAttributes).forEach((key) => {
-            element.setAttribute(key, dataAttributes[key]);
+    if (attributes) {
+        Object.keys(attributes).forEach((key) => {
+            element.setAttribute(key, attributes[key]);
         });
     }
 

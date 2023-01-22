@@ -15,8 +15,8 @@
   font-family: 'Material Icons', sans-serif;
   font-weight: normal;
   font-style: normal;
-  font-size: 1.5rem;
-  line-height: 1;
+  font-size: unset;
+  line-height: unset;
   text-transform: none;
   letter-spacing: normal;
   word-wrap: normal;
@@ -38,8 +38,3 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
-
-.material-icons.text-6xl {
-  font-size: 3.75rem;
-}
-

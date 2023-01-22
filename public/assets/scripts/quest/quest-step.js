@@ -11,6 +11,7 @@ export class QuestStep {
         this.formFields = formFields;
         this.domContainer = domContainer;
         this.description = description;
+        this.isSubmitStep = isSubmitStep
     }
 
     validate() {
@@ -19,10 +20,6 @@ export class QuestStep {
 
     get isValid() {
         this.formFields.some(formField => !formField.isValid)
-    }
-
-    get isVisible() {
-        return this.domContainer.getAttribute('data-quest-panel') === "true"
     }
 
     setVisible() {

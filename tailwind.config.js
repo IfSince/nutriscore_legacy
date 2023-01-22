@@ -3,31 +3,34 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-      "./templates/**",
+      "./app/Views/**",
       "./public/assets/scripts/**/*.js",
       "./functions/**",
   ],
   theme: {
     fontFamily: {
-      'sans': ['futura-pt', ...defaultTheme.fontFamily.sans]
+      'sans': ['roboto', ...defaultTheme.fontFamily.sans]
     },
     extend: {
       colors: {
         'green': {
-          light: '#9CC9B3',
-          DEFAULT: '#339966',
-          dark: '#196E46'
+          light: '#43E89B',
+          DEFAULT: '#1E9C61',
+          hover: '#198251',
+          dark: '#146941',
+          darker: '#0F4E31'
         },
-        'white': '#fff',
-        'gray': {
-          light: '#EFEFEF',
-          DEFAULT: '#727272',
-          dark: '#434343'
-        },
-        'error': {
-          DEFAULT: '#DB243D'
-        }
-      }
+      },
+      transitionDuration: {
+        '400': '400ms',
+        '600': '600ms',
+        '800': '800ms',
+        '900': '900ms'
+      },
+      boxShadow: {
+        'border': "rgba(99, 99, 99, 0.2) 0 2px 8px 0",
+        'underlined': "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+      },
     },
   },
   plugins: [],

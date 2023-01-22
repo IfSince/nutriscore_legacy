@@ -3,42 +3,77 @@
 @tailwind utilities;
 
 @layer components {
+
+  /* Formfield */
   .label {
-    @apply cursor-pointer text-gray-dark text-lg font-medium tracking-wide;
+    @apply cursor-pointer text-gray-700 font-medium tracking-wide;
   }
   .default-input__label {
     @apply label w-fit block pl-2 pb-0.5;
   }
 
   .default-input {
-    @apply w-full bg-gray-light rounded-3xl py-2.5 px-5 text-gray-dark focus:outline-2 focus:outline-gray;
+    @apply w-full rounded-2xl py-2.5 px-5 text-gray-700 bg-gray-100 border-gray-300 border transition-colors
+    focus:outline-none focus:border-gray-500 focus:ring-gray-500
+    disabled:opacity-60 disabled:cursor-not-allowed;
   }
 
+  .default-input.valid {
+    @apply bg-green-50 border-green-500 text-green-900 focus:ring-green-500 focus:border-green-500;
+  }
+
+  .default-input.invalid {
+    @apply bg-red-50 border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500;
+  }
+
+  /* Quest / Multistep Form */
+  /* Step Routing */
+  [data-quest-steps-routing] > li {
+    @apply flex flex-col md:flex-row justify-center items-center text-white font-medium cursor-pointer;
+  }
+
+  [data-quest-steps-routing] li > div {
+    @apply bg-green-dark w-10 h-10 flex justify-center items-center rounded-md text-2xl mb-2 md:mb-0 md:mr-4 transition-colors shadow-lg;
+  }
+
+  [data-quest-steps-routing] li:hover > div {
+    @apply bg-green-light;
+  }
+
+  li[data-quest-step-selected=true] > div {
+    @apply bg-green-light;
+  }
+
+  [data-quest-steps-routing] > li > span {
+    @apply tracking-wide;
+  }
+
+  /* Step Toggle */
+  [data-quest-panel=false] {
+    @apply hidden;
+  }
+
+  /* Buttons */
   .btn {
     @apply w-full rounded-3xl px-3 py-3 font-medium tracking-wide text-lg ease-in-out duration-200;
   }
 
   .btn-primary {
-    @apply bg-green text-white hover:bg-green-dark focus:outline-none focus:bg-green-dark;
+    @apply bg-green text-white hover:bg-green-dark focus:outline-none focus:bg-green-dark shadow-lg;
   }
 
-  [data-quest-step-selected] {
-    @apply flex flex-col items-center text-gray font-medium text-center cursor-pointer;
+  /* Menu */
+  .mobile-menu__entry {
+    @apply flex flex-col py-1 lg:py-0 px-2 lg:px-0 lg:flex-row justify-center items-center relative
+    lg:static lg:w-full lg:h-auto lg:justify-start;
   }
 
-  [data-quest-step-selected] div {
-    @apply bg-gray-light w-10 h-10 text-lg flex justify-center items-center rounded-xl z-10;
+  a.menu-link {
+    @apply cursor-pointer text-4xl lg:pl-6 lg:py-3 text-gray-400 gap-x-6 transition-colors
+    hover:text-green focus:outline-none;
   }
 
-  [data-quest-step-selected=true] div {
-    @apply bg-green text-white;
-  }
-
-  [data-quest-step-selected=true] span {
-    @apply text-green font-medium text-center;
-  }
-
-  [data-quest-panel=false] {
-    @apply hidden;
+  a.menu-link:focus * {
+    @apply text-green-dark;
   }
 }
