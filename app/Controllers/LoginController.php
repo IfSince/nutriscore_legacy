@@ -4,7 +4,6 @@ use JetBrains\PhpStorm\NoReturn;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AbstractController.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'LoginFormValidator.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Database.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'User.php';
 
 class LoginController extends AbstractController {
@@ -17,34 +16,18 @@ class LoginController extends AbstractController {
 
     #[NoReturn]
     protected function handlePostRequest(): void {
-        $formInput = $_POST;
-        $validation = new LoginFormValidator($formInput);
+        $formInput = filter_input_array(INPUT_POST);
 
-        $validation->setRules([
-            'username' => 'required|min:3',
-            'password' => 'required|min:2',
-        ]);
+        $validator = new LoginFormValidator($formInput);
+        $validator->validate();
 
-        $validation->validate();
+        if ($validator->isValid()) {
+            $user = new User();
+            $user->login($formInput['username']);
 
-        if (!$validation->isValid()) {
-            $this->view->render(self::LOGIN_TEMPLATE, [
-                'errors' => $validation->getErrors()
-            ]);
-        }
-
-        // User Einloggen
-        $db = new Database;
-        $user = new User($db);
-        try {
-            $user->login($formInput['username'], $formInput['password']);
             header('Location: /overview');
-        } catch (Exception $e) {
-            $this->view->render(self::LOGIN_TEMPLATE, [
-                'errors' => [
-                    'root' => [$e->getMessage()]
-                ]
-            ]);
+        } else {
+            $this->view->render(self::LOGIN_TEMPLATE, [ 'errors' => $validator->getErrors()]);
         }
     }
 }

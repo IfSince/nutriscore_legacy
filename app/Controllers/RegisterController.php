@@ -15,6 +15,7 @@ class RegisterController extends AbstractController {
         $this->view->render(self::REGISTER_TEMPLATE);
     }
 
+    #[NoReturn]
     protected function handlePostRequest(): void {
         $formInput = $_POST;
         $validation = new RegisterFormValidator($formInput);
@@ -27,10 +28,7 @@ class RegisterController extends AbstractController {
 
         $validation->validate();
 
-        $this->view->render(
-            view: self::REGISTER_TEMPLATE,
-            data: [ 'errors' => $validation->getErrors() ]
-        );
+        $this->view->render(self::REGISTER_TEMPLATE);
 
 
 //        if (!$validation->isValid()) {

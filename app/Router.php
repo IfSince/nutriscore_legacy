@@ -1,7 +1,7 @@
 <?php
 
 class Router {
-    private string $controller = 'HomeController';
+    private string $controller = 'LoginController';
     private string $method = 'index';
     private array $params;
 

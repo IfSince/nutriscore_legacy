@@ -2,7 +2,7 @@
 
 class FormValidator {
     protected array $formInput;
-    private array $rules;
+    private array $rules = [];
     protected array $errors = [];
 
     public function __construct(array $formInput) {

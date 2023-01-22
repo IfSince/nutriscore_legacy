@@ -1,11 +1,13 @@
 <?php
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database.php';
+
 class Database {
-    private string $host = 'localhost';
-    private string $databaseName = 'nutriscore';
-    private string $charset = 'utf8mb4';
-    private string $username = 'root';
-    private string $password = '';
+    private string $host = HOST;
+    private string $databaseName = DB_NAME;
+    private string $charset = DB_CHARSET;
+    private string $username = DB_USER;
+    private string $password = DB_PASSWORD;
 
     private PDO $pdo;
     private PDOStatement $statement;
@@ -13,7 +15,7 @@ class Database {
     public function __construct() {
         try {
             $this->pdo = new PDO(
-                "mysql:host={$this->host};dbname={$this->databaseName};charset={$this->charset}",
+                "mysql:host=$this->host;dbname=$this->databaseName;charset=$this->charset",
                 $this->username,
                 $this->password,
                 [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
@@ -33,17 +35,12 @@ class Database {
     }
 
     public function exists(string $sql, array $values = []): bool {
-        $this->statement = $this->pdo->prepare($sql);
-        $this->statement->execute($values);
-
+        $this->query($sql, $values);
         return $this->count() > 0;
     }
 
-    public function fetchAll(): array {
-        return $this->statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function fetch(): mixed {
+    public function fetch(string $sql, array $values = []): mixed {
+        $this->query($sql, $values);
         return $this->statement->fetch(PDO::FETCH_ASSOC);
     }
 }

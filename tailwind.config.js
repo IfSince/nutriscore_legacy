@@ -5,7 +5,6 @@ module.exports = {
   content: [
       "./app/Views/**",
       "./public/assets/scripts/**/*.js",
-      "./functions/**",
   ],
   theme: {
     fontFamily: {

@@ -21,7 +21,7 @@ class RegisterFormValidator extends FormValidator {
     }
 
     protected function exists(string $field): void {
-        $usernameTaken = $this->user->usernameAlreadyTaken($this->formInput[$field]);
+        $usernameTaken = $this->user->existsByUsername($this->formInput[$field]);
 
         if ($usernameTaken) {
             $this->errors[$field][] = "This username is already taken";
