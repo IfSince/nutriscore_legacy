@@ -15,7 +15,7 @@
   <script type="module" src="assets/scripts/shared/shared.module.js" defer></script>
 </head>
 <body class="w-screen h-screen flex md:justify-center md:items-center">
-  <div class="w-full h-full flex flex-col md:flex-row md:max-w-5xl lg:h-fit lg:shadow-underlined lg:rounded-2xl lg:overflow-hidden test">
+  <div class="w-full h-full flex flex-col md:flex-row md:max-w-5xl lg:h-fit lg:shadow-underlined lg:rounded-2xl lg:overflow-hidden">
     
     <div class="flex-grow bg-green w-full pb-7 px-7 shadow-lg md:shadow-none flex items-end md:items-center md:justify-center
                 max-h-56 md:max-h-full md:max-w-sm">

@@ -17,7 +17,7 @@ class RegisterController extends AbstractController {
 
     #[NoReturn]
     protected function handlePostRequest(): void {
-        $formInput = filter_input_array(INPUT_POST);
+        $formInput = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
         $validator = new RegisterFormValidator($formInput);
 

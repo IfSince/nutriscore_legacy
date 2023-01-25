@@ -72,7 +72,7 @@ class User {
         $_SESSION['userId'] = $this->getUserIdByUsername($username);
     }
 
-    public function getPassword(): string {
-        return $this->password;
+    public function getPassword(): ?string {
+        return $this->password ?? null;
     }
 }

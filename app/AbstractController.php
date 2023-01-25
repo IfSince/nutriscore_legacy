@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
-
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'View.php';
 
 abstract class AbstractController {
@@ -20,13 +18,11 @@ abstract class AbstractController {
         }
     }
 
-    #[NoReturn]
     protected function handleGetRequest(): void {
         // TODO - Replace dummy error with error message handling
         echo '405 - Not allowed';
     }
 
-    #[NoReturn]
     protected function handlePostRequest(): void {
         // TODO - Replace dummy error with error message handling
         echo '405 - Not allowed';

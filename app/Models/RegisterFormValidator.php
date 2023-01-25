@@ -20,17 +20,7 @@ class RegisterFormValidator extends FormValidator {
         $this->validateActivityLevel($this->formInput['activityLevel']);
     }
 
-    protected function validateFieldRule(string $field, string $fieldRule, ?string $satisfier): void {
-        if (method_exists(self::class, $fieldRule) ||
-            method_exists(get_parent_class(self::class), $fieldRule)
-        ) {
-            $this->{$fieldRule}($field, $satisfier);
-        }
-    }
-
     private function validateUsernameExists(string $username): void {
-        $this->user->existsByUsername($username);
-
         if ($this->user->existsByUsername($username)) {
             $this->errors['username'][] = 'This username is already taken.';
         }
