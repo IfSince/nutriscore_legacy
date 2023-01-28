@@ -73,8 +73,8 @@
         <span class="absolute block mb-px text-sm font-medium -translate-y-1/2 -left-14 top-1/2">Meal</span>
       </button>
     </div>
-    <button class="w-14 h-14 flex items-center justify-center rounded-full text-white bg-green transition-transform transition-colors shadow-border
-                   hover:bg-green-hover focus:outline-2 focus:outline-green-dark"
+    <button class="w-14 h-14 flex items-center justify-center rounded-full text-white bg-green shadow-border
+                   transition-transform transition-colors hover:bg-green-hover focus:outline-2 focus:outline-green-dark"
             type="button"
             data-action-button>
       <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -88,17 +88,17 @@
       <div class="flex justify-center items-center relative h-40 w-full">
         <svg class="w-32 h-32 rounded-full absolute stroke-[10] stroke-round fill-none">
           <circle r="50" cx="64" cy="64" class="stroke-orange/30"></circle>
-          <circle r="50" cx="64" cy="64" id="test1" data-percentage="30" class="stroke-orange"></circle>
+          <circle r="50" cx="64" cy="64" class="stroke-orange" data-percentage="30"></circle>
         </svg>
 
         <svg class="w-40 h-40 rounded-full absolute stroke-[10] stroke-round fill-none">
           <circle r="65" cx="80" cy="80" class="stroke-blue/30"></circle>
-          <circle r="65" cx="80" cy="80" id="test2" data-percentage="40" class="stroke-blue"></circle>
+          <circle r="65" cx="80" cy="80" class="stroke-blue" data-percentage="40"></circle>
         </svg>
 
         <svg class="w-48 h-48 rounded-full absolute stroke-[10] stroke-round fill-none">
           <circle r="80" cx="50%" cy="50%" class="stroke-green/30"></circle>
-          <circle r="80" cx="50%" cy="50%" id="test3" data-percentage="50" class="stroke-green"></circle>
+          <circle r="80" cx="50%" cy="50%" class="stroke-green" data-percentage="50"></circle>
         </svg>
 
 
