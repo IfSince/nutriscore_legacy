@@ -69,11 +69,17 @@
   }
 
   a.menu-link {
-    @apply cursor-pointer text-4xl lg:pl-6 lg:py-3 text-gray-400 gap-x-6 transition-colors
+    @apply cursor-pointer text-4xl lg:pl-6 lg:py-3 text-gray-400 gap-x-6 transition-colors bg-white
     hover:text-green focus:outline-none;
   }
 
   a.menu-link:focus * {
     @apply text-green-dark;
+  }
+}
+
+@layer utilities {
+  .stroke-round {
+    stroke-linecap: round;
   }
 }

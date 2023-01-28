@@ -10,8 +10,8 @@ $errors = $data['errors'] ?? [];
   
   <title>Register</title>
 
-  <link rel="stylesheet" type="text/css" href="assets/styles/dist/tailwind.css">
   <link rel="stylesheet" type="text/css" href="assets/styles/material-icons.css">
+  <link rel="stylesheet" type="text/css" href="assets/styles/dist/tailwind.css">
   <script type="module" src="assets/scripts/registration/registration-quest.js" defer></script>
 </head>
 <body class="flex md:justify-center md:items-center overflow-x-hidden lg:h-screen lg:w-screen">

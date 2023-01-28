@@ -17,8 +17,14 @@ module.exports = {
           DEFAULT: '#1E9C61',
           hover: '#198251',
           dark: '#146941',
-          darker: '#0F4E31'
+          darker: '#0F4E31',
         },
+        'orange': {
+          DEFAULT: '#E86E15',
+        },
+        'blue': {
+          DEFAULT: '#2492DB',
+        }
       },
       transitionDuration: {
         '400': '400ms',

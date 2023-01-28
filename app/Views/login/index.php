@@ -10,8 +10,8 @@
   
   <title>Login</title>
   
-  <link rel="stylesheet" type="text/css" href="assets/styles/dist/tailwind.css">
   <link rel="stylesheet" type="text/css" href="assets/styles/material-icons.css">
+  <link rel="stylesheet" type="text/css" href="assets/styles/dist/tailwind.css">
   <script type="module" src="assets/scripts/shared/shared.module.js" defer></script>
 </head>
 <body class="w-screen h-screen flex md:justify-center md:items-center">
