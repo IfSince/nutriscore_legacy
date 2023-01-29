@@ -1,10 +1,11 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
+namespace NutriScore\Controllers;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AbstractController.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'LoginFormValidator.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'User.php';
+use JetBrains\PhpStorm\NoReturn;
+use NutriScore\AbstractController;
+use NutriScore\Models\LoginFormValidator;
+use NutriScore\Models\User;
 
 class LoginController extends AbstractController {
     private const LOGIN_TEMPLATE = 'login/index';

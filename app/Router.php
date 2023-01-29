@@ -1,24 +1,30 @@
 <?php
 
+namespace NutriScore;
+
+use NutriScore\Controllers\LoginController;
+use NutriScore\Controllers\NotFoundController;
+
 class Router {
-    private string $controller = 'LoginController';
+    private string $controller = LoginController::class;
     private string $method = 'index';
-    private array $params;
+    private array $params = [];
 
     public function __construct() {
         $url = $this->parseUrl();
-
-        $controllerName = $url[0] ?? '';
-        $requestedController = ucfirst(strtolower($controllerName)) . 'Controller';
-        $controllerPath = __DIR__ . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . "{$requestedController}.php";
-
-        if ($url && file_exists($controllerPath)) {
-            require_once $controllerPath;
-            $this->controller = $requestedController;
-            unset($url[0]);
-        } else {
-            require_once __DIR__ . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . "{$this->controller}.php";
+        if (!$url) {
+            return;
         }
+
+        $requestedController = 'NutriScore\\Controllers\\' . ucfirst(strtolower($url[0])) . 'Controller';
+
+        if (!class_exists($requestedController)) {
+            $this->controller = NotFoundController::class;
+            return;
+        }
+
+        $this->controller = $requestedController;
+        unset($url[0]);
 
         if (isset($url[1]) && method_exists($this->controller, $url[1])) {
             $this->method = $url[1];

@@ -1,10 +1,14 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AbstractController.php';
+namespace NutriScore\Controllers;
+
+use JetBrains\PhpStorm\NoReturn;
+use NutriScore\AbstractController;
 
 class DiaryController extends AbstractController {
     private const DIARY_TEMPLATE = 'diary/index';
 
+    #[NoReturn]
     protected function handleGetRequest(): void {
         $userId = $_SESSION['userId'];
 

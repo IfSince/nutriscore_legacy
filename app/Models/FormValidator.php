@@ -1,5 +1,7 @@
 <?php
 
+namespace NutriScore\Models;
+
 class FormValidator {
     protected array $formInput;
     private array $rules = [];

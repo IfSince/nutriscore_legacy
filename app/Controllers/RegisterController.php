@@ -1,11 +1,10 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
+namespace NutriScore\Controllers;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AbstractController.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'RegisterFormValidator.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Database.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'User.php';
+use JetBrains\PhpStorm\NoReturn;
+use NutriScore\AbstractController;
+use NutriScore\Models\RegisterFormValidator;
 
 class RegisterController extends AbstractController {
     private const REGISTER_TEMPLATE = 'register/index';

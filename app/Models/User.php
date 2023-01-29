@@ -1,5 +1,9 @@
 <?php
 
+namespace NutriScore\Models;
+
+use NutriScore\Database;
+
 class User {
     private Database $db;
     private string $id;

@@ -1,8 +1,6 @@
 <?php
 
-
-require_once 'FormValidator.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Database.php';
+namespace NutriScore\Models;
 
 class LoginFormValidator extends FormValidator {
     private User $user;

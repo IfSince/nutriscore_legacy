@@ -1,8 +1,9 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
+namespace NutriScore\Controllers;
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AbstractController.php';
+use JetBrains\PhpStorm\NoReturn;
+use NutriScore\AbstractController;
 
 class OverviewController extends AbstractController {
     private const OVERVIEW_TEMPLATE = 'overview/index';

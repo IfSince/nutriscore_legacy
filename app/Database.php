@@ -1,5 +1,12 @@
 <?php
 
+namespace NutriScore;
+
+use PDO;
+use PDOException;
+use PDOStatement;
+
+
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database.php';
 
 class Database {
