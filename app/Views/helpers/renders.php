@@ -1,4 +1,8 @@
 <?php
+function getTemplatePart(string $name, ?array $data = []): void {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR ."$name.php";
+}
+
 function renderValue(string $fieldName): void {
     $value = filter_input(INPUT_POST, $fieldName) ?? null;
     echo "value=\"$value\"";
