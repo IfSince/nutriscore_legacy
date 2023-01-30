@@ -14,9 +14,9 @@ function renderActive(string $link, string $active): void {
     </a>
     <nav class="flex items-center lg:flex-col-reverse lg:grow justify-between bg-white">
         <div class="flex lg:flex-col gap-x-4 w-full">
-            <a class="menu-link flex w-full items-center gap-x-6 text-green lg:text-gray-400" href="account">
-                <span class="material-icons text-5xl lg:text-4xl  <?php renderActive('account', $active) ?>">person</span>
-                <span class="hidden font-medium text-base tracking-wide lg:inline  <?php renderActive('account', $active) ?>">Account</span>
+            <a class="menu-link flex w-full items-center gap-x-6 text-green lg:text-gray-400" href="profile">
+                <span class="material-icons text-5xl lg:text-4xl  <?php renderActive('profile', $active) ?>">person</span>
+                <span class="hidden font-medium text-base tracking-wide lg:inline  <?php renderActive('profile', $active) ?>">Profile</span>
             </a>
         </div>
 
