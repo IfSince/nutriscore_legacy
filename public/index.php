@@ -2,6 +2,7 @@
 
 session_start();
 
-require_once '../app/App.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
 
 $app = new NutriScore\App();

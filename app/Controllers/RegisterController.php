@@ -5,6 +5,7 @@ namespace NutriScore\Controllers;
 use JetBrains\PhpStorm\NoReturn;
 use NutriScore\AbstractController;
 use NutriScore\Models\RegisterFormValidator;
+use NutriScore\Models\User;
 
 class RegisterController extends AbstractController {
     private const REGISTER_TEMPLATE = 'register/index';
