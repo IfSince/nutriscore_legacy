@@ -2,7 +2,6 @@
 
 namespace NutriScore;
 
-use JetBrains\PhpStorm\NoReturn;
 use NutriScore\Models\User;
 
 abstract class AbstractController {
@@ -36,7 +35,6 @@ abstract class AbstractController {
         echo '405 - Not allowed';
     }
 
-    #[NoReturn]
     protected function redirectTo(string $path): void {
         header('Location:' . $path);
         exit();

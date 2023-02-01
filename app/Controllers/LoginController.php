@@ -2,7 +2,6 @@
 
 namespace NutriScore\Controllers;
 
-use JetBrains\PhpStorm\NoReturn;
 use NutriScore\AbstractController;
 use NutriScore\Models\LoginFormValidator;
 use NutriScore\Models\User;
@@ -10,12 +9,10 @@ use NutriScore\Models\User;
 final class LoginController extends AbstractController {
     private const LOGIN_TEMPLATE = 'login/index';
 
-    #[NoReturn]
     protected function handleGetRequest(): void {
         $this->view->render(self::LOGIN_TEMPLATE);
     }
 
-    #[NoReturn]
     protected function handlePostRequest(): void {
         $formInput = filter_input_array(INPUT_POST);
 
