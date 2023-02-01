@@ -1,4 +1,4 @@
-<?php getTemplatePart('head', ['title' => 'overview']);?>
+<?php getTemplatePart('head', ['title' => 'overview', 'module' => 'overview']);?>
 <?php getTemplatePart('header', ['active' => 'overview']);?>
 
 <div class="fixed bottom-[88px] right-6">

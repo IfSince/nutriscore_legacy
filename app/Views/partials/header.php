@@ -14,7 +14,7 @@ function renderActive(string $link, string $active): void {
     </a>
     <nav class="flex items-center lg:flex-col-reverse lg:grow justify-between bg-white">
         <div class="flex lg:flex-col gap-x-4 w-full">
-            <a class="menu-link flex w-full items-center gap-x-6 text-green lg:text-gray-400" href="profile">
+            <a class="menu-link flex w-full items-center gap-x-6 text-green lg:text-gray-400" href="/profile">
                 <span class="material-icons text-5xl lg:text-4xl  <?php renderActive('profile', $active) ?>">person</span>
                 <span class="hidden font-medium text-base tracking-wide lg:inline  <?php renderActive('profile', $active) ?>">Profile</span>
             </a>
@@ -22,7 +22,7 @@ function renderActive(string $link, string $active): void {
 
         <ul class="fixed flex w-full justify-between bottom-0 left-0 group border-t border-t-gray-200 lg:static lg:flex-col lg:border-none">
             <li class="grow">
-                <a class="menu-link mobile-menu__entry pl-6" href="overview">
+                <a class="menu-link mobile-menu__entry pl-6" href="/overview">
                     <span class="material-icons <?php renderActive('overview', $active) ?>">home</span>
                     <span class="font-medium text-xs lg:text-base tracking-wide lg:inline <?php renderActive('overview', $active) ?>">
                       Overview
@@ -30,7 +30,7 @@ function renderActive(string $link, string $active): void {
                 </a>
             </li>
             <li class="grow-[3] sm:grow">
-                <a class="menu-link mobile-menu__entry" href="diary">
+                <a class="menu-link mobile-menu__entry" href="/diary">
                     <span class="material-icons <?php renderActive('diary', $active) ?>">library_books</span>
                     <span class="font-medium text-xs lg:text-base tracking-wide lg:inline <?php renderActive('diary', $active) ?>">
                       Diary
@@ -38,7 +38,7 @@ function renderActive(string $link, string $active): void {
                 </a>
             </li>
             <li class="grow-[2] sm:grow">
-                <a class="menu-link mobile-menu__entry" href="statistics">
+                <a class="menu-link mobile-menu__entry" href="/statistics">
                     <span class="material-icons <?php renderActive('statistics', $active) ?>">show_chart</span>
                     <span class="font-medium text-xs lg:text-base tracking-wide lg:inline <?php renderActive('statistics', $active) ?>">
                       Statistics
@@ -46,7 +46,7 @@ function renderActive(string $link, string $active): void {
                 </a>
             </li>
             <li class="grow">
-                <a class="menu-link mobile-menu__entry pr-6" href="notifications">
+                <a class="menu-link mobile-menu__entry pr-6" href="/notifications">
                     <span class="material-icons <?php renderActive('notifications', $active) ?>">notifications</span>
                     <span class="font-medium text-xs lg:text-base tracking-wide lg:inline <?php renderActive('notifications', $active) ?>">
                       Notifications

@@ -2,14 +2,11 @@
 
 namespace NutriScore\Controllers;
 
-use JetBrains\PhpStorm\NoReturn;
 use NutriScore\AbstractController;
 
-class NotFoundController extends AbstractController {
-    private const NOT_FOUND_TEMPLATE = 'notFound/index';
+final class NotFoundController extends AbstractController {
+    private const NOT_FOUND_TEMPLATE = 'not-found/index';
 
-
-    #[NoReturn]
     protected function handleGetRequest(): void {
         $this->view->render(self::NOT_FOUND_TEMPLATE);
     }

@@ -4,6 +4,7 @@ namespace NutriScore;
 
 use NutriScore\Controllers\LoginController;
 use NutriScore\Controllers\NotFoundController;
+use NutriScore\Utils\StringUtil;
 
 class Router {
     private string $controller = LoginController::class;
@@ -26,7 +27,7 @@ class Router {
         $this->controller = $requestedController;
         unset($url[0]);
 
-        if (isset($url[1]) && method_exists($this->controller, $url[1])) {
+        if (isset($url[1]) && method_exists($this->controller, StringUtil::kebabToCamelCase($url[1]))) {
             $this->method = $url[1];
             unset($url[1]);
         }

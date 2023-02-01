@@ -16,7 +16,7 @@
       </h3>
       <div class="mt-3 flex flex-col md:flex-row sm:gap-6">
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
-          <a href="#" class="flex items-center">
+          <a href="profile/account-data" class="flex items-center">
             <h5 class="sm:mb-2 sm:text-2xl font-medium sm:font-bold tracking-wide md:tracking-tight text-gray-700">Account Data</h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
@@ -25,14 +25,14 @@
           <a class="inline-flex transition-colors items-center px-3 py-2 sm:text-sm font-medium text-center text-green
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
-             href="#">
+             href="profile/account-data">
             Edit data
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>
         </div>
 
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
-          <a href="#" class="flex items-center">
+          <a href="profile/personal-data" class="flex items-center">
             <h5 class="sm:mb-2 sm:text-2xl font-medium sm:font-bold tracking-wide md:tracking-tight text-gray-700">Personal Data</h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
@@ -41,14 +41,14 @@
           <a class="inline-flex transition-colors items-center px-3 py-2 sm:text-sm font-medium text-center text-green
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
-             href="#">
+             href="profile/personal-data">
             Edit data
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>
         </div>
 
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
-          <a href="#" class="flex items-center">
+          <a href="profile/nutritional-data" class="flex items-center">
             <h5 class="sm:mb-2 sm:text-2xl font-medium sm:font-bold tracking-wide md:tracking-tight text-gray-700">Nutritional Data</h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
@@ -57,7 +57,7 @@
           <a class="inline-flex transition-colors items-center px-3 py-2 sm:text-sm font-medium text-center text-green
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
-             href="#">
+             href="profile/nutritional-data">
             Edit data
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>

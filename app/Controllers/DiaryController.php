@@ -5,7 +5,7 @@ namespace NutriScore\Controllers;
 use JetBrains\PhpStorm\NoReturn;
 use NutriScore\AbstractController;
 
-class DiaryController extends AbstractController {
+final class DiaryController extends AbstractController {
     private const DIARY_TEMPLATE = 'diary/index';
 
     #[NoReturn]

@@ -5,7 +5,7 @@ namespace NutriScore\Controllers;
 use JetBrains\PhpStorm\NoReturn;
 use NutriScore\AbstractController;
 
-class OverviewController extends AbstractController {
+final class OverviewController extends AbstractController {
     private const OVERVIEW_TEMPLATE = 'overview/index';
 
     #[NoReturn]

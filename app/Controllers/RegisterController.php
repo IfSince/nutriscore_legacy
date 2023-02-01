@@ -7,7 +7,7 @@ use NutriScore\AbstractController;
 use NutriScore\Models\RegisterFormValidator;
 use NutriScore\Models\User;
 
-class RegisterController extends AbstractController {
+final class RegisterController extends AbstractController {
     private const REGISTER_TEMPLATE = 'register/index';
 
     #[NoReturn]

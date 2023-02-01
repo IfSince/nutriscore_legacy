@@ -7,7 +7,7 @@ use NutriScore\AbstractController;
 use NutriScore\Models\LoginFormValidator;
 use NutriScore\Models\User;
 
-class LoginController extends AbstractController {
+final class LoginController extends AbstractController {
     private const LOGIN_TEMPLATE = 'login/index';
 
     #[NoReturn]

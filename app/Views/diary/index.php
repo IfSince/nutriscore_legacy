@@ -1,4 +1,4 @@
-<?php getTemplatePart('head', ['title' => 'diary']);?>
+<?php getTemplatePart('head', ['title' => 'diary', 'module' => 'diary']);?>
 <?php getTemplatePart('header', ['active' => 'diary']);?>
 
 <div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
