@@ -2,81 +2,78 @@
 
 namespace NutriScore\Models;
 
-use NutriScore\Database;
-
 class User {
-    private Database $db;
-    private string $id;
+    private int $id;
     private string $username;
     private string $email;
     private string $password;
-    private string $fistName;
-    private string $surname;
-    private string $gender;
-    private string $dateOfBirth;
-    private string $height;
-    private string $currentWeight;
-    private string $nutritionType;
-    private string $basalMetabolicRate;
-    private string $activityLevel;
-    private string $objective;
-    private string $startDate;
 
-    public function __construct(Database $db = new Database()) {
-        $this->db = $db;
+    public function __construct(
+        string $id,
+        string $username,
+        string $email,
+        string $password,
+    ) {
+        $this->id = (int) $id;
+        $this->username = $email;
+        $this->email = $username;
+        $this->password = $password;
     }
 
-    public function existsByUsername(int|string $identifier): bool {
-        $sql = "SELECT 1 FROM `users` WHERE lower(`username`) = lower(:identifier)";
-
-        return $this->db->exists($sql, ['identifier' => $identifier]);
+    /**
+     * @return int
+     */
+    public function getId(): int {
+        return $this->id;
     }
 
-    public function getUserIdByUsername(string $username): int {
-        $sql = "SELECT id FROM users WHERE username = :username";
-
-        $userData = $this->db->fetch($sql, ['username' => $username]);
-
-        return (int)$userData['id'];
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void {
+        $this->id = $id;
     }
 
-    public function findByUsernameAndFetch(string $username): bool {
-        $sql = "SELECT * FROM users WHERE username = :username";
-        $userData = $this->db->fetch($sql, ['username' => $username]);
-
-        if (!$this->db->count()) {
-            return false;
-        }
-
-        foreach ($userData as $column => $value) {
-            $this->{$column} = $value;
-        }
-
-        return true;
+    /**
+     * @return string
+     */
+    public function getUsername(): string {
+        return $this->username;
     }
 
-    public function register(string $username, string $email, string $password): void {
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-        $values = [
-            'username' => $username,
-            'email' => $email,
-            'password' => $passwordHash
-        ];
-
-        $sql = "INSERT INTO `users` (`username`, `email`, `password`)
-                    VALUES (:username, :email, :password)
-        ";
-
-        $this->db->query($sql, $values);
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void {
+        $this->username = $username;
     }
 
-    public function login(string $username): void {
-        // Session erstellen
-        $_SESSION['userId'] = $this->getUserIdByUsername($username);
+    /**
+     * @return string
+     */
+    public function getEmail(): string {
+        return $this->email;
     }
 
-    public function getPassword(): ?string {
-        return $this->password ?? null;
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void {
+        $this->email = $email;
     }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void {
+        $this->password = $password;
+    }
+
 }

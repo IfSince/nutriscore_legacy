@@ -47,4 +47,9 @@ class Database {
         $this->query($sql, $values);
         return $this->statement->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function fetchAll(string $sql, array $values = []): array {
+        $this->query($sql, $values);
+        return $this->statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

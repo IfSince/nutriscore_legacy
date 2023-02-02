@@ -1,5 +1,7 @@
 <?php
 
+use NutriScore\App;
+
 session_start();
 
 const AUTO_LOAD_PATH = __DIR__ . '/../vendor/autoload.php';
@@ -12,8 +14,5 @@ function requireAutoloader(): void {
     }
 }
 
-
-
 requireAutoloader();
-
-$app = new NutriScore\App();
+$app = new App();

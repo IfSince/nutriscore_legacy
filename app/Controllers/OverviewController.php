@@ -3,13 +3,22 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
+use NutriScore\Services\UserService;
 
 final class OverviewController extends AbstractController {
     private const OVERVIEW_TEMPLATE = 'overview/index';
 
-    protected function handleGetRequest(): void {
-        $userId = $_SESSION['userId'];
+    private UserService $userService;
 
-        $this->view->render(self::OVERVIEW_TEMPLATE);
+    public function __construct() {
+        parent::__construct();
+        $this->userService = new UserService();
+    }
+
+    protected function handleGetRequest(): void {
+        $id = $_SESSION['id'] ?? 1;
+        $user = $this->userService->findById($id);
+
+        $this->view->render(self::OVERVIEW_TEMPLATE, ['user' => $user]);
     }
 }
