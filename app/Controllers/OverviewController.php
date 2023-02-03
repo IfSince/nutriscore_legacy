@@ -18,11 +18,13 @@ final class OverviewController extends AbstractController {
         $this->userService = new UserService();
     }
 
-    protected function handleGetRequest(): void {
+    protected function beforeHook(): void {
         if (!User::isLoggedIn()) {
             $this->redirectTo('/login');
         }
+    }
 
+    protected function handleGetRequest(): void {
         $id = Session::get('id') ?? 1;
         $user = $this->userService->findById($id);
         Session::delete('id');

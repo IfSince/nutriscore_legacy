@@ -11,31 +11,34 @@ final class ProfileController extends AbstractController {
     private const PERSONAL_DATA_TEMPLATE = 'profile/personal-data';
     private const NUTRITIONAL_DATA_TEMPLATE = 'profile/nutritional-data';
 
-    protected function handleGetRequest(): void {
+    protected function beforeHook(): void {
         if (!User::isLoggedIn()) {
             $this->redirectTo('/login');
         }
+    }
+
+    protected function handleGetRequest(): void {
         $this->view->render(self::PROFILE_TEMPLATE);
     }
 
     public function accountData(): void {
-        if (!User::isLoggedIn()) {
-            $this->redirectTo('/login');
-        }
+        $this->checkIfLoggedIn();
         $this->view->render(self::ACCOUNT_DATA_TEMPLATE);
     }
 
     public function personalData(): void {
-        if (!User::isLoggedIn()) {
-            $this->redirectTo('/login');
-        }
+        $this->checkIfLoggedIn();
         $this->view->render(self::PERSONAL_DATA_TEMPLATE);
     }
 
     public function nutritionalData(): void {
+        $this->checkIfLoggedIn();
+        $this->view->render(self::NUTRITIONAL_DATA_TEMPLATE);
+    }
+
+    private function checkIfLoggedIn(): void {
         if (!User::isLoggedIn()) {
             $this->redirectTo('/login');
         }
-        $this->view->render(self::NUTRITIONAL_DATA_TEMPLATE);
     }
 }

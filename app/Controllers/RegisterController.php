@@ -18,6 +18,12 @@ final class RegisterController extends AbstractController {
         $this->userService = new UserService();
     }
 
+    protected function beforeHook(): void {
+        if (User::isLoggedIn()) {
+            $this->redirectTo('/overview');
+        }
+    }
+
     protected function handleGetRequest(): void {
         if (User::isLoggedIn()) {
             $this->redirectTo('/overview');
