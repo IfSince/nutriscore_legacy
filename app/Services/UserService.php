@@ -9,7 +9,7 @@ use NutriScore\Models\User;
 class UserService {
     private UserMapper $userMapper;
 
-    public function __construct($userMapper) {
+    public function __construct() {
         $this->userMapper = new UserMapper();
     }
 
