@@ -52,4 +52,9 @@ class Database {
         $this->query($sql, $values);
         return $this->statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function createAndReturnId(string $sql, array $values = []): int {
+        $this->query($sql, $values);
+        return $this->pdo->lastInsertId();
+    }
 }

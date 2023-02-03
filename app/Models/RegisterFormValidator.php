@@ -2,13 +2,14 @@
 
 namespace NutriScore\Models;
 
+use NutriScore\DataMappers\UserMapper;
+
 class RegisterFormValidator extends FormValidator {
-    private User $user;
+    private UserMapper $userMapper;
 
-    public function __construct(array $formInput) {
+    public function __construct(array $formInput, $userMapper) {
         parent::__construct($formInput);
-
-        $this->user = new User();
+        $this->userMapper = $userMapper;
     }
 
     public function validate(): void {
@@ -20,7 +21,7 @@ class RegisterFormValidator extends FormValidator {
     }
 
     private function validateUsernameExists(string $username): void {
-        if ($this->user->existsByUsername($username)) {
+        if ($this->userMapper->findByUsername($username) != null) {
             $this->errors['username'][] = 'This username is already taken.';
         }
     }

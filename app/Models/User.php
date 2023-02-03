@@ -2,14 +2,14 @@
 
 namespace NutriScore\Models;
 
-class User {
+class User implements Model {
     private int $id;
     private string $username;
     private string $email;
     private string $password;
 
     public function __construct(
-        string $id,
+        ?string $id,
         string $username,
         string $email,
         string $password,
@@ -18,6 +18,10 @@ class User {
         $this->username = $email;
         $this->email = $username;
         $this->password = $password;
+    }
+
+    public function isNew(): bool {
+        return $this->id === self::NEW_ENTITY_ID;
     }
 
     /**
@@ -75,5 +79,4 @@ class User {
     public function setPassword(string $password): void {
         $this->password = $password;
     }
-
 }

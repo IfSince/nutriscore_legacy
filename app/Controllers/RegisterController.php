@@ -3,11 +3,17 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Models\RegisterFormValidator;
-use NutriScore\Models\User;
+use NutriScore\Services\UserService;
 
 final class RegisterController extends AbstractController {
     private const REGISTER_TEMPLATE = 'register/index';
+
+    private UserService $userService;
+
+    public function __construct() {
+        parent::__construct();
+        $this->userService = new UserService();
+    }
 
     protected function handleGetRequest(): void {
         $this->view->render(self::REGISTER_TEMPLATE);
@@ -16,36 +22,12 @@ final class RegisterController extends AbstractController {
     protected function handlePostRequest(): void {
         $formInput = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $validator = new RegisterFormValidator($formInput);
-
-        $validator->setRules([
-            'username' => 'required|min:4|max:16|whitespaces',
-            'email' => 'required|min:3|email',
-            'password' => 'required|min:8|matches:repeatPassword|uppercase|lowercase|number|specialchar|noWhitespaces',
-            'repeatPassword' => 'matches:password',
-            'tos' => 'required',
-            'firstName' => 'required|min:2|max:100',
-            'surname' => 'required|min:2|max:100',
-            'gender' => 'required',
-            'dateOfBirth' => 'required',
-            'height' => 'required',
-            'startingWeight' => 'required',
-            'nutritionType' => 'required',
-            'bmr' => 'required',
-            'activityLevel' => 'required',
-            'objective' => 'required',
-        ]);
-
-        $validator->validate();
-
-        if ($validator->isValid()) {
-            $user = new User();
-
-            $user->register($formInput['username'], $formInput['email'], $formInput['password']);
+        $errors = $this->userService->register($formInput);
+        if (empty($errors)) {
             header('Location: /login');
+        } else {
+            $this->view->render(self::REGISTER_TEMPLATE, ['errors' => $errors]);
         }
-
-        $this->view->render(self::REGISTER_TEMPLATE, ['errors' => $validator->getErrors()]);
     }
 
 }
