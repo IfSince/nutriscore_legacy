@@ -3,6 +3,10 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
+use NutriScore\Helpers\Session;
+use NutriScore\InputType;
+use NutriScore\Models\User;
+use NutriScore\Request;
 use NutriScore\Services\UserService;
 
 final class LoginController extends AbstractController {
@@ -10,20 +14,25 @@ final class LoginController extends AbstractController {
 
     private UserService $userService;
 
-    public function __construct() {
-        parent::__construct();
+    public function __construct(Request $request) {
+        parent::__construct($request);
         $this->userService = new UserService();
     }
 
     protected function handleGetRequest(): void {
+        if (User::isLoggedIn()) {
+            $this->redirectTo('/overview');
+        }
+
         $this->view->render(self::LOGIN_TEMPLATE);
     }
 
     protected function handlePostRequest(): void {
-        $formInput = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $formInput = $this->request->getInput(InputType::POST);
 
         $errors = $this->userService->login($formInput);
         if (empty($errors)) {
+            Session::flash('success', 'You have been successfully signed in.');
             header('Location: /overview');
         } else {
             $this->view->render(self::LOGIN_TEMPLATE, ['errors' => $errors]);

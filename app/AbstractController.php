@@ -3,19 +3,22 @@
 namespace NutriScore;
 
 abstract class AbstractController {
-    protected View $view;
+    private const GET_METHOD = 'GET';
+    private const POST_METHOD = 'POST';
 
-    public function __construct() {
+    protected View $view;
+    protected Request $request;
+
+    public function __construct(Request $request) {
         $this->view = new View();
+        $this->request = $request;
     }
 
     public function index(): void {
-        $requestMethod = $_SERVER['REQUEST_METHOD'];
-        if ($requestMethod === 'GET') {
-            $this->handleGetRequest();
-        } elseif ($requestMethod === 'POST') {
-            $this->handlePostRequest();
-        }
+        match($this->request->getMethod()) {
+            self::GET_METHOD => $this->handleGetRequest(),
+            self::POST_METHOD => $this->handlePostRequest(),
+        };
     }
 
     protected function handleGetRequest(): void {
@@ -29,7 +32,7 @@ abstract class AbstractController {
     }
 
     protected function redirectTo(string $path): void {
-        header('Location:' . $path);
+        header('Location: ' . $path);
         exit();
     }
 }

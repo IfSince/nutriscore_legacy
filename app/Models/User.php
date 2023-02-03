@@ -2,6 +2,8 @@
 
 namespace NutriScore\Models;
 
+use NutriScore\Helpers\Session;
+
 class User implements Model {
     private int $id;
     private string $username;
@@ -22,6 +24,10 @@ class User implements Model {
 
     public function isNew(): bool {
         return $this->id === self::NEW_ENTITY_ID;
+    }
+
+    public static function isLoggedIn(): bool {
+        return Session::exists('id');
     }
 
     /**

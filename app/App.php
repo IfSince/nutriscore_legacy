@@ -10,7 +10,9 @@ class App {
         $method = $router->getMethod();
         $params = $router->getParams();
 
-        $controller = new $controller;
-        $controller->{$method}(...$params);
+
+        $request = new Request($params);
+        $controller = new $controller($request);
+        $controller->{$method}();
     }
 }

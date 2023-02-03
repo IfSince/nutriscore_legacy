@@ -2,6 +2,13 @@
 
 namespace NutriScore;
 
+enum InputType {
+    case GET;
+    case POST;
+    case FILE;
+    case PAGE;
+}
+
 class Request {
     private array $pageParams;
 
@@ -13,12 +20,12 @@ class Request {
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public function getInput(string $kind = 'post'): array {
-        return match($kind) {
-            'post' => $this->sanitizeInput($_POST),
-            'get' => $this->sanitizeInput($_GET),
-            'file' => $_FILES,
-            'page' => $this->pageParams
+    public function getInput(InputType $inputType): array {
+        return match($inputType) {
+            InputType::GET => $this->sanitizeInput($_GET),
+            InputType::POST => $this->sanitizeInput($_POST),
+            InputType::FILE => $_FILES,
+            InputType::PAGE => $this->pageParams
         };
     }
 
