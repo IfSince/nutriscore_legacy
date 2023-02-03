@@ -2,7 +2,7 @@
 
 namespace NutriScore\Models;
 
-use NutriScore\Helpers\Session;
+use NutriScore\Utils\Session;
 
 class User implements Model {
     private int $id;

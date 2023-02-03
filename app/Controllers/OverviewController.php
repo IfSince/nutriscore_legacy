@@ -3,7 +3,7 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Helpers\Session;
+use NutriScore\Utils\Session;
 use NutriScore\Models\User;
 use NutriScore\Request;
 use NutriScore\Services\UserService;

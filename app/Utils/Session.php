@@ -1,6 +1,6 @@
 <?php
 
-namespace NutriScore\Helpers;
+namespace NutriScore\Utils;
 
 class Session {
     public static function exists(string $key): bool {

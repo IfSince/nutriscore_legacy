@@ -1,6 +1,6 @@
 <?php
 
-namespace NutriScore\Models;
+namespace NutriScore\Validators;
 
 use NutriScore\DataMappers\UserMapper;
 

@@ -4,9 +4,9 @@ namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
 use NutriScore\InputType;
-use NutriScore\Models\User;
 use NutriScore\Request;
 use NutriScore\Services\UserService;
+use NutriScore\Models\User;
 
 final class RegisterController extends AbstractController {
     private const REGISTER_TEMPLATE = 'register/index';

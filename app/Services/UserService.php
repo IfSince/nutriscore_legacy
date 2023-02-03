@@ -3,10 +3,10 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
-use NutriScore\Helpers\Session;
-use NutriScore\Models\LoginFormValidator;
-use NutriScore\Models\RegisterFormValidator;
 use NutriScore\Models\User;
+use NutriScore\Utils\Session;
+use NutriScore\Validators\LoginFormValidator;
+use NutriScore\Validators\RegisterFormValidator;
 
 class UserService {
     private UserMapper $userMapper;
