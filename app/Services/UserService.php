@@ -3,6 +3,8 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
+use NutriScore\Helpers\Session;
+use NutriScore\Models\LoginFormValidator;
 use NutriScore\Models\RegisterFormValidator;
 use NutriScore\Models\User;
 
@@ -15,6 +17,17 @@ class UserService {
 
     public function findById(int $id): User {
         return $this->userMapper->findById($id);
+    }
+
+    public function login(array $formInput): array {
+        $validator = new LoginFormValidator($formInput, $this->userMapper);
+        $validator->validate();
+
+        if ($validator->isValid()) {
+            $user = $this->userMapper->findByUsername($formInput['username']);
+            Session::set('id', $user->getId());
+        }
+        return $validator->getErrors();
     }
 
     public function register(array $formInput): array {
@@ -39,16 +52,19 @@ class UserService {
         $validator->validate();
 
         if ($validator->isValid()) {
-            $user = new User(
-                id: null,
-                username: $formInput['username'],
-                email: $formInput['email'],
-                password: $formInput['password'],
-            );
-
+            $user = $this->createUserByFormInput($formInput);
             $this->userMapper->save($user);
         }
         return $validator->getErrors();
+    }
+
+    private function createUserByFormInput(array $formInput): User {
+        return new User(
+            id: null,
+            username: $formInput['username'],
+            email: $formInput['email'],
+            password: $formInput['password'],
+        );
     }
 
 }

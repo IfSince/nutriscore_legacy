@@ -2,13 +2,15 @@
 
 namespace NutriScore\Models;
 
-class LoginFormValidator extends FormValidator {
-    private User $user;
+use NutriScore\DataMappers\UserMapper;
 
-    public function __construct(array $formInput) {
+class LoginFormValidator extends FormValidator {
+    private UserMapper $userMapper;
+
+    public function __construct(array $formInput, UserMapper $userMapper) {
         parent::__construct($formInput);
 
-        $this->user = new User();
+        $this->userMapper = $userMapper;
     }
 
     public function validate(): void {
@@ -18,10 +20,10 @@ class LoginFormValidator extends FormValidator {
     }
 
     private function validateLoginData(string $username): void {
-        $user = $this->user->findByUsernameAndFetch($username);
-        $passwordVerify = password_verify($this->formInput['password'], $this->user->getPassword());
+        $user = $this->userMapper->findByUsername($username);
+        $passwordVerify = password_verify($this->formInput['password'], $user?->getPassword());
 
-        if (empty($user) || !$passwordVerify) {
+        if ($user === null || !$passwordVerify) {
             $this->errors['general'][] = 'Username or password incorrect.';
         }
     }

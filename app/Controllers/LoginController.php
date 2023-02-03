@@ -3,29 +3,30 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Models\LoginFormValidator;
-use NutriScore\Models\User;
+use NutriScore\Services\UserService;
 
 final class LoginController extends AbstractController {
     private const LOGIN_TEMPLATE = 'login/index';
+
+    private UserService $userService;
+
+    public function __construct() {
+        parent::__construct();
+        $this->userService = new UserService();
+    }
 
     protected function handleGetRequest(): void {
         $this->view->render(self::LOGIN_TEMPLATE);
     }
 
     protected function handlePostRequest(): void {
-        $formInput = filter_input_array(INPUT_POST);
+        $formInput = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $validator = new LoginFormValidator($formInput);
-        $validator->validate();
-
-        if ($validator->isValid()) {
-            $user = new User();
-            $user->login($formInput['username']);
-
+        $errors = $this->userService->login($formInput);
+        if (empty($errors)) {
             header('Location: /overview');
         } else {
-            $this->view->render(self::LOGIN_TEMPLATE, ['errors' => $validator->getErrors()]);
+            $this->view->render(self::LOGIN_TEMPLATE, ['errors' => $errors]);
         }
     }
 }

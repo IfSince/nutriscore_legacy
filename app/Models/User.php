@@ -15,8 +15,8 @@ class User implements Model {
         string $password,
     ) {
         $this->id = (int) $id;
-        $this->username = $email;
-        $this->email = $username;
+        $this->username = $username;
+        $this->email = $email;
         $this->password = $password;
     }
 
