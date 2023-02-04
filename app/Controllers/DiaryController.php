@@ -3,7 +3,7 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Models\User;
+use NutriScore\Models\User\User;
 
 final class DiaryController extends AbstractController {
     private const DIARY_TEMPLATE = 'diary/index';

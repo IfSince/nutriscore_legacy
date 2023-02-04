@@ -68,5 +68,5 @@
   </section>
   
   <?php getTemplatePart('date-selector');?>
-  <?= $user->getId() ?>
+  <?php var_dump($user) ?>
 </div>

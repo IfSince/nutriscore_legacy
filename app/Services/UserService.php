@@ -3,7 +3,8 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
-use NutriScore\Models\User;
+use NutriScore\Models\User\User;
+use NutriScore\Models\User\UserType;
 use NutriScore\Utils\Session;
 use NutriScore\Validators\LoginFormValidator;
 use NutriScore\Validators\RegisterFormValidator;
@@ -60,7 +61,6 @@ class UserService {
 
     private function createUserByFormInput(array $formInput): User {
         return new User(
-            id: null,
             username: $formInput['username'],
             email: $formInput['email'],
             password: $formInput['password'],

@@ -3,7 +3,7 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Models\User;
+use NutriScore\Models\User\User;
 
 final class ProfileController extends AbstractController {
     private const PROFILE_TEMPLATE = 'profile/index';

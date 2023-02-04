@@ -3,10 +3,10 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Utils\Session;
-use NutriScore\Models\User;
+use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\UserService;
+use NutriScore\Utils\Session;
 
 final class OverviewController extends AbstractController {
     private const OVERVIEW_TEMPLATE = 'overview/index';
@@ -25,9 +25,10 @@ final class OverviewController extends AbstractController {
     }
 
     protected function handleGetRequest(): void {
-        $id = Session::get('id') ?? 1;
+        $id = Session::get('id');
+//        Session::delete('id');
+
         $user = $this->userService->findById($id);
-        Session::delete('id');
 
         $this->view->render(self::OVERVIEW_TEMPLATE, ['user' => $user]);
     }

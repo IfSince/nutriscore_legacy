@@ -2,9 +2,10 @@
 
 namespace NutriScore\DataMappers;
 
+use NutriScore\Controllers\ProfileController;
 use NutriScore\Database;
 use NutriScore\DataMapper;
-use NutriScore\Models\User;
+use NutriScore\Models\User\User;
 
 class UserMapper implements DataMapper {
     private Database $database;
@@ -46,27 +47,35 @@ class UserMapper implements DataMapper {
     }
 
     private function create(User $user): int {
-        $passwordHash = password_hash($user->getPassword(), PASSWORD_DEFAULT);
-
-        $sql = 'INSERT INTO users (username, email, password)
-                    VALUES (:username, :email, :password)';
+        $sql = 'INSERT INTO users (username, email, password, user_type, start_date, end_date, profile_img)
+                    VALUES (:username, :email, :password, :user_type, :start_date, :end_date, :profile_img)';
         return $this->database->createAndReturnId($sql, [
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
-            'password' => $passwordHash
+            'password' => $user->createPasswordHash(),
+            'user_type' =>  $user->getUserType()->value,
+            'start_date' => $user->getStartDate(),
+            'end_date' => $user->getEndDate(),
+            'profile_img' => $user->getProfileImg(),
         ]);
     }
 
     private function update(User $user): void {
         $sql = 'UPDATE users u
                    SET u.username = :username,
-                       u.email = :email
+                       u.email = :email,
+                       u.start_date = :start_date,
+                       u.end_date = :end_date,
+                       u.profile_img = :profile_img
                  WHERE u.id = :id';
 
-        $this->database->query($sql, [
+        $this->database->queryStatement($sql, [
+            'id' => $user->getId(),
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
-            'id' => $user->getId()
+            'start_date' => $user->getStartDate(),
+            'end_date' => $user->getEndDate(),
+            'profile_img' => $user->getProfileImg(),
         ]);
     }
 }

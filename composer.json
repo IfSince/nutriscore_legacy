@@ -3,5 +3,8 @@
     "psr-4": {
       "NutriScore\\": "app/"
     }
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }

@@ -3,11 +3,11 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Utils\Session;
 use NutriScore\InputType;
-use NutriScore\Models\User;
+use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\UserService;
+use NutriScore\Utils\Session;
 
 final class LoginController extends AbstractController {
     private const LOGIN_TEMPLATE = 'login/index';
