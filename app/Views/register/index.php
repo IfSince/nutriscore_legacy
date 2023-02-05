@@ -61,10 +61,10 @@ $errors = $data['errors'] ?? [];
             <div class="flex items-center">
               <input class="accent-green focus:outline-2 focus:outline-green"
                      type="checkbox"
-                     name="tos"
-                     id="tos"
-                     <?php renderChecked('tos');?>>
-              <label class="cursor-pointer pl-2" for="tos">
+                     name="acceptedTos"
+                     id="acceptedTos"
+                     <?php renderChecked('acceptedTos');?>>
+              <label class="cursor-pointer pl-2" for="acceptedTos">
                 I agree to the
                 <a class="text-green cursor-pointer hover:underline focus:underline focus:outline-none" href="#">
                   Terms of Service.
@@ -100,8 +100,8 @@ $errors = $data['errors'] ?? [];
                        type="radio"
                        id="genderMale"
                        name="gender"
-                       value="male"
-                       <?php renderCheckedByValue('gender', 'male');?>>
+                       value="MALE"
+                       <?php renderCheckedByValue('gender', 'MALE');?>>
                 <label class="text-gray-700 font-medium cursor-pointer pl-0.5 peer-checked:text-green"
                        for="genderMale">Male</label>
               </div>
@@ -110,8 +110,8 @@ $errors = $data['errors'] ?? [];
                        type="radio"
                        id="genderFemale"
                        name="gender"
-                       value="female"
-                        <?php renderCheckedByValue('gender', 'female');?>>
+                       value="FEMALE"
+                        <?php renderCheckedByValue('gender', 'FEMALE');?>>
                 <label class="text-gray-700 font-medium pl-0.5 peer-checked:text-green"
                        for="genderFemale">Female</label>
               </div>
@@ -120,8 +120,8 @@ $errors = $data['errors'] ?? [];
                        type="radio"
                        id="genderOther"
                        name="gender"
-                       value="other"
-                        <?php renderCheckedByValue('gender', 'other');?>>
+                       value="OTHER"
+                        <?php renderCheckedByValue('gender', 'OTHER');?>>
                 <label class="text-gray-700 font-medium cursor-pointer pl-0.5 peer-checked:text-green"
                        for="genderOther">Other</label>
               </div>
@@ -157,14 +157,14 @@ $errors = $data['errors'] ?? [];
           <div class="w-full mt-8">
             <label class=default-input__label for="nutritionType">Nutrition type</label>
             <select class="default-input" name="nutritionType" id="nutritionType">
-              <option value="normal" <?php renderSelectedByValue('nutritionType', 'normal');?>>Normal</option>
-              <option value="ketogenic" <?php renderSelectedByValue('nutritionType', 'ketogenic');?>>Ketogenic</option>
-              <option value="lowCarb" <?php renderSelectedByValue('nutritionType', 'lowCarb');?>>Low carb</option>
-              <option value="lowFat" <?php renderSelectedByValue('nutritionType', 'lowFat');?>>Low fat</option>
-              <option value="highProtein" <?php renderSelectedByValue('nutritionType', 'highProtein');?>>High protein</option>
-              <option value="hpHf" <?php renderSelectedByValue('nutritionType', 'hpHf');?>>HP + HF</option>
-              <option value="dachReference" <?php renderSelectedByValue('nutritionType', 'dachReference');?>>D-A-C-H Reference</option>
-              <option value="manually" <?php renderSelectedByValue('nutritionType', 'manually');?>>Manually</option>
+              <option value="NORMAL" <?php renderSelectedByValue('nutritionType', 'NORMAL');?>>Normal</option>
+              <option value="KETOGENIC" <?php renderSelectedByValue('nutritionType', 'KETOGENIC');?>>Ketogenic</option>
+              <option value="LOW_CARB" <?php renderSelectedByValue('nutritionType', 'LOW_CARB');?>>Low carb</option>
+              <option value="LOW_FAT" <?php renderSelectedByValue('nutritionType', 'lowFat');?>>Low fat</option>
+              <option value="HIGH_PROTEIN" <?php renderSelectedByValue('nutritionType', 'LOW_FAT');?>>High protein</option>
+              <option value="HP_HF" <?php renderSelectedByValue('nutritionType', 'HP_HF');?>>HP + HF</option>
+              <option value="DACH_REFERENCE" <?php renderSelectedByValue('nutritionType', 'DACH_REFERENCE');?>>D-A-C-H Reference</option>
+              <option value="MANUALLY" <?php renderSelectedByValue('nutritionType', 'MANUALLY');?>>Manually</option>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderErrors($errors, 'nutritionType'); ?>
@@ -195,29 +195,29 @@ $errors = $data['errors'] ?? [];
 
         <div data-quest-panel="false" data-quest-step="others">
           <div class="w-full mt-8">
-            <label class=default-input__label for="bmr">Basal Metabolic Rate</label>
-            <select class="default-input" name="bmr" id="bmr">
-              <option value="harris" <?php renderSelectedByValue('bmr', 'harris');?>>BMR (Harris Benedict)</option>
-              <option value="easy" <?php renderSelectedByValue('bmr', 'easy');?>>BMR (easy)</option>
-              <option value="complicated" <?php renderSelectedByValue('bmr', 'complicated');?>>BMR (complicated)</option>
-              <option value="mifflin" <?php renderSelectedByValue('bmr', 'mifflin');?>>BMR (Mifflin-St. Jeor)</option>
+            <label class=default-input__label for="bmrCalculationType">BMR Calculation Type</label>
+            <select class="default-input" name="bmrCalculationType" id="bmrCalculationType">
+              <option value="EASY" <?php renderSelectedByValue('bmrCalculationType', 'EASY');?>>BMR (easy)</option>
+              <option value="COMPLICATED" <?php renderSelectedByValue('bmrCalculationType', 'COMPLICATED');?>>BMR (complicated)</option>
+              <option value="HARRIS_BENEDICT" <?php renderSelectedByValue('bmrCalculationType', 'HARRIS_BENEDICT');?>>BMR (Harris Benedict)</option>
+              <option value="MIFFLIN_ST_JEOR" <?php renderSelectedByValue('bmrCalculationType', 'MIFFLIN_ST_JEOR');?>>BMR (Mifflin-St. Jeor)</option>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'bmr'); ?>
+              <?php renderErrors($errors, 'bmrCalculationType'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class=default-input__label for="activityLevel">Activity Level</label>
             <select class="default-input" name="activityLevel" id="activityLevel">
-              <option value="noExercise" <?php renderSelectedByValue('activityLevel', 'noExercise');?>>No exercise</option>
-              <option value="exerciseOneToThree" <?php renderSelectedByValue('activityLevel', 'exerciseOneToThree');?>>Exercise 1-3/week</option>
-              <option value="exerciseThreeToFive" <?php renderSelectedByValue('activityLevel', 'exerciseThreeToFive');?>>Exercise 3-5/week</option>
-              <option value="exerciseSixToSeven" <?php renderSelectedByValue('activityLevel', 'exerciseSixToSeven');?>>Exercise 6-7/week</option>
-              <option value="exerciseDaily" <?php renderSelectedByValue('activityLevel', 'exerciseDaily');?>>Exercise daily</option>
-              <option value="palLevel" <?php renderSelectedByValue('activityLevel', 'palLevel');?>>PAL Level</option>
-              <option value="met" <?php renderSelectedByValue('activityLevel', 'met');?>>MET</option>
-              <option value="metFactor" <?php renderSelectedByValue('activityLevel', 'metFactor');?>>MET Factor</option>
-              <option value="palFactor" <?php renderSelectedByValue('activityLevel', 'palFactor');?>>PAL Factor</option>
+              <option value="NO_SPORTS" <?php renderSelectedByValue('activityLevel', 'NO_SPORTS');?>>No exercise</option>
+              <option value="ONE_TO_THREE" <?php renderSelectedByValue('activityLevel', 'ONE_TO_THREE');?>>Exercise 1-3/week</option>
+              <option value="THREE_TO_FIVE" <?php renderSelectedByValue('activityLevel', 'THREE_TO_FIVE');?>>Exercise 3-5/week</option>
+              <option value="SIX_TO_SEVEN" <?php renderSelectedByValue('activityLevel', 'SIX_TO_SEVEN');?>>Exercise 6-7/week</option>
+              <option value="DAILY" <?php renderSelectedByValue('activityLevel', 'DAILY');?>>Exercise daily</option>
+              <option value="PAL_LEVEL" <?php renderSelectedByValue('activityLevel', 'PAL_LEVEL');?>>PAL Level</option>
+              <option value="MET" <?php renderSelectedByValue('activityLevel', 'MET');?>>MET</option>
+              <option value="MET_FACTOR" <?php renderSelectedByValue('activityLevel', 'MET_FACTOR');?>>MET Factor</option>
+              <option value="PAL_FACTOR" <?php renderSelectedByValue('activityLevel', 'PAL_FACTOR');?>>PAL Factor</option>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderErrors($errors, 'activityLevel'); ?>
@@ -231,14 +231,14 @@ $errors = $data['errors'] ?? [];
             </ul>
           </div>
           <div class="w-full mt-4">
-            <label class=default-input__label for="objective">Objective</label>
-            <select class="default-input" name="objective" id="objective" <?php renderValue('objective');?>>
-              <option value="keep">Keep weight</option>
-              <option value="loose">Loose weight</option>
-              <option value="gain">Gain weight</option>
+            <label class=default-input__label for="goal">Objective</label>
+            <select class="default-input" name="goal" id="goal" <?php renderValue('goal');?>>
+              <option value="KEEP">Keep weight</option>
+              <option value="LOOSE">Loose weight</option>
+              <option value="GAIN">Gain weight</option>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'objective'); ?>
+              <?php renderErrors($errors, 'goal'); ?>
             </ul>
           </div>
         </div>

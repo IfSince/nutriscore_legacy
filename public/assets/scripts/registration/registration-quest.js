@@ -10,6 +10,7 @@ const accountQuestStep = new QuestStep(
         new FormField('email', []),
         new FormField('password', []),
         new FormField('repeatPassword', []),
+        new FormField('acceptedTos', []),
     ],
     document.querySelector('[data-quest-step="account"]'),
     'Account'
@@ -42,10 +43,10 @@ const nutritionQuestStep = new NutritionQuestStep(
 
 const othersQuestStep = new OtherQuestStep(
     [
-        new FormField('bmr', []),
+        new FormField('bmrCalculationType', []),
         new FormField('activityLevel', []),
         new FormField('palLevel', []),
-        new FormField('objective', []),
+        new FormField('goal', []),
     ],
     document.querySelector('[data-quest-step="others"]'),
     'Others',

@@ -10,6 +10,23 @@ class RegisterFormValidator extends FormValidator {
     public function __construct(array $formInput, $userMapper) {
         parent::__construct($formInput);
         $this->userMapper = $userMapper;
+        $this->setRules([
+            'username' => 'required|min:4|max:16|whitespaces',
+            'email' => 'required|min:3|email',
+            'password' => 'required|min:8|matches:repeatPassword|uppercase|lowercase|number|specialchar|noWhitespaces',
+            'repeatPassword' => 'matches:password',
+            'acceptedTos' => 'required',
+            'firstName' => 'required|min:2|max:100',
+            'surname' => 'required|min:2|max:100',
+            'gender' => 'required',
+            'dateOfBirth' => 'required',
+            'height' => 'required',
+            'startingWeight' => 'required',
+            'nutritionType' => 'required',
+            'bmrCalculationType' => 'required',
+            'activityLevel' => 'required',
+            'goal' => 'required',
+        ]);
     }
 
     public function validate(): void {

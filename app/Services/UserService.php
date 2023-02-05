@@ -3,21 +3,18 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
-use NutriScore\Models\User\User;
-use NutriScore\Models\User\UserType;
 use NutriScore\Utils\Session;
+use NutriScore\Utils\UserUtil;
 use NutriScore\Validators\LoginFormValidator;
 use NutriScore\Validators\RegisterFormValidator;
 
 class UserService {
     private UserMapper $userMapper;
+    private PrivatePersonService $privatePersonService;
 
     public function __construct() {
         $this->userMapper = new UserMapper();
-    }
-
-    public function findById(int $id): User {
-        return $this->userMapper->findById($id);
+        $this->privatePersonService = new PrivatePersonService();
     }
 
     public function login(array $formInput): array {
@@ -33,38 +30,16 @@ class UserService {
 
     public function register(array $formInput): array {
         $validator = new RegisterFormValidator($formInput, $this->userMapper);
-        $validator->setRules([
-            'username' => 'required|min:4|max:16|whitespaces',
-            'email' => 'required|min:3|email',
-            'password' => 'required|min:8|matches:repeatPassword|uppercase|lowercase|number|specialchar|noWhitespaces',
-//            'repeatPassword' => 'matches:password',
-//            'tos' => 'required',
-//            'firstName' => 'required|min:2|max:100',
-//            'surname' => 'required|min:2|max:100',
-//            'gender' => 'required',
-//            'dateOfBirth' => 'required',
-//            'height' => 'required',
-//            'startingWeight' => 'required',
-//            'nutritionType' => 'required',
-//            'bmr' => 'required',
-//            'activityLevel' => 'required',
-//            'objective' => 'required',
-        ]);
         $validator->validate();
 
         if ($validator->isValid()) {
-            $user = $this->createUserByFormInput($formInput);
-            $this->userMapper->save($user);
+            $privatePerson = UserUtil::createPrivatePersonByFormInput($formInput);
+
+            $savedUser = $this->userMapper->save($privatePerson->getUser());
+
+            $privatePerson->setUser($savedUser);
+            $this->privatePersonService->save($privatePerson);
         }
         return $validator->getErrors();
     }
-
-    private function createUserByFormInput(array $formInput): User {
-        return new User(
-            username: $formInput['username'],
-            email: $formInput['email'],
-            password: $formInput['password'],
-        );
-    }
-
 }

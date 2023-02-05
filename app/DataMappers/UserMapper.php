@@ -2,7 +2,6 @@
 
 namespace NutriScore\DataMappers;
 
-use NutriScore\Controllers\ProfileController;
 use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\User\User;

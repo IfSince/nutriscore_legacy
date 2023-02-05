@@ -5,11 +5,8 @@
 @layer components {
 
   /* Formfield */
-  .label {
-    @apply cursor-pointer text-gray-700 font-medium tracking-wide;
-  }
   .default-input__label {
-    @apply label w-fit block pl-2 pb-0.5;
+    @apply cursor-pointer text-gray-700 font-medium tracking-wide w-fit block pl-2 pb-0.5;
   }
 
   .default-input {

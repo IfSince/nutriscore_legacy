@@ -1,14 +1,14 @@
 import {QuestStep} from '../quest/quest-step.js';
 
 const nutritionTypes = {
-    normal: { protein: 15, carbohydrates: 55, fat: 30 },
-    ketogenic: { protein: 15, carbohydrates: 5, fat: 80 },
-    lowCarb: { protein: 30, carbohydrates: 25, fat: 45 },
-    lowFat: { protein: 20, carbohydrates: 70, fat: 10 },
-    highProtein: { protein: 35, carbohydrates: 35, fat: 30 },
-    hpHf: { protein: 30, carbohydrates: 15, fat: 55 },
-    dachReference: { protein: 10, carbohydrates: 60, fat: 30 },
-    manually: { protein: null, carbohydrates: null, fat: null }
+    NORMAL: { protein: 15, carbohydrates: 55, fat: 30 },
+    KETOGENIC: { protein: 15, carbohydrates: 5, fat: 80 },
+    LOW_CARB: { protein: 30, carbohydrates: 25, fat: 45 },
+    LOW_FAT: { protein: 20, carbohydrates: 70, fat: 10 },
+    HIGH_PROTEIN: { protein: 35, carbohydrates: 35, fat: 30 },
+    HP_HF: { protein: 30, carbohydrates: 15, fat: 55 },
+    DACH_REFERENCE: { protein: 10, carbohydrates: 60, fat: 30 },
+    MANUALLY: { protein: null, carbohydrates: null, fat: null }
 };
 
 export class NutritionQuestStep extends QuestStep {
@@ -45,7 +45,7 @@ export class NutritionQuestStep extends QuestStep {
         this.fat.value = nutritionType.fat
         this.carbohydrates.value = nutritionType.carbohydrates
 
-        if (value === 'manually') {
+        if (value === 'MANUALLY') {
             this.protein.enable()
             this.carbohydrates.enable()
             this.fat.enable()

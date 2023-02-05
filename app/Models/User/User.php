@@ -5,8 +5,7 @@ namespace NutriScore\Models\User;
 use NutriScore\Models\Model;
 use NutriScore\Utils\Session;
 
-class User implements Model {
-    private int $id;
+class User extends Model {
     private string $username;
     private string $email;
     private string $password;
@@ -29,14 +28,10 @@ class User implements Model {
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->userType = (gettype($user_type) === "string") ? UserType::from($user_type) : $user_type;
+        $this->userType = $this->mapEnumValue(UserType::class, $user_type);
         $this->startDate = $start_date ?? date("Y-m-d H:i:s");
         $this->endDate = $end_date;
         $this->profileImg = $profile_img;
-    }
-
-    public function isNew(): bool {
-        return $this->id === self::NEW_ENTITY_ID;
     }
 
     public static function isLoggedIn(): bool {
@@ -45,20 +40,6 @@ class User implements Model {
 
     public function createPasswordHash(): string {
         return password_hash($this->password, PASSWORD_DEFAULT);
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void {
-        $this->id = $id;
     }
 
     /**
