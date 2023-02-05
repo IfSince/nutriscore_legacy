@@ -5,6 +5,7 @@ namespace NutriScore\DataMappers;
 use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\User\User;
+use NutriScore\Utils\UserUtil;
 
 class UserMapper implements DataMapper {
     private Database $database;
@@ -14,23 +15,31 @@ class UserMapper implements DataMapper {
     }
 
     public function findAll(): array {
-        $sql = 'SELECT * FROM users';
+        $sql = 'SELECT *
+                  FROM users
+                  LEFT JOIN images i on users.image_id = i.id';
         $result = $this->database->fetchAll($sql);
 
         return array_map(function ($entity) {
-            return new User(...$entity);
+            return UserUtil::createUserByFormInput($entity);
         }, $result);
     }
 
     public function findById(int $id): User {
-        $sql = 'SELECT * FROM users WHERE users.id = :id';
+        $sql = 'SELECT *
+                  FROM users
+                  LEFT JOIN images i on users.image_id = i.id
+                 WHERE users.id = :id';
         $result = $this->database->fetch($sql, ['id' => $id]);
 
-        return new User(...$result);
+        return UserUtil::createUserByFormInput($result);
     }
 
     public function findByUsername(string $username): ?User {
-        $sql = 'SELECT * FROM users WHERE users.username = :username';
+        $sql = 'SELECT *
+                  FROM users
+                  LEFT JOIN images i on users.image_id = i.id
+                 WHERE users.username = :username';
         $result = $this->database->fetch($sql, ['username' => $username]);
         return ($result) ? new User(...$result) : null;
     }
@@ -46,8 +55,8 @@ class UserMapper implements DataMapper {
     }
 
     private function create(User $user): int {
-        $sql = 'INSERT INTO users (username, email, password, user_type, start_date, end_date, profile_img)
-                    VALUES (:username, :email, :password, :user_type, :start_date, :end_date, :profile_img)';
+        $sql = 'INSERT INTO users (username, email, password, user_type, start_date, end_date, image_id)
+                    VALUES (:username, :email, :password, :user_type, :start_date, :end_date, :image_id)';
         return $this->database->createAndReturnId($sql, [
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
@@ -55,7 +64,7 @@ class UserMapper implements DataMapper {
             'user_type' =>  $user->getUserType()->value,
             'start_date' => $user->getStartDate(),
             'end_date' => $user->getEndDate(),
-            'profile_img' => $user->getProfileImg(),
+            'image_id' => $user->getImage()->getId(),
         ]);
     }
 
@@ -65,7 +74,7 @@ class UserMapper implements DataMapper {
                        u.email = :email,
                        u.start_date = :start_date,
                        u.end_date = :end_date,
-                       u.profile_img = :profile_img
+                       u.image_id = :image_id
                  WHERE u.id = :id';
 
         $this->database->queryStatement($sql, [
@@ -74,7 +83,7 @@ class UserMapper implements DataMapper {
             'email' => $user->getEmail(),
             'start_date' => $user->getStartDate(),
             'end_date' => $user->getEndDate(),
-            'profile_img' => $user->getProfileImg(),
+            'image_id' => $user->getImage()->getId(),
         ]);
     }
 }

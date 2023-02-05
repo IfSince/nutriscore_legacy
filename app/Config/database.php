@@ -1,8 +1,8 @@
 <?php
 namespace NutriScore\Config;
 
-const HOST = 'localhost';
-const DB_USER = 'root';
-const DB_PASSWORD = '';
-const DB_NAME = 'nutriscore';
-const DB_CHARSET = 'utf8mb4';
+define('HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'nutriscore');
+define('DB_CHARSET', 'utf8mb4');

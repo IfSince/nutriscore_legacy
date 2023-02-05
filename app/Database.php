@@ -47,11 +47,6 @@ class Database extends PDO {
         return $this->statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function fetchClass(string $sql, array $values = []): mixed {
-        $this->queryStatement($sql, $values);
-        return $this->statement->fetch(PDO::FETCH_CLASS);
-    }
-
     public function fetchAll(string $sql, array $values = []): array {
         $this->queryStatement($sql, $values);
         return $this->statement->fetchAll(PDO::FETCH_ASSOC);

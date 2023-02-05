@@ -6,11 +6,13 @@ use NutriScore\Models\PrivatePersons\PrivatePerson;
 use NutriScore\Models\User\User;
 
 class UserUtil {
-    public static function createUserByFormInput(array $formInput): User {
+    public static function createUserByFormInput(array $data): User {
         return new User(
-            username: $formInput['username'],
-            email: $formInput['email'],
-            password: $formInput['password'],
+            username: $data['username'],
+            email: $data['email'],
+            password: $data['password'],
+            id: $data['userId'] ?? $data['id'] ?? null,
+            image: ImageUtil::createImageByDatabaseResult($data),
         );
     }
 
@@ -21,6 +23,7 @@ class UserUtil {
             surname: $formInput['surname'],
             date_of_birth: $formInput['dateOfBirth'],
             height: $formInput['height'],
+            id: $formInput['userId'] ?? $formInput['id'] ?? null,
             gender: $formInput['gender'],
             nutrition_type: $formInput['nutritionType'],
             bmr_calculation_type: $formInput['bmrCalculationType'],
@@ -37,6 +40,7 @@ class UserUtil {
             surname: $data['surname'],
             date_of_birth: $data['date_of_birth'],
             height: $data['height'],
+            id: $data['user_id'] ?? $data['id'] ?? null,
             gender: $data['gender'],
             nutrition_type: $data['nutrition_type'],
             bmr_calculation_type: $data['bmr_calculation_type'],

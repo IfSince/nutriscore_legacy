@@ -3,6 +3,8 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
+use NutriScore\Models\Image;
+use NutriScore\Models\User\User;
 use NutriScore\Utils\Session;
 use NutriScore\Utils\UserUtil;
 use NutriScore\Validators\LoginFormValidator;
@@ -17,7 +19,7 @@ class UserService {
         $this->privatePersonService = new PrivatePersonService();
     }
 
-    public function login(array $formInput): array {
+    public function validateAndLogin(array $formInput): array {
         $validator = new LoginFormValidator($formInput, $this->userMapper);
         $validator->validate();
 
@@ -28,7 +30,7 @@ class UserService {
         return $validator->getErrors();
     }
 
-    public function register(array $formInput): array {
+    public function validateAndRegister(array $formInput): array {
         $validator = new RegisterFormValidator($formInput, $this->userMapper);
         $validator->validate();
 
@@ -41,5 +43,13 @@ class UserService {
             $this->privatePersonService->save($privatePerson);
         }
         return $validator->getErrors();
+    }
+
+    public function linkUserToProfileImage(int $userId, Image $image): User {
+       $user = $this->userMapper->findById($userId);
+       $user->setId(Session::get('id'));
+       $user->setImage($image);
+
+       return $this->userMapper->save($user);
     }
 }

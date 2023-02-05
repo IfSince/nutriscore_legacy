@@ -32,7 +32,7 @@ final class LoginController extends AbstractController {
     protected function handlePostRequest(): void {
         $formInput = $this->request->getInput(InputType::POST);
 
-        $errors = $this->userService->login($formInput);
+        $errors = $this->userService->validateAndLogin($formInput);
         if (empty($errors)) {
             Session::flash('success', 'You have been successfully signed in.');
             header('Location: /overview');

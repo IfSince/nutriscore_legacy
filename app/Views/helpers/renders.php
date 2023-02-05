@@ -54,7 +54,7 @@ function renderErrorToasts(array $errors, string $fieldName): void {
     }
 }
 
-function renderErrors(array $errors, string $fieldName): void {
+function renderErrors(?array $errors, string $fieldName): void {
     if (isset($errors[$fieldName])) {
         foreach ($errors[$fieldName] as $error) {
             echo "<li>$error</li>";

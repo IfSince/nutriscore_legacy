@@ -39,6 +39,7 @@ class PrivatePersonMapper implements DataMapper {
         $sql = 'SELECT *
                   FROM private_persons pp
                   JOIN users u on pp.user_id = u.id
+                  JOIN images i on u.image_id = i.id
                  WHERE u.id = :userId';
         $result = $this->database->fetch($sql, ['userId' => $userId]);
 

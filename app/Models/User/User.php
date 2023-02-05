@@ -2,6 +2,7 @@
 
 namespace NutriScore\Models\User;
 
+use NutriScore\Models\Image;
 use NutriScore\Models\Model;
 use NutriScore\Utils\Session;
 
@@ -12,7 +13,7 @@ class User extends Model {
     private UserType $userType;
     private string $startDate;
     private ?string $endDate;
-    private ?string $profileImg;
+    private ?Image $image;
 
     public function __construct(
         string          $username,
@@ -22,7 +23,7 @@ class User extends Model {
         UserType|string $user_type = UserType::PRIVATE_PERSON,
         ?string         $start_date = null,
         ?string         $end_date = null,
-        ?string         $profile_img = null,
+        ?Image          $image = null,
     ) {
         $this->id = (int) $id;
         $this->username = $username;
@@ -31,7 +32,7 @@ class User extends Model {
         $this->userType = $this->mapEnumValue(UserType::class, $user_type);
         $this->startDate = $start_date ?? date("Y-m-d H:i:s");
         $this->endDate = $end_date;
-        $this->profileImg = $profile_img;
+        $this->image = $image;
     }
 
     public static function isLoggedIn(): bool {
@@ -127,17 +128,17 @@ class User extends Model {
     }
 
     /**
-     * @return string|null
+     * @return Image|null
      */
-    public function getProfileImg(): ?string {
-        return $this->profileImg;
+    public function getImage(): ?Image {
+        return $this->image;
     }
 
     /**
-     * @param string|null $profileImg
+     * @param Image|null $image
      */
-    public function setProfileImg(?string $profileImg): void {
-        $this->profileImg = $profileImg;
+    public function setImage(?Image $image): void {
+        $this->image = $image;
     }
 
 }
