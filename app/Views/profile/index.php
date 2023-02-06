@@ -10,7 +10,7 @@
           <label for="upload"
                  class="cursor-pointer bg-gray-100 rounded-full w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36
                         overflow-hidden flex justify-center items-center group relative">
-            <img src="<?= $personData->getUser()?->getImage()?->getPath() ?? 'assets/images/profile_img.svg'?>"
+            <img src="<?= $profileImage?->getPath() ?? 'assets/images/profile_img.svg'?>"
                  alt="Default profile image"
                  data-profile-img
                  class="w-full h-full object-cover transition-opacity group-hover:opacity-50">

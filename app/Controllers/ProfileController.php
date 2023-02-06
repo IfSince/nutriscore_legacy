@@ -6,7 +6,7 @@ use NutriScore\AbstractController;
 use NutriScore\InputType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
-use NutriScore\Services\ImageService;
+use NutriScore\Services\FileService;
 use NutriScore\Services\PrivatePersonService;
 use NutriScore\Services\UserService;
 use NutriScore\Utils\Session;
@@ -19,13 +19,13 @@ final class ProfileController extends AbstractController {
 
     private UserService $userService;
     private PrivatePersonService $privatePersonService;
-    private ImageService $imageService;
+    private FileService $imageService;
 
     public function __construct(Request $request) {
         parent::__construct($request);
         $this->userService = new UserService();
         $this->privatePersonService = new PrivatePersonService();
-        $this->imageService = new ImageService();
+        $this->imageService = new FileService();
     }
 
     protected function beforeHook(): void {
@@ -35,9 +35,21 @@ final class ProfileController extends AbstractController {
     }
 
     protected function handleGetRequest(): void {
-        $personData = $this->privatePersonService->findByUserId(Session::get('id'));
+        $userId = Session::get('id');
 
-        $this->view->render(self::PROFILE_TEMPLATE, ['personData' => $personData]);
+        $personData = $this->privatePersonService->findByUserId($userId);
+        $user = $this->userService->findById($userId);
+
+        $profileImageId = $user->getProfileImageId();
+        $profileImage = ($profileImageId != null) ? $this->imageService->findById($profileImageId) : null;
+
+        $this->view->render(
+            self::PROFILE_TEMPLATE,
+            [
+                'personData' => $personData,
+                'user' => $user,
+                'profileImage' => $profileImage
+            ]);
     }
 
     protected function handlePostRequest(): void {
@@ -55,6 +67,7 @@ final class ProfileController extends AbstractController {
                 self::PROFILE_TEMPLATE,
                 [
                     'personData' => $this->privatePersonService->findByUserId($userId),
+                    'user' => $this->userService->findById($userId),
                     'errors' => $validationObject->getErrors()
                 ]
             );

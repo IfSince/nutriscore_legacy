@@ -4,15 +4,12 @@ namespace NutriScore\DataMappers;
 
 use NutriScore\Database;
 use NutriScore\DataMapper;
-use NutriScore\Models\Image\Image;
 use NutriScore\Models\PrivatePerson\ActivityLevel;
 use NutriScore\Models\PrivatePerson\BmrCalculationType;
 use NutriScore\Models\PrivatePerson\Gender;
 use NutriScore\Models\PrivatePerson\Goal;
 use NutriScore\Models\PrivatePerson\NutritionType;
 use NutriScore\Models\PrivatePerson\PrivatePerson;
-use NutriScore\Models\User\User;
-use NutriScore\Models\User\UserType;
 
 class PrivatePersonMapper implements DataMapper {
     private Database $database;
@@ -22,24 +19,14 @@ class PrivatePersonMapper implements DataMapper {
     }
 
     public function findById(int $id): PrivatePerson {
-        $sql = 'SELECT pp.id, user_id, first_name, surname, date_of_birth, height, gender, nutrition_type, bmr_calculation_type,
-                       activity_level, goal, accepted_tos, username, email, password, user_type, start_date, end_date, image_id, path, text
-                  FROM private_persons pp
-                  JOIN users u on pp.user_id = u.id
-                  LEFT JOIN images i on u.image_id = i.id
-                 WHERE pp.id = :id';
+        $sql = 'SELECT * FROM private_persons pp WHERE pp.id = :id';
         $result = $this->database->fetch($sql, ['id' => $id]);
 
         return $this->mapRowToPrivatePerson($result);
     }
 
     public function findByUserId(int $userId): PrivatePerson {
-        $sql = 'SELECT pp.id, user_id, first_name, surname, date_of_birth, height, gender, nutrition_type, bmr_calculation_type,
-                       activity_level, goal, accepted_tos, username, email, password, user_type, start_date, end_date, image_id, path, text
-                  FROM private_persons pp
-                  JOIN users u on pp.user_id = u.id
-                  LEFT JOIN images i on u.image_id = i.id
-                 WHERE u.id = :userId';
+        $sql = 'SELECT * FROM private_persons pp  WHERE pp.user_id = :userId';
         $result = $this->database->fetch($sql, ['userId' => $userId]);
 
         return $this->mapRowToPrivatePerson($result);
@@ -83,7 +70,7 @@ class PrivatePersonMapper implements DataMapper {
                             :acceptedTos
                             )';
         return $this->database->createAndReturnId($sql, [
-            'userId' => $privatePerson->getUser()->getId(),
+            'userId' => $privatePerson->getUserId(),
             'firstName' => $privatePerson->getFirstName(),
             'surname' => $privatePerson->getSurname(),
             'dateOfBirth' => $privatePerson->getDateOfBirth(),
@@ -93,7 +80,7 @@ class PrivatePersonMapper implements DataMapper {
             'bmrCalculationType' => $privatePerson->getBmrCalculationType()->value,
             'activityLevel' => $privatePerson->getActivityLevel()->value,
             'goal' => $privatePerson->getGoal()->value,
-            'acceptedTos' => $privatePerson->getAcceptedTos()
+            'acceptedTos' => $privatePerson->hasAcceptedTos()
         ]);
     }
 
@@ -121,30 +108,13 @@ class PrivatePersonMapper implements DataMapper {
             'bmrCalculationType' => $privatePerson->getBmrCalculationType()->value,
             'activityLevel' => $privatePerson->getActivityLevel()->value,
             'goal' => $privatePerson->getGoal()->value,
-            'accepted_tos' => $privatePerson->getAcceptedTos(),
+            'accepted_tos' => $privatePerson->hasAcceptedTos(),
         ]);
     }
 
     private function mapRowToPrivatePerson(array $data): PrivatePerson {
-        $image = (isset($data['image_id'])) ? new Image(
-            path: $data['path'],
-            text: $data['text'],
-            id: $data['image_id']
-        ) : null;
-
-        $user = new User(
-            username: $data['username'],
-            email: $data['email'],
-            password: $data['password'],
-            id: $data['user_id'],
-            user_type: UserType::from($data['user_type']),
-            start_date: $data['start_date'],
-            end_date: $data['end_date'],
-            image: $image
-        );
-
         return new PrivatePerson(
-            user: $user,
+            userId: $data['user_id'],
             first_name: $data['first_name'],
             surname: $data['surname'],
             date_of_birth: $data['date_of_birth'],

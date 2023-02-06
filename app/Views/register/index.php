@@ -45,14 +45,14 @@ $errors = $data['errors'] ?? [];
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="password">Password</label>
-            <input class="default-input" type="password" name="password" id="password">
+            <input class="default-input" type="password" name="password" id="password" <?php renderValue('password');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderErrors($errors, 'password'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="repeatPassword">Repeat password</label>
-            <input class="default-input" type="password" name="repeatPassword" id="repeatPassword">
+            <input class="default-input" type="password" name="repeatPassword" id="repeatPassword" <?php renderValue('repeatPassword');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderErrors($errors, 'repeatPassword'); ?>
             </ul>

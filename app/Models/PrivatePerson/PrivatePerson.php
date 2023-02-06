@@ -3,10 +3,9 @@
 namespace NutriScore\Models\PrivatePerson;
 
 use NutriScore\Models\Model;
-use NutriScore\Models\User\User;
 
 class PrivatePerson extends Model {
-    private User $user;
+    private ?int $userId;
     private string $firstName;
     private string $surname;
     private string $dateOfBirth;
@@ -16,10 +15,10 @@ class PrivatePerson extends Model {
     private BmrCalculationType $bmrCalculationType;
     private ActivityLevel $activityLevel;
     private Goal $goal;
-    private string $acceptedTos;
+    private bool $acceptedTos;
 
     public function __construct(
-        User                      $user,
+        ?int                      $userId,
         string                    $first_name,
         string                    $surname,
         string                    $date_of_birth,
@@ -33,7 +32,7 @@ class PrivatePerson extends Model {
         bool|string               $accepted_tos = false
     ) {
         $this->id = (int) $id;
-        $this->user = $user;
+        $this->userId = $userId;
         $this->firstName = $first_name;
         $this->surname = $surname;
         $this->dateOfBirth = $date_of_birth;
@@ -47,17 +46,17 @@ class PrivatePerson extends Model {
     }
 
     /**
-     * @return User
+     * @return int|null
      */
-    public function getUser(): User {
-        return $this->user;
+    public function getUserId(): ?int {
+        return $this->userId;
     }
 
     /**
-     * @param User $user
+     * @param int $userId
      */
-    public function setUser(User $user): void {
-        $this->user = $user;
+    public function setUserId(int $userId): void {
+        $this->userId = $userId;
     }
 
     /**
@@ -187,18 +186,17 @@ class PrivatePerson extends Model {
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getAcceptedTos(): string {
+    public function hasAcceptedTos(): bool {
         return $this->acceptedTos;
     }
 
     /**
-     * @param string $acceptedTos
+     * @param bool $acceptedTos
      */
-    public function setAcceptedTos(string $acceptedTos): void {
+    public function setAcceptedTos(bool $acceptedTos): void {
         $this->acceptedTos = $acceptedTos;
     }
-
 
 }

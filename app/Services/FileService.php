@@ -2,15 +2,21 @@
 
 namespace NutriScore\Services;
 
-use NutriScore\DataMappers\ImageMapper;
+use NutriScore\DataMappers\FileMapper;
+use NutriScore\Models\File\File;
+use NutriScore\Models\File\FileType;
 use NutriScore\Validators\FileValidator;
 use NutriScore\Validators\ValidationObject;
 
-class ImageService {
-    private ImageMapper $imageMapper;
+class FileService {
+    private FileMapper $fileMapper;
 
     public function __construct() {
-        $this->imageMapper = new ImageMapper();
+        $this->fileMapper = new FileMapper();
+    }
+
+    public function findById(int $fileId): File {
+        return $this->fileMapper->findById($fileId);
     }
 
     public function validateAndUpload(?array $file, ?string $text = ''): ValidationObject {
@@ -40,7 +46,7 @@ class ImageService {
                     ['errors' => ['file' => 'Failed to upload file.']]
                 );
             } else {
-                $imageId = $this->imageMapper->create($relativePath . DIRECTORY_SEPARATOR . $fileName, $text);
+                $imageId = $this->fileMapper->create($relativePath . DIRECTORY_SEPARATOR . $fileName, $text, FileType::IMAGE);
             }
         }
 
