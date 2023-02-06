@@ -1,6 +1,6 @@
 <?php
 
-namespace NutriScore\Models\PrivatePersons;
+namespace NutriScore\Models\PrivatePerson;
 
 enum NutritionType: string {
     case NORMAL = 'NORMAL';

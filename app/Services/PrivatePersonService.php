@@ -3,7 +3,7 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\PrivatePersonMapper;
-use NutriScore\Models\PrivatePersons\PrivatePerson;
+use NutriScore\Models\PrivatePerson\PrivatePerson;
 
 class PrivatePersonService {
     private PrivatePersonMapper $privatePersonMapper;

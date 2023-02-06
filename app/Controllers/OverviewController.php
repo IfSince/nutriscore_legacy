@@ -25,11 +25,7 @@ final class OverviewController extends AbstractController {
     }
 
     protected function handleGetRequest(): void {
-        $id = Session::get('id');
-//        Session::delete('id');
-
-        $user = $this->privatePersonService->findByUserId($id);
-
-        $this->view->render(self::OVERVIEW_TEMPLATE, ['user' => $user]);
+        $personData = $this->privatePersonService->findByUserId(Session::get('id'));
+        $this->view->render(self::OVERVIEW_TEMPLATE, ['personData' => $personData]);
     }
 }

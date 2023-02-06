@@ -4,8 +4,15 @@ namespace NutriScore\DataMappers;
 
 use NutriScore\Database;
 use NutriScore\DataMapper;
-use NutriScore\Models\PrivatePersons\PrivatePerson;
-use NutriScore\Utils\UserUtil;
+use NutriScore\Models\Image\Image;
+use NutriScore\Models\PrivatePerson\ActivityLevel;
+use NutriScore\Models\PrivatePerson\BmrCalculationType;
+use NutriScore\Models\PrivatePerson\Gender;
+use NutriScore\Models\PrivatePerson\Goal;
+use NutriScore\Models\PrivatePerson\NutritionType;
+use NutriScore\Models\PrivatePerson\PrivatePerson;
+use NutriScore\Models\User\User;
+use NutriScore\Models\User\UserType;
 
 class PrivatePersonMapper implements DataMapper {
     private Database $database;
@@ -14,36 +21,28 @@ class PrivatePersonMapper implements DataMapper {
         $this->database = new Database();
     }
 
-    public function findAll(): array {
-        $sql = 'SELECT *
-                  FROM private_persons pp
-                  JOIN users u on pp.user_id = u.id';
-        $result = $this->database->fetchAll($sql);
-
-        return array_map(function ($entity) {
-            return new PrivatePerson(...$entity);
-        }, $result);
-    }
-
     public function findById(int $id): PrivatePerson {
-        $sql = 'SELECT *
+        $sql = 'SELECT pp.id, user_id, first_name, surname, date_of_birth, height, gender, nutrition_type, bmr_calculation_type,
+                       activity_level, goal, accepted_tos, username, email, password, user_type, start_date, end_date, image_id, path, text
                   FROM private_persons pp
                   JOIN users u on pp.user_id = u.id
+                  LEFT JOIN images i on u.image_id = i.id
                  WHERE pp.id = :id';
         $result = $this->database->fetch($sql, ['id' => $id]);
 
-        return new PrivatePerson(...$result);
+        return $this->mapRowToPrivatePerson($result);
     }
 
     public function findByUserId(int $userId): PrivatePerson {
-        $sql = 'SELECT *
+        $sql = 'SELECT pp.id, user_id, first_name, surname, date_of_birth, height, gender, nutrition_type, bmr_calculation_type,
+                       activity_level, goal, accepted_tos, username, email, password, user_type, start_date, end_date, image_id, path, text
                   FROM private_persons pp
                   JOIN users u on pp.user_id = u.id
-                  JOIN images i on u.image_id = i.id
+                  LEFT JOIN images i on u.image_id = i.id
                  WHERE u.id = :userId';
         $result = $this->database->fetch($sql, ['userId' => $userId]);
 
-        return UserUtil::createPrivatePersonByDatabaseResult($result);
+        return $this->mapRowToPrivatePerson($result);
     }
 
     public function save(PrivatePerson $privatePerson): PrivatePerson {
@@ -124,5 +123,39 @@ class PrivatePersonMapper implements DataMapper {
             'goal' => $privatePerson->getGoal()->value,
             'accepted_tos' => $privatePerson->getAcceptedTos(),
         ]);
+    }
+
+    private function mapRowToPrivatePerson(array $data): PrivatePerson {
+        $image = (isset($data['image_id'])) ? new Image(
+            path: $data['path'],
+            text: $data['text'],
+            id: $data['image_id']
+        ) : null;
+
+        $user = new User(
+            username: $data['username'],
+            email: $data['email'],
+            password: $data['password'],
+            id: $data['user_id'],
+            user_type: UserType::from($data['user_type']),
+            start_date: $data['start_date'],
+            end_date: $data['end_date'],
+            image: $image
+        );
+
+        return new PrivatePerson(
+            user: $user,
+            first_name: $data['first_name'],
+            surname: $data['surname'],
+            date_of_birth: $data['date_of_birth'],
+            height: $data['height'],
+            id: $data['id'],
+            gender: Gender::from($data['gender']),
+            nutrition_type: NutritionType::from($data['nutrition_type']),
+            bmr_calculation_type: BmrCalculationType::from($data['bmr_calculation_type']),
+            activity_level: ActivityLevel::from($data['activity_level']),
+            goal: Goal::from($data['goal']),
+            accepted_tos: $data['accepted_tos']
+        );
     }
 }

@@ -4,7 +4,7 @@ namespace NutriScore\DataMappers;
 
 use NutriScore\Database;
 use NutriScore\DataMapper;
-use NutriScore\Models\Image;
+use NutriScore\Models\Image\Image;
 
 class ImageMapper implements DataMapper {
     private Database $database;
@@ -13,16 +13,11 @@ class ImageMapper implements DataMapper {
         $this->database = new Database();
     }
 
-    public function findAll(): array {
-        // TODO: Implement findAll() method.
-        return [];
-    }
-
     public function findById(int $id): Image {
         $sql = 'SELECT * FROM images WHERE id = :id';
         $result = $this->database->fetch($sql, ['id' => $id]);
 
-        return new Image(...$result);
+        return $this->mapRowToImage($result);
     }
 
     public function create(string $path, string $text): int {
@@ -31,5 +26,13 @@ class ImageMapper implements DataMapper {
             'path' => $path,
             'text' => $text,
         ]);
+    }
+
+    private function mapRowToImage(array $data): Image {
+        return new Image(
+            path: $data['path'],
+            text: $data['text'],
+            id: $data['id']
+        );
     }
 }

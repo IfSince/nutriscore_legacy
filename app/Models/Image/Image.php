@@ -1,6 +1,8 @@
 <?php
 
-namespace NutriScore\Models;
+namespace NutriScore\Models\Image;
+
+use NutriScore\Models\Model;
 
 class Image extends Model {
 

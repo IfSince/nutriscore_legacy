@@ -3,26 +3,18 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\ImageMapper;
-use NutriScore\Models\Image;
 use NutriScore\Validators\FileValidator;
 use NutriScore\Validators\ValidationObject;
 
 class ImageService {
     private ImageMapper $imageMapper;
 
-    public array $errors = [];
-
     public function __construct() {
         $this->imageMapper = new ImageMapper();
     }
 
-    public function findById(int $id): Image {
-        return $this->imageMapper->findById($id);
-    }
-
-    public function validateAndUpload(?array $file, ?string $text = 'Test'): ValidationObject {
+    public function validateAndUpload(?array $file, ?string $text = ''): ValidationObject {
         $image = isset($file['upload']) && $file['upload']['size'] > 0 ? $file['upload'] : null;
-
         if (!isset($image)) {
             return new ValidationObject(
                 null,
@@ -43,7 +35,10 @@ class ImageService {
             }
 
             if (!move_uploaded_file($image['tmp_name'], $uploadPath)) {
-                $this->errors['file'][] = 'Failed to upload file.';
+                return new ValidationObject(
+                    null,
+                    ['errors' => ['file' => 'Failed to upload file.']]
+                );
             } else {
                 $imageId = $this->imageMapper->create($relativePath . DIRECTORY_SEPARATOR . $fileName, $text);
             }

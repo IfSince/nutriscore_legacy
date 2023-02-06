@@ -1,6 +1,6 @@
 <?php
 
-namespace NutriScore\Models\PrivatePersons;
+namespace NutriScore\Models\PrivatePerson;
 
 use NutriScore\Models\Model;
 use NutriScore\Models\User\User;
@@ -44,12 +44,6 @@ class PrivatePerson extends Model {
         $this->activityLevel = $this->mapEnumValue(ActivityLevel::class, $activity_level);
         $this->goal = $this->mapEnumValue(Goal::class, $goal);
         $this->acceptedTos = $accepted_tos || $accepted_tos === '0';
-    }
-
-    public function map(array $data = []): PrivatePerson {
-        foreach ($data as $field => $value) {
-            $this->{$field} = $value;
-        }
     }
 
     /**

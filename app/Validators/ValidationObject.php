@@ -11,6 +11,10 @@ class ValidationObject {
         $this->errors = $errors;
     }
 
+    public function isValid(): bool {
+        return empty($this->errors);
+    }
+
     /**
      * @return mixed
      */

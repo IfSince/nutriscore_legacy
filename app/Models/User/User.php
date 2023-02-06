@@ -2,7 +2,7 @@
 
 namespace NutriScore\Models\User;
 
-use NutriScore\Models\Image;
+use NutriScore\Models\Image\Image;
 use NutriScore\Models\Model;
 use NutriScore\Utils\Session;
 

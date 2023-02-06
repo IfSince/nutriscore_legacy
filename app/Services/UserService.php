@@ -3,10 +3,9 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
-use NutriScore\Models\Image;
+use NutriScore\Models\PrivatePerson\PrivatePerson;
 use NutriScore\Models\User\User;
 use NutriScore\Utils\Session;
-use NutriScore\Utils\UserUtil;
 use NutriScore\Validators\LoginFormValidator;
 use NutriScore\Validators\RegisterFormValidator;
 
@@ -35,7 +34,7 @@ class UserService {
         $validator->validate();
 
         if ($validator->isValid()) {
-            $privatePerson = UserUtil::createPrivatePersonByFormInput($formInput);
+            $privatePerson = $this->createPrivatePersonForCreation($formInput);
 
             $savedUser = $this->userMapper->save($privatePerson->getUser());
 
@@ -45,11 +44,34 @@ class UserService {
         return $validator->getErrors();
     }
 
-    public function linkUserToProfileImage(int $userId, Image $image): User {
-       $user = $this->userMapper->findById($userId);
-       $user->setId(Session::get('id'));
-       $user->setImage($image);
+    public function linkUserToProfileImage(int $userId, int $imageId): void {
+       $this->userMapper->updateImage($userId, $imageId);
+    }
 
-       return $this->userMapper->save($user);
+    private function createPrivatePersonForCreation(array $data): PrivatePerson {
+        return new PrivatePerson(
+            user: $this->createPersonForCreation($data),
+            first_name: $data['firstName'],
+            surname: $data['surname'],
+            date_of_birth: $data['dateOfBirth'],
+            height: $data['height'],
+            id: null,
+            gender: $data['gender'],
+            nutrition_type: $data['nutritionType'],
+            bmr_calculation_type: $data['bmrCalculationType'],
+            activity_level: $data['activityLevel'],
+            goal: $data['goal'],
+            accepted_tos: $data['acceptedTos']
+        );
+    }
+
+    private function createPersonForCreation(array $data): User {
+        return new User(
+            username: $data['username'],
+            email: $data['email'],
+            password: $data['password'],
+            id: null,
+            image: null,
+        );
     }
 }

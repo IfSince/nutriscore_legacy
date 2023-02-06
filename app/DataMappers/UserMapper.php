@@ -4,8 +4,9 @@ namespace NutriScore\DataMappers;
 
 use NutriScore\Database;
 use NutriScore\DataMapper;
+use NutriScore\Models\Image\Image;
 use NutriScore\Models\User\User;
-use NutriScore\Utils\UserUtil;
+use NutriScore\Models\User\UserType;
 
 class UserMapper implements DataMapper {
     private Database $database;
@@ -14,34 +15,32 @@ class UserMapper implements DataMapper {
         $this->database = new Database();
     }
 
-    public function findAll(): array {
-        $sql = 'SELECT *
-                  FROM users
-                  LEFT JOIN images i on users.image_id = i.id';
-        $result = $this->database->fetchAll($sql);
-
-        return array_map(function ($entity) {
-            return UserUtil::createUserByFormInput($entity);
-        }, $result);
-    }
-
     public function findById(int $id): User {
-        $sql = 'SELECT *
-                  FROM users
-                  LEFT JOIN images i on users.image_id = i.id
-                 WHERE users.id = :id';
+        $sql = 'SELECT u.id, username, email, password, user_type, start_date, end_date, image_id, path, text
+                  FROM users u
+                  LEFT JOIN images i on u.image_id = i.id
+                 WHERE u.id = :id';
         $result = $this->database->fetch($sql, ['id' => $id]);
 
-        return UserUtil::createUserByFormInput($result);
+        return $this->mapRowToUser($result);
     }
 
     public function findByUsername(string $username): ?User {
-        $sql = 'SELECT *
-                  FROM users
-                  LEFT JOIN images i on users.image_id = i.id
-                 WHERE users.username = :username';
+        $sql = 'SELECT u.id, username, email, password, user_type, start_date, end_date, image_id, path, text
+                  FROM users u
+                  LEFT JOIN images i on u.image_id = i.id
+                 WHERE u.username = :username';
         $result = $this->database->fetch($sql, ['username' => $username]);
-        return ($result) ? new User(...$result) : null;
+        return ($result) ? $this->mapRowToUser($result) : null;
+    }
+
+    public function findByEmail(string $email): ?User {
+        $sql = 'SELECT u.id, username, email, password, user_type, start_date, end_date, image_id, path, text
+                  FROM users u
+                  LEFT JOIN images i on u.image_id = i.id
+                 WHERE u.email = :email';
+        $result = $this->database->fetch($sql, ['email' => $email]);
+        return ($result) ? $this->mapRowToUser($result) : null;
     }
 
     public function save(User $user): User {
@@ -54,6 +53,16 @@ class UserMapper implements DataMapper {
         return $this->findById($user->getId());
     }
 
+    public function updateImage(int $userId, int $imageId): void {
+        $sql = 'UPDATE users u
+                   SET u.image_id = :imageId
+                 WHERE u.id = :userId';
+        $this->database->queryStatement($sql, [
+            'userId' => $userId,
+            'imageId' => $imageId
+        ]);
+    }
+
     private function create(User $user): int {
         $sql = 'INSERT INTO users (username, email, password, user_type, start_date, end_date, image_id)
                     VALUES (:username, :email, :password, :user_type, :start_date, :end_date, :image_id)';
@@ -64,7 +73,7 @@ class UserMapper implements DataMapper {
             'user_type' =>  $user->getUserType()->value,
             'start_date' => $user->getStartDate(),
             'end_date' => $user->getEndDate(),
-            'image_id' => $user->getImage()->getId(),
+            'image_id' => $user->getImage()?->getId(),
         ]);
     }
 
@@ -85,5 +94,24 @@ class UserMapper implements DataMapper {
             'end_date' => $user->getEndDate(),
             'image_id' => $user->getImage()->getId(),
         ]);
+    }
+
+    private function mapRowToUser(array $data): User {
+        $image = (isset($data['image_id'])) ? new Image(
+            path: $data['path'],
+            text: $data['text'],
+            id: $data['image_id']
+        ) : null;
+
+        return new User(
+            username: $data['username'],
+            email: $data['email'],
+            password: $data['password'],
+            id: $data['id'],
+            user_type: UserType::from($data['user_type']),
+            start_date: $data['start_date'],
+            end_date: $data['end_date'],
+            image: $image
+        );
     }
 }

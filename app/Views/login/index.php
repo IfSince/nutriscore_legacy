@@ -39,7 +39,7 @@
         </div>
         <div class="w-full mt-6">
           <label class="default-input__label" for="password">Password</label>
-          <input class="default-input" type="text" name="password" id="password">
+          <input class="default-input" type="password" name="password" id="password">
           <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
             <?php renderErrors($errors, 'password');?>
           </ul>

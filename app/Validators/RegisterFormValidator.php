@@ -33,6 +33,7 @@ class RegisterFormValidator extends FormValidator {
         parent::validate();
 
         $this->validateUsernameExists($this->formInput['username']);
+        $this->validateEmailExists($this->formInput['email']);
         $this->validateNutritionTypeManually($this->formInput['nutritionType']);
         $this->validateActivityLevel($this->formInput['activityLevel']);
     }
@@ -40,6 +41,12 @@ class RegisterFormValidator extends FormValidator {
     private function validateUsernameExists(string $username): void {
         if ($this->userMapper->findByUsername($username) != null) {
             $this->errors['username'][] = 'This username is already taken.';
+        }
+    }
+
+    private function validateEmailExists(string $email): void {
+        if ($this->userMapper->findByEmail($email) != null) {
+            $this->errors['email'][] = 'This email is already taken.';
         }
     }
 

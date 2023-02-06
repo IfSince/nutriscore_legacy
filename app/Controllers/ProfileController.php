@@ -2,7 +2,6 @@
 
 namespace NutriScore\Controllers;
 
-use http\Header;
 use NutriScore\AbstractController;
 use NutriScore\InputType;
 use NutriScore\Models\User\User;
@@ -11,7 +10,6 @@ use NutriScore\Services\ImageService;
 use NutriScore\Services\PrivatePersonService;
 use NutriScore\Services\UserService;
 use NutriScore\Utils\Session;
-use function header as headerAlias;
 
 final class ProfileController extends AbstractController {
     private const PROFILE_TEMPLATE = 'profile/index';
@@ -43,15 +41,14 @@ final class ProfileController extends AbstractController {
     }
 
     protected function handlePostRequest(): void {
-        $file = $this->request->getInput(InputType::FILE);
+        $fileUpload = $this->request->getInput(InputType::FILE);
 
-        $validationObject = $this->imageService->validateAndUpload($file);
+        $validationObject = $this->imageService->validateAndUpload($fileUpload);
 
-        if (empty($validationObject->getErrors())) {
-            $userId = (int) Session::get('id');
+        if ($validationObject->isValid()) {
+            $userId = Session::get('id');
 
-            $image = $this->imageService->findById($validationObject->getData());
-            $this->userService->linkUserToProfileImage($userId, $image);
+            $this->userService->linkUserToProfileImage($userId, $validationObject->getData());
 
             header('Location: /profile');
         } else {
