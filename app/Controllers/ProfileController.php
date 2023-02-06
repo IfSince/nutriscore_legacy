@@ -42,17 +42,22 @@ final class ProfileController extends AbstractController {
 
     protected function handlePostRequest(): void {
         $fileUpload = $this->request->getInput(InputType::FILE);
-
         $validationObject = $this->imageService->validateAndUpload($fileUpload);
 
+        $userId = Session::get('id');
         if ($validationObject->isValid()) {
-            $userId = Session::get('id');
 
             $this->userService->linkUserToProfileImage($userId, $validationObject->getData());
 
             header('Location: /profile');
         } else {
-            $this->view->render(self::PROFILE_TEMPLATE, ['errors' => $validationObject->getErrors()]);
+            $this->view->render(
+                self::PROFILE_TEMPLATE,
+                [
+                    'personData' => $this->privatePersonService->findByUserId($userId),
+                    'errors' => $validationObject->getErrors()
+                ]
+            );
         }
     }
 

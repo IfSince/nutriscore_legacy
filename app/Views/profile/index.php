@@ -31,7 +31,7 @@
           <span class="text-white/70 text-lg md:pt-2 sm:text-xl md:text-xl lg:text-2xl">27.10.2000</span>
         </div>
       </form>
-      <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+      <ul class="text-sm font-medium text-red-500 pl-2 pt-1 w-full">
         <?php renderErrors($errors ?? null, 'file');?>
       </ul>
 

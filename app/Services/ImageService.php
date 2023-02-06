@@ -48,7 +48,7 @@ class ImageService {
     }
 
     private function createDateCodedPath(): string {
-        return date('Y/m/d');
+        return str_replace('/', DIRECTORY_SEPARATOR, date('Y/m/d'));
     }
 
     private function createUniqueFilename(string $filename): string {
