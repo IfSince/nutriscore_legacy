@@ -37,8 +37,8 @@ class UserService {
             $privatePerson = $this->createPrivatePersonForCreation($formInput);
 
             $savedUser = $this->userMapper->save($privatePerson->getUser());
-
             $privatePerson->setUser($savedUser);
+
             $this->privatePersonService->save($privatePerson);
         }
         return $validator->getErrors();

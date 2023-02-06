@@ -25,10 +25,6 @@ final class RegisterController extends AbstractController {
     }
 
     protected function handleGetRequest(): void {
-        if (User::isLoggedIn()) {
-            $this->redirectTo('/overview');
-        }
-
         $this->view->render(self::REGISTER_TEMPLATE);
     }
 
