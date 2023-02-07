@@ -46,7 +46,15 @@ class FileService {
                     ['errors' => ['file' => 'Failed to upload file.']]
                 );
             } else {
-                $imageId = $this->fileMapper->create($relativePath . DIRECTORY_SEPARATOR . $fileName, $text, FileType::IMAGE);
+                $file = $this->fileMapper->create([
+                    'path' => $relativePath . DIRECTORY_SEPARATOR . $fileName,
+                    'text' => $text,
+                    'fileType' => FileType::IMAGE
+                ]);
+
+                $this->fileMapper->save($file);
+
+                $imageId = $file->getId();
             }
         }
 

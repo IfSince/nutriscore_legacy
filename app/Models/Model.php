@@ -5,9 +5,7 @@ namespace NutriScore\Models;
 abstract class Model {
     const NEW_ENTITY_ID = 0;
 
-    protected ?int $id;
-
-    abstract public static function from(array $data): mixed;
+    protected ?int $id = null;
 
     public function isNew(): bool {
         return $this->id === self::NEW_ENTITY_ID || $this->id === null;

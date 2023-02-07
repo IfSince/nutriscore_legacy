@@ -37,15 +37,17 @@ class UserService {
         $validator->validate();
 
         if ($validator->isValid()) {
-            $userToSave = User::from($formInput);
-            $savedUser = $this->userMapper->save($userToSave);
+            $user = $this->userMapper->create($formInput);
 
-            $this->privatePersonService->createAndSave($formInput, $savedUser);
+            $this->userMapper->save($user);
+
+            $this->privatePersonService->createAndSave($formInput, $user);
+
         }
         return $validator->getErrors();
     }
 
     public function linkUserToProfileImage(int $userId, int $imageId): void {
-       $this->userMapper->updateImage($userId, $imageId);
+        $this->userMapper->updateImage($userId, $imageId);
     }
 }

@@ -4,6 +4,7 @@ namespace NutriScore\DataMappers;
 
 use NutriScore\DataMapper;
 use NutriScore\Models\User\User;
+use NutriScore\Utils\ArrayUtil;
 
 class UserMapper extends DataMapper {
     private const RELATED_TABLE = 'users';
@@ -15,27 +16,29 @@ class UserMapper extends DataMapper {
 
     public function findByUsername(string $username): ?User {
         $sql = 'SELECT * FROM users u WHERE u.username = :username';
-        return $this->database->fetchClass($sql, self::RELATED_CLASS, ['username' => $username]);
+        $data = $this->database->fetch($sql, ['username' => $username]);
+
+        if ($data) {
+            return $this->create($data);
+        } else {
+            return null;
+        }
     }
 
     public function findByEmail(string $email): ?User {
         $sql = 'SELECT * FROM users u WHERE u.email = :email';
-        return $this->database->fetchClass($sql, self::RELATED_CLASS, ['email' => $email]);
-    }
+        $data =  $this->database->fetch($sql, ['email' => $email]);
 
-    public function save(User &$user): User {
-        if ($user->isNew()) {
-            $user->setId($this->create($user));
+        if ($data) {
+            return $this->create($data);
         } else {
-            $this->update($user);
+            return null;
         }
-
-        return $this->findById($user->getId());
     }
 
     public function updateImage(int $userId, int $imageId): void {
         $sql = 'UPDATE users u
-                   SET u.profile_image_file_id = :imageId
+                   SET u.profile_image_id = :imageId
                  WHERE u.id = :userId';
         $this->database->queryStatement($sql, [
             'userId' => $userId,
@@ -43,36 +46,87 @@ class UserMapper extends DataMapper {
         ]);
     }
 
-    private function create(User $user): int {
-        $sql = 'INSERT INTO users (username, email, password, user_type, start_date, profile_image_file_id)
-                    VALUES (:username, :email, :password, :userType, :startDate, :profileImageId)';
-
-        return $this->database->createAndReturnId($sql, [
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'password' => $user->createPasswordHash(),
-            'userType' =>  $user->getUserType()->value,
-            'startDate' => $user->getStartDate(),
-            'profileImageId' => $user->getProfileImageId(),
-        ]);
+    protected function _create(): User {
+        return new User();
     }
 
-    private function update(User $user): void {
+    protected function _insert(mixed $obj) {
+        $sql = 'INSERT INTO users (username, email, password, user_type, start_date, end_date, profile_image_id)
+                    VALUES(:username, :email, :password, :userType, :startDate, :endDate, :profileImageId)';
+        $this->database->queryStatement(
+            $sql,
+            [
+                'username' => $obj->getUsername(),
+                'email' => $obj->getEmail(),
+                'password' => $obj->getPasswordHashed(),
+                'userType' => $obj->getUserType()->value,
+                'startDate' => $obj->getStartDate(),
+                'endDate' => $obj->getEndDate(),
+                'profileImageId' => $obj->getProfileImageId(),
+            ]
+        );
+
+        $obj->setId($this->database->lastInsertId());
+    }
+
+    protected function _update(mixed $obj) {
         $sql = 'UPDATE users u
                    SET u.username = :username,
                        u.email = :email,
+                       u.password = :password,
+                       u.user_type = :userType,
                        u.start_date = :startDate,
                        u.end_date = :endDate,
-                       u.profile_image_file_id = :profileImageId
+                       u.profile_image_id = :profileImageId
                  WHERE u.id = :id';
+        $this->database->queryStatement(
+            $sql,
+            [
+                'username' => $obj->getUsername(),
+                'email' => $obj->getEmail(),
+                'password' => $obj->getPasswordHashed(),
+                'userType' => $obj->getUserType()->value,
+                'startDate' => $obj->getStartDate(),
+                'endDate' => $obj->getEndDate(),
+                'profileImageId' => $obj->getProfileImageId(),
+                'id' => $obj->getId()
+            ]
+        );
+    }
 
-        $this->database->queryStatement($sql, [
-            'id' => $user->getId(),
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'startDate' => $user->getStartDate(),
-            'endDate' => $user->getEndDate(),
-            'profileImageId' => $user->getProfileImageId(),
-        ]);
+    protected function _delete(mixed $obj) {
+        $sql = 'DELETE FROM users u WHERE u.id = :id';
+        $this->database->queryStatement($sql, ['id' => $obj->getId()]);
+    }
+
+    public function populate(mixed $obj, array $data): User {
+        ArrayUtil::snakeCaseToCamelCaseKeys($data);
+
+        if (isset($data['id'])) {
+            $obj->setId($data['id']);
+        }
+        if (isset($data['username'])) {
+            $obj->setUsername($data['username']);
+        }
+        if (isset($data['email'])) {
+            $obj->setEmail($data['email']);
+        }
+        if (isset($data['password'])) {
+            $obj->setPassword($data['password']);
+        }
+        if (isset($data['userType'])) {
+            $obj->setUserType($data['userType']);
+        }
+        if (isset($data['startDate'])) {
+            $obj->setStartDate($data['startDate']);
+        }
+        if (isset($data['endDate'])) {
+            $obj->setEndDate($data['endDate']);
+        }
+        if (isset($data['profileImageId'])) {
+            $obj->setProfileImageId($data['profileImageId']);
+        }
+
+        return $obj;
     }
 }

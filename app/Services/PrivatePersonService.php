@@ -18,18 +18,16 @@ class PrivatePersonService {
     }
 
     public function createAndSave(array $data, User $user): PrivatePerson {
-        $privatePerson = $this->createPrivatePersonForCreation($data, $user);
-        return $this->save($privatePerson);
-    }
+        $data['user_id'] = $user->getId();
 
-    public function save(PrivatePerson $privatePerson): PrivatePerson {
-        return $this->privatePersonMapper->save($privatePerson);
-    }
+        $privatePerson = $this->privatePersonMapper->create($data);
+        $this->privatePersonMapper->save($privatePerson);
 
-    private function createPrivatePersonForCreation(array $data, User $user): PrivatePerson {
-        $privatePerson = PrivatePerson::from($data);
-        $privatePerson->setUserId($user->getId());
         return $privatePerson;
     }
 
+    public function save(PrivatePerson $privatePerson): PrivatePerson {
+        $this->privatePersonMapper->save($privatePerson);
+        return $privatePerson;
+    }
 }

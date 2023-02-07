@@ -38,6 +38,7 @@ final class ProfileController extends AbstractController {
         $userId = Session::get('id');
 
         $personData = $this->privatePersonService->findByUserId($userId);
+
         $user = $this->userService->findById($userId);
 
         $profileImageId = $user->getProfileImageId();
