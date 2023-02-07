@@ -2,23 +2,16 @@
 
 namespace NutriScore\DataMappers;
 
-use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\File\File;
 use NutriScore\Models\File\FileType;
 
-class FileMapper implements DataMapper {
-    private Database $database;
+class FileMapper extends DataMapper {
+    private const RELATED_TABLE = 'files';
+    private const RELATED_CLASS = File::class;
 
     public function __construct() {
-        $this->database = new Database();
-    }
-
-    public function findById(int $id): File {
-        $sql = 'SELECT * FROM files WHERE id = :id';
-        $result = $this->database->fetch($sql, ['id' => $id]);
-
-        return $this->mapRowToImage($result);
+        parent::__construct(self::RELATED_TABLE, self::RELATED_CLASS);
     }
 
     public function create(string $path, string $text, FileType $fileType): int {
@@ -29,14 +22,5 @@ class FileMapper implements DataMapper {
             'text' => $text,
             'fileType' => $fileType->value,
         ]);
-    }
-
-    private function mapRowToImage(array $data): File {
-        return new File(
-            path: $data['path'],
-            text: $data['text'],
-            fileType: $data['file_type'],
-            id: $data['id'],
-        );
     }
 }

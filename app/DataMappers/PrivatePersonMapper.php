@@ -2,34 +2,20 @@
 
 namespace NutriScore\DataMappers;
 
-use NutriScore\Database;
 use NutriScore\DataMapper;
-use NutriScore\Models\PrivatePerson\ActivityLevel;
-use NutriScore\Models\PrivatePerson\BmrCalculationType;
-use NutriScore\Models\PrivatePerson\Gender;
-use NutriScore\Models\PrivatePerson\Goal;
-use NutriScore\Models\PrivatePerson\NutritionType;
 use NutriScore\Models\PrivatePerson\PrivatePerson;
 
-class PrivatePersonMapper implements DataMapper {
-    private Database $database;
+class PrivatePersonMapper extends DataMapper {
+    private const RELATED_TABLE = 'private_persons';
+    private const RELATED_CLASS = PrivatePerson::class;
 
     public function __construct() {
-        $this->database = new Database();
-    }
-
-    public function findById(int $id): PrivatePerson {
-        $sql = 'SELECT * FROM private_persons pp WHERE pp.id = :id';
-        $result = $this->database->fetch($sql, ['id' => $id]);
-
-        return $this->mapRowToPrivatePerson($result);
+        parent::__construct(self::RELATED_TABLE, self::RELATED_CLASS);
     }
 
     public function findByUserId(int $userId): PrivatePerson {
         $sql = 'SELECT * FROM private_persons pp  WHERE pp.user_id = :userId';
-        $result = $this->database->fetch($sql, ['userId' => $userId]);
-
-        return $this->mapRowToPrivatePerson($result);
+        return $this->database->fetchClass($sql, self::RELATED_CLASS, ['userId' => $userId]);
     }
 
     public function save(PrivatePerson $privatePerson): PrivatePerson {
@@ -110,22 +96,5 @@ class PrivatePersonMapper implements DataMapper {
             'goal' => $privatePerson->getGoal()->value,
             'accepted_tos' => $privatePerson->hasAcceptedTos(),
         ]);
-    }
-
-    private function mapRowToPrivatePerson(array $data): PrivatePerson {
-        return new PrivatePerson(
-            userId: $data['user_id'],
-            first_name: $data['first_name'],
-            surname: $data['surname'],
-            date_of_birth: $data['date_of_birth'],
-            height: $data['height'],
-            id: $data['id'],
-            gender: Gender::from($data['gender']),
-            nutrition_type: NutritionType::from($data['nutrition_type']),
-            bmr_calculation_type: BmrCalculationType::from($data['bmr_calculation_type']),
-            activity_level: ActivityLevel::from($data['activity_level']),
-            goal: Goal::from($data['goal']),
-            accepted_tos: $data['accepted_tos']
-        );
     }
 }

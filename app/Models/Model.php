@@ -2,23 +2,21 @@
 
 namespace NutriScore\Models;
 
-class Model {
+abstract class Model {
     const NEW_ENTITY_ID = 0;
 
-    protected int $id;
+    protected ?int $id;
+
+    abstract public static function from(array $data): mixed;
 
     public function isNew(): bool {
-        return $this->id === self::NEW_ENTITY_ID;
-    }
-
-    protected function mapEnumValue(mixed $enumClass, mixed $value): mixed {
-        return (gettype($value) === 'string') ? $enumClass::from($value) : $value;
+        return $this->id === self::NEW_ENTITY_ID || $this->id === null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int {
+    public function getId(): ?int {
         return $this->id;
     }
 

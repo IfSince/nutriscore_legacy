@@ -3,6 +3,9 @@
 namespace NutriScore\Models\PrivatePerson;
 
 use NutriScore\Models\Model;
+use NutriScore\Utils\ArrayUtil;
+use NutriScore\Utils\EnumUtil;
+use NutriScore\Utils\StringUtil;
 
 class PrivatePerson extends Model {
     private ?int $userId;
@@ -18,31 +21,54 @@ class PrivatePerson extends Model {
     private bool $acceptedTos;
 
     public function __construct(
-        ?int                      $userId,
-        string                    $first_name,
-        string                    $surname,
-        string                    $date_of_birth,
-        string                    $height,
-        ?string                   $id = null,
-        Gender|string             $gender = Gender::MALE,
-        NutritionType|string      $nutrition_type = NutritionType::NORMAL,
-        BmrCalculationType|string $bmr_calculation_type = BmrCalculationType::EASY,
-        ActivityLevel|string      $activity_level = ActivityLevel::NO_SPORTS,
-        Goal|string               $goal = Goal::KEEP,
-        bool|string               $accepted_tos = false
+        ?int               $id = null,
+        ?int               $userId = null,
+        string             $firstName,
+        string             $surname,
+        string             $dateOfBirth,
+        int                $height,
+        Gender             $gender,
+        NutritionType      $nutritionType,
+        BmrCalculationType $bmrCalculationType,
+        ActivityLevel      $activityLevel,
+        Goal               $goal,
+        bool               $acceptedTos = false
     ) {
-        $this->id = (int) $id;
+        $this->id = $id;
         $this->userId = $userId;
-        $this->firstName = $first_name;
+        $this->firstName = $firstName;
         $this->surname = $surname;
-        $this->dateOfBirth = $date_of_birth;
-        $this->height = (int) $height;
-        $this->gender = $this->mapEnumValue(Gender::class, $gender);
-        $this->nutritionType = $this->mapEnumValue(NutritionType::class, $nutrition_type);
-        $this->bmrCalculationType = $this->mapEnumValue(BmrCalculationType::class, $bmr_calculation_type);
-        $this->activityLevel = $this->mapEnumValue(ActivityLevel::class, $activity_level);
-        $this->goal = $this->mapEnumValue(Goal::class, $goal);
-        $this->acceptedTos = $accepted_tos || $accepted_tos === '0';
+        $this->dateOfBirth = $dateOfBirth;
+        $this->height = $height;
+        $this->gender = $gender;
+        $this->nutritionType = $nutritionType;
+        $this->bmrCalculationType = $bmrCalculationType;
+        $this->activityLevel = $activityLevel;
+        $this->goal = $goal;
+        $this->acceptedTos = $acceptedTos;
+    }
+
+    public static function from(array $data): ?PrivatePerson {
+        if ($data) {
+            $data = ArrayUtil::snakeCaseToCamelCaseKeys($data);
+
+            return new self(
+                $data['id'] ?? null,
+                $data['userId'] ?? null,
+                $data['firstName'],
+                $data['surname'],
+                $data['dateOfBirth'],
+                $data['height'],
+                EnumUtil::mapEnumValue(Gender::class, $data['gender']),
+                EnumUtil::mapEnumValue(NutritionType::class, $data['nutritionType']),
+                EnumUtil::mapEnumValue(BmrCalculationType::class, $data['bmrCalculationType']),
+                EnumUtil::mapEnumValue(ActivityLevel::class, $data['activityLevel']),
+                EnumUtil::mapEnumValue(Goal::class, $data['goal']),
+                $data['acceptedTos'],
+            );
+        } else {
+            return null;
+        }
     }
 
     /**

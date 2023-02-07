@@ -3,19 +3,47 @@
 namespace NutriScore\Models\File;
 
 use NutriScore\Models\Model;
+use NutriScore\Utils\ArrayUtil;
+use NutriScore\Utils\EnumUtil;
 
 class File extends Model {
+    private string $path;
+    private string $text;
     private FileType $fileType;
 
+    /**
+     * @param int|null $id
+     * @param string $path
+     * @param string $text
+     * @param FileType $fileType
+     */
     public function __construct(
-        private string $path,
-        private string $text,
-        FileType|string $fileType = FileType::IMAGE,
-        ?string $id = null,
+        ?int     $id,
+        string   $path,
+        string   $text,
+        FileType $fileType
     ) {
-        $this->id = (int) $id;
-        $this->fileType = $this->mapEnumValue(FileType::class, $fileType);
+        $this->id = $id;
+        $this->path = $path;
+        $this->text = $text;
+        $this->fileType = $fileType;
     }
+
+    public static function from(mixed $data): ?File {
+        if ($data) {
+            $data = ArrayUtil::snakeCaseToCamelCaseKeys($data);
+
+            return new self(
+                $data['id'] ?? null,
+                $data['path'],
+                $data['text'],
+                EnumUtil::mapEnumValue(FileType::class, $data['fileType'])
+            );
+        } else {
+            return null;
+        }
+    }
+
 
     /**
      * @return string

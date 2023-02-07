@@ -49,7 +49,8 @@ final class ProfileController extends AbstractController {
                 'personData' => $personData,
                 'user' => $user,
                 'profileImage' => $profileImage
-            ]);
+            ]
+        );
     }
 
     protected function handlePostRequest(): void {

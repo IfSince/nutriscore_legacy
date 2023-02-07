@@ -3,6 +3,8 @@
 namespace NutriScore\Models\User;
 
 use NutriScore\Models\Model;
+use NutriScore\Utils\ArrayUtil;
+use NutriScore\Utils\EnumUtil;
 use NutriScore\Utils\Session;
 
 class User extends Model {
@@ -15,23 +17,41 @@ class User extends Model {
     private ?int $profileImageId;
 
     public function __construct(
-        string          $username,
-        string          $email,
-        string          $password,
-        ?string         $id = null,
-        UserType|string $user_type = UserType::PRIVATE_PERSON,
-        ?string         $start_date = null,
-        ?string         $end_date = null,
-        ?int            $profileImageId = null,
+        ?int     $id = null,
+        string   $username,
+        string   $email,
+        string   $password,
+        UserType $userType,
+        string   $startDate,
+        ?string  $endDate = null,
+        ?int     $profileImageId = null
     ) {
-        $this->id = (int) $id;
+        $this->id = $id;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->userType = $this->mapEnumValue(UserType::class, $user_type);
-        $this->startDate = $start_date ?? date("Y-m-d H:i:s");
-        $this->endDate = $end_date;
+        $this->userType = $userType;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
         $this->profileImageId = $profileImageId;
+    }
+
+    public static function from(mixed $data): ?User {
+        if ($data) {
+            $data = ArrayUtil::snakeCaseToCamelCaseKeys($data);
+            return new self(
+                $data['id'] ?? null,
+                $data['username'],
+                $data['email'],
+                $data['password'],
+                EnumUtil::mapEnumValue(UserType::class, $data['userType'] ?? null) ?? UserType::PRIVATE_PERSON,
+                $data['startDate'] ?? date('Y/m/d'),
+                $data['endDate'] ?? null,
+                $data['profileImageFileId'] ?? $data['profileImageId'] ?? null,
+            );
+        } else {
+            return null;
+        }
     }
 
     public static function isLoggedIn(): bool {

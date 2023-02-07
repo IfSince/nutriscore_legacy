@@ -2,36 +2,25 @@
 
 namespace NutriScore\DataMappers;
 
-use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\User\User;
-use NutriScore\Models\User\UserType;
 
-class UserMapper implements DataMapper {
-    private Database $database;
+class UserMapper extends DataMapper {
+    private const RELATED_TABLE = 'users';
+    private const RELATED_CLASS = User::class;
 
     public function __construct() {
-        $this->database = new Database();
-    }
-
-    public function findById(int $id): User {
-        $sql = 'SELECT * FROM users u WHERE u.id = :id';
-        $result = $this->database->fetch($sql, ['id' => $id]);
-
-        return $this->mapRowToUser($result);
+        parent::__construct(self::RELATED_TABLE, self::RELATED_CLASS);
     }
 
     public function findByUsername(string $username): ?User {
         $sql = 'SELECT * FROM users u WHERE u.username = :username';
-        $result = $this->database->fetch($sql, ['username' => $username]);
-
-        return ($result) ? $this->mapRowToUser($result) : null;
+        return $this->database->fetchClass($sql, self::RELATED_CLASS, ['username' => $username]);
     }
 
     public function findByEmail(string $email): ?User {
         $sql = 'SELECT * FROM users u WHERE u.email = :email';
-        $result = $this->database->fetch($sql, ['email' => $email]);
-        return ($result) ? $this->mapRowToUser($result) : null;
+        return $this->database->fetchClass($sql, self::RELATED_CLASS, ['email' => $email]);
     }
 
     public function save(User &$user): User {
@@ -85,18 +74,5 @@ class UserMapper implements DataMapper {
             'endDate' => $user->getEndDate(),
             'profileImageId' => $user->getProfileImageId(),
         ]);
-    }
-
-    private function mapRowToUser(array $data): User {
-        return new User(
-            username: $data['username'],
-            email: $data['email'],
-            password: $data['password'],
-            id: $data['id'],
-            user_type: UserType::from($data['user_type']),
-            start_date: $data['start_date'],
-            end_date: $data['end_date'],
-            profileImageId: $data['profile_image_file_id'],
-        );
     }
 }
