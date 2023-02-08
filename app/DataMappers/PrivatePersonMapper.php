@@ -20,8 +20,8 @@ class PrivatePersonMapper extends DataMapper {
         return $this->load($sql, $params);
     }
 
-    protected function _create(): PrivatePerson {
-        return new PrivatePerson();
+    protected function _create(array $data = null): PrivatePerson {
+        return PrivatePerson::create($data);
     }
 
     protected function _insert(mixed $obj): void {

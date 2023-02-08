@@ -60,9 +60,7 @@ final class ProfileController extends AbstractController {
 
         $userId = Session::get('id');
         if ($validationObject->isValid()) {
-
             $this->userService->linkUserToProfileImage($userId, $validationObject->getData());
-
             header('Location: /profile');
         } else {
             $this->view->render(

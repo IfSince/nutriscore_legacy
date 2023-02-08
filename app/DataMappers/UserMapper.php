@@ -3,8 +3,8 @@
 namespace NutriScore\DataMappers;
 
 use NutriScore\DataMapper;
+use NutriScore\Models\Model;
 use NutriScore\Models\User\User;
-use NutriScore\Utils\ArrayUtil;
 
 
 class UserMapper extends DataMapper {
@@ -37,8 +37,8 @@ class UserMapper extends DataMapper {
         $this->database->prepareAndExecute($sql, $params);
     }
 
-    protected function _create(): User {
-        return new User();
+    protected function _create(array $data = null): Model {
+        return User::create($data);
     }
 
     protected function _insert(mixed $obj): void {
@@ -80,36 +80,5 @@ class UserMapper extends DataMapper {
         ];
 
         $this->database->prepareAndExecute($sql, $params);
-    }
-
-    protected function populate(mixed $obj, array $data): User {
-        ArrayUtil::snakeCaseToCamelCaseKeys($data);
-
-        if (isset($data['id'])) {
-            $obj->setId($data['id']);
-        }
-        if (isset($data['username'])) {
-            $obj->setUsername($data['username']);
-        }
-        if (isset($data['email'])) {
-            $obj->setEmail($data['email']);
-        }
-        if (isset($data['password'])) {
-            $obj->setPassword($data['password']);
-        }
-        if (isset($data['userType'])) {
-            $obj->setUserType($data['userType']);
-        }
-        if (isset($data['startDate'])) {
-            $obj->setStartDate($data['startDate']);
-        }
-        if (isset($data['endDate'])) {
-            $obj->setEndDate($data['endDate']);
-        }
-        if (isset($data['profileImageId'])) {
-            $obj->setProfileImageId($data['profileImageId']);
-        }
-
-        return $obj;
     }
 }

@@ -72,7 +72,7 @@ $errors = $data['errors'] ?? [];
               </label>
             </div>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'tos'); ?>
+              <?php renderErrors($errors, 'acceptedTos'); ?>
             </ul>
           </div>
         </div>

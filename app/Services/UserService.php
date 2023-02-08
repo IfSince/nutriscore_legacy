@@ -37,7 +37,7 @@ class UserService {
         $validator->validate();
 
         if ($validator->isValid()) {
-            $user = $this->userMapper->create($formInput);
+            $user = User::create($formInput);
 
             $this->userMapper->save($user);
             $this->privatePersonService->createAndSave($formInput, $user);

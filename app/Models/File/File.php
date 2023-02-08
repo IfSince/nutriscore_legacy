@@ -8,7 +8,16 @@ use NutriScore\Utils\EnumUtil;
 class File extends Model {
     private string $path;
     private string $text;
-    private FileType $fileType;
+    private FileType $fileType = FileType::IMAGE;
+
+    public static function create(array $data = null): File {
+        $obj = new File();
+
+        if ($data) {
+            $obj = File::populate($obj, $data);
+        }
+        return $obj;
+    }
 
     public function getPath(): string {
         return $this->path;
@@ -33,6 +42,4 @@ class File extends Model {
     public function setFileType(FileType|string $fileType): void {
         $this->fileType = EnumUtil::mapEnumValue(FileType::class, $fileType);
     }
-
-
 }

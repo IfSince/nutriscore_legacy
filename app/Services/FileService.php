@@ -46,11 +46,12 @@ class FileService {
                     ['errors' => ['file' => 'Failed to upload file.']]
                 );
             } else {
-                $file = $this->fileMapper->create([
+                $data = [
                     'path' => $relativePath . DIRECTORY_SEPARATOR . $fileName,
                     'text' => $text,
                     'fileType' => FileType::IMAGE
-                ]);
+                ];
+                $file = File::create($data);
 
                 $this->fileMapper->save($file);
 

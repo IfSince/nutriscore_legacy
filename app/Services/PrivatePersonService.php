@@ -20,9 +20,8 @@ class PrivatePersonService {
     public function createAndSave(array $data, User $user): PrivatePerson {
         $data['user_id'] = $user->getId();
 
-        $privatePerson = $this->privatePersonMapper->create($data);
-        $this->privatePersonMapper->save($privatePerson);
-
+        $privatePerson = PrivatePerson::create($data);
+        $this->save($privatePerson);
         return $privatePerson;
     }
 

@@ -13,8 +13,8 @@ class FileMapper extends DataMapper {
         parent::__construct(self::RELATED_TABLE);
     }
 
-    protected function _create(): File {
-        return new File();
+    protected function _create(array $data = null): File {
+        return File::create($data);
     }
 
     protected function _insert(mixed $obj): void {

@@ -19,6 +19,14 @@ class User extends Model {
         $this->startDate = date('Y/m/d');
     }
 
+    public static function create(array $data = null): User {
+        $obj = new User();
+        if ($data) {
+            $obj = User::populate($obj, $data);
+        }
+        return $obj;
+    }
+
     public static function isLoggedIn(): bool {
         return Session::exists('id');
     }

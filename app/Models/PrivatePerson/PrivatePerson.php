@@ -18,6 +18,14 @@ class PrivatePerson extends Model {
     private Goal $goal;
     private bool $acceptedTos;
 
+    public static function create(array $data = null): PrivatePerson {
+        $obj = new PrivatePerson();
+        if ($data) {
+            $obj = PrivatePerson::populate($obj, $data);
+        }
+        return $obj;
+    }
+
     public function getUserId(): ?int {
         return $this->userId;
     }
@@ -105,5 +113,4 @@ class PrivatePerson extends Model {
     public function setAcceptedTos(bool $acceptedTos): void {
         $this->acceptedTos = $acceptedTos;
     }
-
 }
