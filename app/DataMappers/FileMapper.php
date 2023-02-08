@@ -8,52 +8,38 @@ use NutriScore\Utils\ArrayUtil;
 
 class FileMapper extends DataMapper {
     private const RELATED_TABLE = 'files';
-    private const RELATED_CLASS = File::class;
 
     public function __construct() {
-        parent::__construct(self::RELATED_TABLE, self::RELATED_CLASS);
+        parent::__construct(self::RELATED_TABLE);
     }
 
     protected function _create(): File {
         return new File();
     }
 
-    protected function _insert(mixed $obj) {
+    protected function _insert(mixed $obj): void {
         $sql = 'INSERT INTO files (path, text, file_type)
                     VALUES(:path, :text, :fileType)';
-        $this->database->queryStatement(
-            $sql,
-            [
-                'path' => $obj->getPath(),
-                'text' => $obj->getText(),
-                'fileType' => $obj->getFileType()->value,
-            ]
-        );
+        $params = [
+            'path' => $obj->getPath(),
+            'text' => $obj->getText(),
+            'fileType' => $obj->getFileType()->value,
+        ];
 
+        $this->database->prepareAndExecute($sql, $params);
         $obj->setId($this->database->lastInsertId());
     }
 
-    protected function _update(mixed $obj) {
+    protected function _update(mixed $obj): void {
         $sql = 'UPDATE files f SET f.path = :path, f.text = :text, f.file_type = :fileType WHERE f.id = :id';
-        $this->database->queryStatement(
-            $sql,
-            [
-                'path' => $obj->getPath(),
-                'text' => $obj->getText(),
-                'fileType' => $obj->getFileType()->value,
-                'id' => $obj->getId()
-            ]
-        );
-    }
-
-    protected function _delete(mixed $obj) {
-        $sql = 'DELETE FROM files f WHERE f.id = :id';
-        $this->database->queryStatement(
-            $sql,
-            [
-                'id' => $obj->getId()
-            ]
-        );
+        $params = [
+            'path' => $obj->getPath(),
+            'text' => $obj->getText(),
+            'fileType' => $obj->getFileType()->value,
+            'id' => $obj->getId()
+        ];
+        
+        $this->database->prepareAndExecute($sql, $params);
     }
 
     public function populate(mixed $obj, array $data): File {

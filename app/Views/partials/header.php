@@ -1,5 +1,5 @@
 <?php
-$active = $data['active'] ?? 'overview';
+$active = $active ?? 'overview';
 
 function renderActive(string $link, string $active): void {
   if ($link === $active) {

@@ -8,24 +8,23 @@ use NutriScore\Utils\ArrayUtil;
 
 class PrivatePersonMapper extends DataMapper {
     private const RELATED_TABLE = 'private_persons';
-    private const RELATED_CLASS = PrivatePerson::class;
 
     public function __construct() {
-        parent::__construct(self::RELATED_TABLE, self::RELATED_CLASS);
+        parent::__construct(self::RELATED_TABLE);
     }
 
-    public function findByUserId(int $userId): PrivatePerson {
+    public function findByUserId(int $userId): ?PrivatePerson {
         $sql = 'SELECT * FROM private_persons pp WHERE pp.user_id = :userId';
-        $data = $this->database->fetch($sql, ['userId' => $userId]);
+        $params = ['userId' => $userId];
 
-        return $this->create($data);
+        return $this->load($sql, $params);
     }
 
     protected function _create(): PrivatePerson {
         return new PrivatePerson();
     }
 
-    protected function _insert(mixed $obj) {
+    protected function _insert(mixed $obj): void {
         $sql = 'INSERT INTO private_persons (
                              user_id,
                              first_name,
@@ -52,28 +51,25 @@ class PrivatePersonMapper extends DataMapper {
                            :goal,
                            :acceptedTos
                            )';
+        $params = [
+            'userId' => $obj->getUserId(),
+            'firstName' => $obj->getFirstName(),
+            'surname' => $obj->getSurname(),
+            'dateOfBirth' => $obj->getDateOfBirth(),
+            'height' => $obj->getHeight(),
+            'gender' => $obj->getGender()->value,
+            'nutritionType' => $obj->getNutritionType()->value,
+            'bmrCalculationType' => $obj->getBmrCalculationType()->value,
+            'activityLevel' => $obj->getActivityLevel()->value,
+            'goal' => $obj->getGoal()->value,
+            'acceptedTos' => $obj->hasAcceptedTos()
+        ];
 
-        $this->database->queryStatement(
-            $sql,
-            [
-                'userId' => $obj->getUserId(),
-                'firstName' => $obj->getFirstName(),
-                'surname' => $obj->getSurname(),
-                'dateOfBirth' => $obj->getDateOfBirth(),
-                'height' => $obj->getHeight(),
-                'gender' => $obj->getGender()->value,
-                'nutritionType' => $obj->getNutritionType()->value,
-                'bmrCalculationType' => $obj->getBmrCalculationType()->value,
-                'activityLevel' => $obj->getActivityLevel()->value,
-                'goal' => $obj->getGoal()->value,
-                'acceptedTos' => $obj->hasAcceptedTos()
-            ]
-        );
-
+        $this->database->prepareAndExecute($sql, $params);
         $obj->setId($this->database->lastInsertId());
     }
 
-    protected function _update(mixed $obj) {
+    protected function _update(mixed $obj): void {
         $sql = 'UPDATE private_persons pp
                    SET pp.user_id = :userId,
                        pp.first_name = :firstName,
@@ -88,31 +84,25 @@ class PrivatePersonMapper extends DataMapper {
                        pp.accepted_tos = :acceptedTos
                  WHERE pp.id = :id
                        ';
-        $this->database->queryStatement(
-            $sql,
-            [
-                'userId' => $obj->getUserId(),
-                'firstName' => $obj->getFirstName(),
-                'surname' => $obj->getSurname(),
-                'dateOfBirth' => $obj->getDateOfBirth(),
-                'height' => $obj->getHeight(),
-                'gender' => $obj->getGender()->value,
-                'nutritionType' => $obj->getNutritionType()->value,
-                'bmrCalculationType' => $obj->getBmrCalculationType()->value,
-                'activityLevel' => $obj->getActivityLevel()->value,
-                'goal' => $obj->getGoal()->value,
-                'acceptedTos' => $obj->hasAcceptedTos(),
-                'id' => $obj->getId()
-            ]
-        );
+        $params = [
+            'userId' => $obj->getUserId(),
+            'firstName' => $obj->getFirstName(),
+            'surname' => $obj->getSurname(),
+            'dateOfBirth' => $obj->getDateOfBirth(),
+            'height' => $obj->getHeight(),
+            'gender' => $obj->getGender()->value,
+            'nutritionType' => $obj->getNutritionType()->value,
+            'bmrCalculationType' => $obj->getBmrCalculationType()->value,
+            'activityLevel' => $obj->getActivityLevel()->value,
+            'goal' => $obj->getGoal()->value,
+            'acceptedTos' => $obj->hasAcceptedTos(),
+            'id' => $obj->getId()
+        ];
+
+        $this->database->prepareAndExecute($sql, $params);
     }
 
-    protected function _delete(mixed $obj) {
-        $sql = 'DELETE FROM private_persons pp WHERE pp.id = :id';
-        $this->database->queryStatement($sql, ['id' => $obj->getId()]);
-    }
-
-    public function populate(mixed $obj, array $data) {
+    public function populate(mixed $obj, array $data): PrivatePerson {
         ArrayUtil::snakeCaseToCamelCaseKeys($data);
 
         if (isset($data['id'])) {

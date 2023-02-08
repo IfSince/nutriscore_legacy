@@ -1,12 +1,12 @@
 <?php
-if(isset($data['title'])) {
-  $title = ucfirst($data['title']);
+if(isset($title)) {
+  $title = ucfirst($title);
   $title = "NutriScore - $title";
 } else {
   $title = 'NutriScore';
 }
 
-$module = $data['module'] ?? null;
+$module = $module ?? null;
 if (isset($module)) {
   $directory = substr($module, 0, strrpos($module, '/'));
   $directory = (!empty($directory)) ? $directory : $module;

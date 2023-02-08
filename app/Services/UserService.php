@@ -40,7 +40,6 @@ class UserService {
             $user = $this->userMapper->create($formInput);
 
             $this->userMapper->save($user);
-
             $this->privatePersonService->createAndSave($formInput, $user);
 
         }

@@ -1,5 +1,6 @@
 <?php
 function getTemplatePart(string $name, ?array $data = []): void {
+    extract($data);
     require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR ."$name.php";
 }
 
