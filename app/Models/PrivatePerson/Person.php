@@ -1,11 +1,11 @@
 <?php
 
-namespace NutriScore\Models\PrivatePerson;
+namespace NutriScore\Models\Person;
 
 use NutriScore\Models\Model;
 use NutriScore\Utils\EnumUtil;
 
-class PrivatePerson extends Model {
+class Person extends Model {
     private ?int $userId = null;
     private string $firstName;
     private string $surname;
@@ -18,10 +18,10 @@ class PrivatePerson extends Model {
     private Goal $goal;
     private bool $acceptedTos;
 
-    public static function create(array $data = null): PrivatePerson {
-        $obj = new PrivatePerson();
+    public static function create(array $data = null): Person {
+        $obj = new Person();
         if ($data) {
-            $obj = PrivatePerson::populate($obj, $data);
+            $obj = Person::populate($obj, $data);
         }
         return $obj;
     }

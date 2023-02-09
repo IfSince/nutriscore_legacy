@@ -6,7 +6,7 @@ use NutriScore\Models\Model;
 
 abstract class DataMapper {
     protected Database $database;
-    private string $table;
+    private readonly string $table;
 
     public function __construct(string $table) {
         $this->table = $table;

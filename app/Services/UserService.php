@@ -10,11 +10,11 @@ use NutriScore\Validators\RegisterFormValidator;
 
 class UserService {
     private UserMapper $userMapper;
-    private PrivatePersonService $privatePersonService;
+    private PersonService $personService;
 
     public function __construct() {
         $this->userMapper = new UserMapper();
-        $this->privatePersonService = new PrivatePersonService();
+        $this->personService = new PersonService();
     }
 
     public function findById(int $id): User {
@@ -40,7 +40,7 @@ class UserService {
             $user = User::create($formInput);
 
             $this->userMapper->save($user);
-            $this->privatePersonService->createAndSave($formInput, $user);
+            $this->personService->createAndSave($formInput, $user);
 
         }
         return $validator->getErrors();

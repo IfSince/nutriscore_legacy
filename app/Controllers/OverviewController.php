@@ -5,17 +5,17 @@ namespace NutriScore\Controllers;
 use NutriScore\AbstractController;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
-use NutriScore\Services\PrivatePersonService;
+use NutriScore\Services\PersonService;
 use NutriScore\Utils\Session;
 
 final class OverviewController extends AbstractController {
     private const OVERVIEW_TEMPLATE = 'overview/index';
 
-    private PrivatePersonService $privatePersonService;
+    private PersonService $personService;
 
     public function __construct(Request $request) {
         parent::__construct($request);
-        $this->privatePersonService = new PrivatePersonService();
+        $this->personService = new PersonService();
     }
 
     protected function beforeHook(): void {
@@ -25,7 +25,7 @@ final class OverviewController extends AbstractController {
     }
 
     protected function handleGetRequest(): void {
-        $personData = $this->privatePersonService->findByUserId(Session::get('id'));
+        $personData = $this->personService->findByUserId(Session::get('id'));
         $this->view->render(self::OVERVIEW_TEMPLATE, ['personData' => $personData]);
     }
 }

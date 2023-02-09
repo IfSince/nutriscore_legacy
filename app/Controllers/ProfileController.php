@@ -7,7 +7,7 @@ use NutriScore\InputType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\FileService;
-use NutriScore\Services\PrivatePersonService;
+use NutriScore\Services\PersonService;
 use NutriScore\Services\UserService;
 use NutriScore\Utils\Session;
 
@@ -18,13 +18,13 @@ final class ProfileController extends AbstractController {
     private const NUTRITIONAL_DATA_TEMPLATE = 'profile/nutritional-data';
 
     private UserService $userService;
-    private PrivatePersonService $privatePersonService;
+    private PersonService $personService;
     private FileService $imageService;
 
     public function __construct(Request $request) {
         parent::__construct($request);
         $this->userService = new UserService();
-        $this->privatePersonService = new PrivatePersonService();
+        $this->personService = new PersonService();
         $this->imageService = new FileService();
     }
 
@@ -37,7 +37,7 @@ final class ProfileController extends AbstractController {
     protected function handleGetRequest(): void {
         $userId = Session::get('id');
 
-        $personData = $this->privatePersonService->findByUserId($userId);
+        $personData = $this->personService->findByUserId($userId);
 
         $user = $this->userService->findById($userId);
 
@@ -66,7 +66,7 @@ final class ProfileController extends AbstractController {
             $this->view->render(
                 self::PROFILE_TEMPLATE,
                 [
-                    'personData' => $this->privatePersonService->findByUserId($userId),
+                    'personData' => $this->personService->findByUserId($userId),
                     'user' => $this->userService->findById($userId),
                     'errors' => $validationObject->getErrors()
                 ]

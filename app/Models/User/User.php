@@ -10,7 +10,7 @@ class User extends Model {
     private string $username;
     private string $email;
     private string $password;
-    private UserType $userType = UserType::PRIVATE_PERSON;
+    private UserType $userType = UserType::PERSON;
     private string $startDate;
     private ?string $endDate = null;
     private ?int $profileImageId = null;

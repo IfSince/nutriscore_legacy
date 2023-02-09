@@ -1,6 +1,6 @@
 <?php
 
-namespace NutriScore\Models\PrivatePerson;
+namespace NutriScore\Models\Person;
 
 enum ActivityLevel: string {
     case NO_SPORTS = 'NO_SPORTS';

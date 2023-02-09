@@ -4,7 +4,6 @@ namespace NutriScore\DataMappers;
 
 use NutriScore\DataMapper;
 use NutriScore\Models\File\File;
-use NutriScore\Utils\ArrayUtil;
 
 class FileMapper extends DataMapper {
     private const RELATED_TABLE = 'files';
@@ -40,24 +39,5 @@ class FileMapper extends DataMapper {
         ];
         
         $this->database->prepareAndExecute($sql, $params);
-    }
-
-    public function populate(mixed $obj, array $data): File {
-        ArrayUtil::snakeCaseToCamelCaseKeys($data);
-
-        if (isset($data['id'])) {
-            $obj->setId($data['id']);
-        }
-        if (isset($data['path'])) {
-            $obj->setPath($data['path']);
-        }
-        if (isset($data['text'])) {
-            $obj->setText($data['text']);
-        }
-        if (isset($data['fileType'])) {
-            $obj->setFileType($data['fileType']);
-        }
-
-        return $obj;
     }
 }
