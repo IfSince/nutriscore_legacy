@@ -9,7 +9,7 @@ use NutriScore\Utils\Session;
 final class DiaryController extends AbstractController {
     private const DIARY_TEMPLATE = 'diary/index';
 
-    protected function beforeHook(): void {
+    protected function beforeHandling(): void {
         if (!User::isLoggedIn()) {
             $this->redirectTo('/login');
         }

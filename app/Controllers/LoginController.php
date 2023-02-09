@@ -19,7 +19,7 @@ final class LoginController extends AbstractController {
         $this->userService = new UserService();
     }
 
-    protected function beforeHook(): void {
+    protected function beforeHandling(): void {
         if (User::isLoggedIn()) {
             $this->redirectTo('/overview');
         }

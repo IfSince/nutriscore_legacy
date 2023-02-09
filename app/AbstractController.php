@@ -15,7 +15,7 @@ abstract class AbstractController {
     }
 
     public function index(): void {
-        $this->beforeHook();
+        $this->beforeHandling();
         match($this->request->getMethod()) {
             self::GET_METHOD => $this->handleGetRequest(),
             self::POST_METHOD => $this->handlePostRequest(),
@@ -38,9 +38,8 @@ abstract class AbstractController {
     }
 
     /**
-     * Function that can be implemented
-     * Used for login that should be executed before anything else
+     * Function that can be implemented for logic that should be executed before anything else
      * @return void
      */
-    protected function beforeHook(): void {}
+    protected function beforeHandling(): void {}
 }

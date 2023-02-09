@@ -18,7 +18,7 @@ final class OverviewController extends AbstractController {
         $this->personService = new PersonService();
     }
 
-    protected function beforeHook(): void {
+    protected function beforeHandling(): void {
         if (!User::isLoggedIn()) {
             $this->redirectTo('/login');
         }

@@ -28,7 +28,7 @@ final class ProfileController extends AbstractController {
         $this->imageService = new FileService();
     }
 
-    protected function beforeHook(): void {
+    protected function beforeHandling(): void {
         if (!User::isLoggedIn()) {
             $this->redirectTo('/login');
         }
@@ -75,17 +75,17 @@ final class ProfileController extends AbstractController {
     }
 
     public function accountData(): void {
-        $this->beforeHook();
+        $this->beforeHandling();
         $this->view->render(self::ACCOUNT_DATA_TEMPLATE);
     }
 
     public function personalData(): void {
-        $this->beforeHook();
+        $this->beforeHandling();
         $this->view->render(self::PERSONAL_DATA_TEMPLATE);
     }
 
     public function nutritionalData(): void {
-        $this->beforeHook();
+        $this->beforeHandling();
         $this->view->render(self::NUTRITIONAL_DATA_TEMPLATE);
     }
 }
