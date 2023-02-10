@@ -16,14 +16,17 @@
   </section>
 
   <?php getTemplatePart('date-selector');?>
-
+  <?php if(!empty($errors['root'])): ?>
+  <div class="w-full pb-2 pt-4 md:px-4 bg-gray-100">
+    <?php getTemplatePart('global-messages', ['messages' => $errors['root']]);?>
+  </div>
+  <?php endif;?>
   <section class="w-full bg-gray-100 flex flex-col lg:flex-row pb-24">
-    <div class="md:px-10 lg:pl-20 py-8 md:py-10 flex flex-col lg:flex-row lg:flex-wrap flex-grow basis-4/6 h-fit">
-
+    <div class="py-4 md:px-4 flex flex-col lg:flex-row lg:flex-wrap flex-grow basis-4/6 h-fit">
       <div class="w-full flex flex-col 2xl:flex-row gap-8 pb-8">
-        <div class="bg-white rounded-md px-2 py-4 shadow-border flex-grow basis-1/2 min-w-[300px]">
+        <div class="bg-white md:rounded-md px-2 py-4 shadow-border flex-grow basis-1/2 min-w-[300px]">
           <div class="border-b border-b-gray-200 pb-3 px-2">
-            <h3 class="text-xl lg:text-2xl text-gray-800">Breakfast</h3>
+            <h3 class="text-xl md:text-2xl text-gray-800">Breakfast</h3>
           </div>
           <div class="pt-2 flex flex-col gap-1">
             <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
@@ -59,9 +62,9 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-md px-2 py-4 shadow-border flex-grow basis-1/2 min-w-[300px]">
+        <div class="bg-white md:rounded-md px-2 py-4 shadow-border flex-grow basis-1/2 min-w-[300px]">
           <div class="border-b border-b-gray-200 pb-3 px-2">
-            <h3 class="text-xl lg:text-2xl text-gray-800">Lunch</h3>
+            <h3 class="text-xl md:text-2xl text-gray-800">Lunch</h3>
           </div>
           <div class="pt-2 flex flex-col gap-1">
             <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
@@ -90,9 +93,9 @@
 
 
       <div class="w-full flex flex-col 2xl:flex-row gap-8">
-        <div class="bg-white rounded-md px-2 py-4 shadow-border lg:basis-1/2 min-w-[300px]">
+        <div class="bg-white md:rounded-md px-2 py-4 shadow-border lg:basis-1/2 min-w-[300px]">
           <div class="border-b border-b-gray-200 pb-3 px-2">
-            <h3 class="text-xl lg:text-2xl text-gray-800">Dinner</h3>
+            <h3 class="text-xl md:text-2xl text-gray-800">Dinner</h3>
           </div>
           <div class="pt-2 flex flex-col gap-1">
             <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
@@ -118,9 +121,9 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-md px-2 py-4 shadow-border lg:basis-1/2 min-w-[300px]">
+        <div class="bg-white md:rounded-md px-2 py-4 shadow-border lg:basis-1/2 min-w-[300px]">
           <div class="border-b border-b-gray-200 pb-3 px-2">
-            <h3 class="text-xl lg:text-2xl text-gray-800">Snacks</h3>
+            <h3 class="text-xl md:text-2xl text-gray-800">Snacks</h3>
           </div>
           <div class="pt-2 flex flex-col gap-1">
             <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
@@ -146,14 +149,12 @@
           </div>
         </div>
       </div>
-
-
     </div>
 
-    <div class="md:px-10 lg:pr-20 lg:py-10 flex flex-col gap-6 h-fit flex-grow basis-2/6">
-      <div class="bg-white rounded-md px-2 pt-4 pb-8 shadow-border flex-grow min-w-[250px]">
+    <div class="py-4 md:px-4 mt-8 md:mt-12 lg:mt-0 flex flex-col gap-6 h-fit flex-grow basis-1/6">
+      <div class="bg-white md:rounded-md px-2 pt-4 pb-8 shadow-border flex-grow min-w-[250px]">
         <div class="border-b border-b-gray-200 pb-3 px-2">
-          <h3 class="text-xl lg:text-2xl text-gray-800">Macros</h3>
+          <h3 class="text-xl md:text-2xl text-gray-800">Macros</h3>
         </div>
         <div class="pt-2 px-4 flex flex-col gap-2">
           <div class="pt-2 flex flex-col">
@@ -189,9 +190,9 @@
         </div>
       </div>
 
-      <div class="bg-white rounded-md px-2 pt-4 pb-8 shadow-border flex-grow min-w-[250px]">
+      <div class="bg-white md:rounded-md px-2 pt-4 pb-8 shadow-border flex-grow min-w-[250px]">
         <div class="border-b border-b-gray-200 pb-3 px-2">
-          <h3 class="text-xl lg:text-2xl text-gray-800">Vitamins</h3>
+          <h3 class="text-xl md:text-2xl text-gray-800">Vitamins</h3>
         </div>
         <div class="pt-2 px-4 flex flex-col gap-2">
           <div class="flex w-full gap-6">
@@ -213,7 +214,7 @@
         </div>
       </div>
 
-      <div class="bg-white rounded-md px-2 pt-4 pb-8 shadow-border flex-grow min-w-[250px]">
+      <div class="bg-white md:rounded-md px-2 pt-4 pb-8 shadow-border flex-grow min-w-[250px]">
         <div class="border-b border-b-gray-200 pb-3 px-2">
           <h3 class="text-2xl text-gray-800">Minerals</h3>
         </div>

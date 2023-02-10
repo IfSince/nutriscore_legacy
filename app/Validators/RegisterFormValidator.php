@@ -21,7 +21,7 @@ class RegisterFormValidator extends FormValidator {
             'gender' => 'required',
             'dateOfBirth' => 'required',
             'height' => 'required',
-            'startingWeight' => 'required',
+            'weight' => 'required',
             'nutritionType' => 'required',
             'bmrCalculationType' => 'required',
             'activityLevel' => 'required',

@@ -81,8 +81,7 @@ class PersonMapper extends DataMapper {
                        pp.activity_level = :activityLevel,
                        pp.goal = :goal,
                        pp.accepted_tos = :acceptedTos
-                 WHERE pp.id = :id
-                       ';
+                 WHERE pp.id = :id';
         $params = [
             'userId' => $obj->getUserId(),
             'firstName' => $obj->getFirstName(),

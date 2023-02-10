@@ -11,10 +11,12 @@ use NutriScore\Validators\RegisterFormValidator;
 class UserService {
     private UserMapper $userMapper;
     private PersonService $personService;
+    private WeightRecordingService $weightRecordingService;
 
     public function __construct() {
         $this->userMapper = new UserMapper();
         $this->personService = new PersonService();
+        $this->weightRecordingService = new WeightRecordingService();
     }
 
     public function findById(int $id): User {
@@ -38,10 +40,11 @@ class UserService {
 
         if ($validator->isValid()) {
             $user = User::create($formInput);
-
             $this->userMapper->save($user);
-            $this->personService->createAndSave($formInput, $user);
+            $formInput['user_id'] = $user->getId();
 
+            $this->personService->createAndSave($formInput);
+            $this->weightRecordingService->createAndSave($formInput);
         }
         return $validator->getErrors();
     }

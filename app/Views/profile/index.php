@@ -4,7 +4,6 @@
 <div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
   <section class="px-6 md:px-10 lg:px-20 pt-6 pb-3 md:pb-6 lg:py-10 bg-gradient-to-b from-gray-600 to-gray-800 relative">
     <div class="lg:mt-16 flex flex-col md:flex-row flex-wrap gap-x-28">
-
       <form class="flex pb-3" method="post" enctype="multipart/form-data" id="profileForm">
         <div class="flex flex-col relative">
           <label for="upload"
@@ -32,7 +31,7 @@
         </div>
       </form>
       <ul class="text-sm font-medium text-red-500 pl-2 pt-1 w-full">
-        <?php renderErrors($errors ?? null, 'file');?>
+        <?php renderFieldErrors($errors ?? null, 'file');?>
       </ul>
 
       <div class="flex flex-col mt-4 w-full lg:max-w-xl">
@@ -63,7 +62,12 @@
   </section>
 
   <section class="w-full bg-gray-100 pb-10">
-    <div class="sm:px-6 md:px-10 lg:px-20 py-8 md:py-10">
+    <?php if(!empty($errors['root'])): ?>
+      <div class="w-full pb-2 pt-4 md:px-4 bg-gray-100">
+        <?php getTemplatePart('global-messages', ['messages' => $errors['root']]);?>
+      </div>
+    <?php endif;?>
+    <div class="py-4 md:px-4 ">
       <h3 class="px-6 md:pl-2 sm:text-2xl md:text-3xl font-medium sm:font-bold tracking-wide sm:tracking-tight
                  text-gray-400 sm:text-gray-700">
         My Account Data

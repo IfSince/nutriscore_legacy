@@ -24,7 +24,7 @@ class LoginFormValidator extends FormValidator {
         $passwordVerify = password_verify($this->formInput['password'], $user?->getPassword());
 
         if ($user === null || !$passwordVerify) {
-            $this->errors['general'][] = 'Username or password incorrect.';
+            $this->errors['root'][] = 'Username or password incorrect.';
         }
     }
 }

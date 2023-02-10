@@ -23,7 +23,7 @@ const personalQuestStep = new QuestStep(
         new FormField('dateOfBirth', []),
         new FormField('height', []),
         new FormField('gender', []),
-        new FormField('startingWeight', []),
+        new FormField('weight', []),
 
     ],
     document.querySelector('[data-quest-step="personal"]'),

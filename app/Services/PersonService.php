@@ -4,7 +4,6 @@ namespace NutriScore\Services;
 
 use NutriScore\DataMappers\PersonMapper;
 use NutriScore\Models\Person\Person;
-use NutriScore\Models\User\User;
 
 class PersonService {
     private PersonMapper $personMapper;
@@ -17,9 +16,7 @@ class PersonService {
         return $this->personMapper->findByUserId($userId);
     }
 
-    public function createAndSave(array $data, User $user): Person {
-        $data['user_id'] = $user->getId();
-
+    public function createAndSave(array $data): Person {
         $person = Person::create($data);
         $this->save($person);
         return $person;

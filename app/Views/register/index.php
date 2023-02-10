@@ -1,4 +1,5 @@
 <?php
+
 $errors = $data['errors'] ?? [];
 ?>
 <!DOCTYPE html>
@@ -33,28 +34,28 @@ $errors = $data['errors'] ?? [];
             <label class="default-input__label" for="username">Username</label>
             <input class="default-input" type="text" name="username" id="username" <?php renderValue('username');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'username'); ?>
+              <?php renderFieldErrors($errors, 'username'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="email">E-Mail</label>
             <input class="default-input" type="text" name="email" id="email" <?php renderValue('email');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'email'); ?>
+              <?php renderFieldErrors($errors, 'email'); ?>
             </ul>
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="password">Password</label>
             <input class="default-input" type="password" name="password" id="password" <?php renderValue('password');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'password'); ?>
+              <?php renderFieldErrors($errors, 'password'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="repeatPassword">Repeat password</label>
             <input class="default-input" type="password" name="repeatPassword" id="repeatPassword" <?php renderValue('repeatPassword');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'repeatPassword'); ?>
+              <?php renderFieldErrors($errors, 'repeatPassword'); ?>
             </ul>
           </div>
           <div class="w-full mt-8 ml-2">
@@ -72,7 +73,7 @@ $errors = $data['errors'] ?? [];
               </label>
             </div>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'acceptedTos'); ?>
+              <?php renderFieldErrors($errors, 'acceptedTos'); ?>
             </ul>
           </div>
         </div>
@@ -82,14 +83,14 @@ $errors = $data['errors'] ?? [];
             <label class="default-input__label" for="firstName">First name</label>
             <input class="default-input" type="text" name="firstName" id="firstName" <?php renderValue('firstName');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'firstName'); ?>
+              <?php renderFieldErrors($errors, 'firstName'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="surname">Surname</label>
             <input class="default-input" type="text" name="surname" id="surname" <?php renderValue('surname');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'surname'); ?>
+              <?php renderFieldErrors($errors, 'surname'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
@@ -127,28 +128,28 @@ $errors = $data['errors'] ?? [];
               </div>
             </div>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'gender'); ?>
+              <?php renderFieldErrors($errors, 'gender'); ?>
             </ul>
           </div>
           <div class="w-full mt-6">
             <label class="default-input__label" for="dateOfBirth">Date of Birth</label>
             <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" <?php renderValue('dateOfBirth');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'dateOfBirth'); ?>
+              <?php renderFieldErrors($errors, 'dateOfBirth'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="height">Height (in cm)</label>
             <input class="default-input" type="number" name="height" id="height" <?php renderValue('height');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'height'); ?>
+              <?php renderFieldErrors($errors, 'height'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
-            <label class="default-input__label" for="startingWeight">Starting weight (in kg)</label>
-            <input class="default-input" type="number" name="startingWeight" id="startingWeight" <?php renderValue('startingWeight');?>>
+            <label class="default-input__label" for="weight">Starting weight (in kg)</label>
+            <input class="default-input" type="number" name="weight" id="weight" <?php renderValue('weight');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'startingWeight'); ?>
+              <?php renderFieldErrors($errors, 'weight'); ?>
             </ul>
           </div>
         </div>
@@ -167,28 +168,28 @@ $errors = $data['errors'] ?? [];
               <option value="MANUALLY" <?php renderSelectedByValue('nutritionType', 'MANUALLY');?>>Manually</option>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'nutritionType'); ?>
+              <?php renderFieldErrors($errors, 'nutritionType'); ?>
             </ul>
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="protein">Protein</label>
             <input class="default-input" type="number" name="protein" id="protein" <?php renderValue('protein');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'protein'); ?>
+              <?php renderFieldErrors($errors, 'protein'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="carbohydrates">Carbohydrates</label>
             <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderValue('carbohydrates');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'carbohydrates'); ?>
+              <?php renderFieldErrors($errors, 'carbohydrates'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="fat">Fat</label>
             <input class="default-input" type="number" name="fat" id="fat" <?php renderValue('fat');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'fat'); ?>
+              <?php renderFieldErrors($errors, 'fat'); ?>
             </ul>
           </div>
         </div>
@@ -203,7 +204,7 @@ $errors = $data['errors'] ?? [];
               <option value="MIFFLIN_ST_JEOR" <?php renderSelectedByValue('bmrCalculationType', 'MIFFLIN_ST_JEOR');?>>BMR (Mifflin-St. Jeor)</option>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'bmrCalculationType'); ?>
+              <?php renderFieldErrors($errors, 'bmrCalculationType'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
@@ -220,14 +221,14 @@ $errors = $data['errors'] ?? [];
               <option value="PAL_FACTOR" <?php renderSelectedByValue('activityLevel', 'PAL_FACTOR');?>>PAL Factor</option>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'activityLevel'); ?>
+              <?php renderFieldErrors($errors, 'activityLevel'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="palLevel">PAL Level</label>
             <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderValue('palLevel');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'palLevel'); ?>
+              <?php renderFieldErrors($errors, 'palLevel'); ?>
             </ul>
           </div>
           <div class="w-full mt-4">
@@ -238,7 +239,7 @@ $errors = $data['errors'] ?? [];
               <option value="GAIN">Gain weight</option>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-              <?php renderErrors($errors, 'goal'); ?>
+              <?php renderFieldErrors($errors, 'goal'); ?>
             </ul>
           </div>
         </div>

@@ -20,6 +20,7 @@ if (isset($module)) {
 
 $tailwindPath = str_repeat('../', $times ?? 1) . "assets/styles/dist/tailwind.css";
 $materialIconsPath = str_repeat('../', $times ?? 1) . "assets/styles/material-icons.css";
+$sharedModulePath = str_repeat('../', $times ?? 1) . "assets/scripts/shared/shared.module.js";
 ?>
 
 <!DOCTYPE html>
@@ -38,5 +39,6 @@ $materialIconsPath = str_repeat('../', $times ?? 1) . "assets/styles/material-ic
     echo "<script type=\"module\" src=$moduleSrcPath defer></script>";
   }
   ?>
+  <?= "<script type=\"module\" src=$sharedModulePath defer></script>"; ?>
 </head>
 <body>

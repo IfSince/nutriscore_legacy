@@ -26,22 +26,21 @@
     <div class="px-7 w-full flex-grow flex flex-col justify-evenly items-center lg:py-14">
       <h2 class="text-5xl text-green font-medium hidden md:block">Login</h2>
       <form class="w-full max-w-sm" method="post">
-        <ul class="w-full mt-5">
-          <?php renderErrorToasts($errors, 'general'); ?>
-        </ul>
-
+        <?php if(!empty($errors['root'])): ?>
+            <?php getTemplatePart('global-messages', ['messages' => $errors['root']]);?>
+        <?php endif;?>
         <div class="w-full">
           <label class="default-input__label" for="username">Username</label>
           <input class="default-input" type="text" name="username" id="username" <?php renderValue('username');?>>
           <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-            <?php renderErrors($errors, 'username');?>
+            <?php renderFieldErrors($errors, 'username');?>
           </ul>
         </div>
         <div class="w-full mt-6">
           <label class="default-input__label" for="password">Password</label>
           <input class="default-input" type="password" name="password" id="password">
           <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-            <?php renderErrors($errors, 'password');?>
+            <?php renderFieldErrors($errors, 'password');?>
           </ul>
         </div>
         <div class="w-full mt-6 pl-2 flex justify-between">
