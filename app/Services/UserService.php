@@ -21,7 +21,7 @@ class UserService {
         return $this->userMapper->findById($id);
     }
 
-    public function validateAndLogin(array $formInput): array {
+    public function login(array $formInput): array {
         $validator = new LoginFormValidator($formInput, $this->userMapper);
         $validator->validate();
 
@@ -32,7 +32,7 @@ class UserService {
         return $validator->getErrors();
     }
 
-    public function validateAndRegister(array $formInput): array {
+    public function register(array $formInput): array {
         $validator = new RegisterFormValidator($formInput, $this->userMapper);
         $validator->validate();
 

@@ -31,7 +31,7 @@ final class RegisterController extends AbstractController {
     protected function handlePostRequest(): void {
         $formInput = $this->request->getInput(InputType::POST);
 
-        $errors = $this->userService->validateAndRegister($formInput);
+        $errors = $this->userService->register($formInput);
 
         if (empty($errors)) {
             header('Location: /login');

@@ -42,7 +42,7 @@ abstract class DataMapper {
         return ($data) ? $this->_create($data) : null;
     }
 
-    abstract protected function _create(array $data = null): Model;
+    abstract protected function _create(array $data = null): mixed;
 
     abstract protected function _insert(mixed $obj): void;
 
