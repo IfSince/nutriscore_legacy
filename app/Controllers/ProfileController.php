@@ -3,7 +3,7 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\InputType;
+use NutriScore\Enums\InputType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\FileService;

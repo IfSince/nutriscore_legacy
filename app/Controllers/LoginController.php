@@ -3,7 +3,8 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\InputType;
+use NutriScore\Enums\InputType;
+use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\UserService;
@@ -34,7 +35,7 @@ final class LoginController extends AbstractController {
 
         $errors = $this->userService->login($formInput);
         if (empty($errors)) {
-            Session::flash('success', 'You have been successfully signed in.');
+            Session::flash('login', 'You have been successfully signed in.', MessageType::SUCCESS);
             header('Location: /overview');
         } else {
             $this->view->render(self::LOGIN_TEMPLATE, ['errors' => $errors]);

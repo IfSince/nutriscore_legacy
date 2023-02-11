@@ -3,10 +3,12 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\InputType;
+use NutriScore\Enums\InputType;
+use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\UserService;
+use NutriScore\Utils\Session;
 
 final class RegisterController extends AbstractController {
     private const REGISTER_TEMPLATE = 'register/index';
@@ -34,6 +36,7 @@ final class RegisterController extends AbstractController {
         $errors = $this->userService->register($formInput);
 
         if (empty($errors)) {
+            Session::flash('success', 'Your registration was successful. You can log in.', MessageType::SUCCESS);
             header('Location: /login');
         } else {
             $this->view->render(self::REGISTER_TEMPLATE, ['errors' => $errors]);

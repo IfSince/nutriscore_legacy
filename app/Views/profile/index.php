@@ -1,4 +1,6 @@
-<?php getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);?>
+<?php use NutriScore\Utils\Session;
+
+getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);?>
 <?php getTemplatePart('header', ['active' => 'profile']);?>
 
 <div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
@@ -62,9 +64,9 @@
   </section>
 
   <section class="w-full bg-gray-100 pb-10">
-    <?php if(!empty($errors['root'])): ?>
+    <?php if(!empty($errors['root']) || Session::hasFlashMessages()): ?>
       <div class="w-full pb-2 pt-4 md:px-4 bg-gray-100">
-        <?php getTemplatePart('global-messages', ['messages' => $errors['root']]);?>
+        <?php getTemplatePart('global-messages', ['errors' => $errors['root'] ?? []]);?>
       </div>
     <?php endif;?>
     <div class="py-4 md:px-4 ">

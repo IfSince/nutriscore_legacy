@@ -8,4 +8,11 @@ export function addToastEventListeners() {
 
 function closeToast(element) {
     element.remove();
+
+    const parents = document.querySelectorAll('[data-toast-parent]');
+    parents?.forEach(parent => {
+       if (parent.childElementCount <= 0) {
+           parent.classList.add("hidden");
+       }
+    });
 }

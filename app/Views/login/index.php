@@ -1,5 +1,8 @@
 <?php
-  $errors = $data['errors'] ?? [];
+
+use NutriScore\Utils\Session;
+
+$errors = $data['errors'] ?? [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +29,8 @@
     <div class="px-7 w-full flex-grow flex flex-col justify-evenly items-center lg:py-14">
       <h2 class="text-5xl text-green font-medium hidden md:block">Login</h2>
       <form class="w-full max-w-sm" method="post">
-        <?php if(!empty($errors['root'])): ?>
-            <?php getTemplatePart('global-messages', ['messages' => $errors['root']]);?>
+        <?php if(!empty($errors['root']) || Session::hasFlashMessages()): ?>
+            <?php getTemplatePart('global-messages', ['errors' => $errors['root'] ?? []]);?>
         <?php endif;?>
         <div class="w-full">
           <label class="default-input__label" for="username">Username</label>

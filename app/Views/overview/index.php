@@ -1,4 +1,8 @@
-<?php getTemplatePart('head', ['title' => 'overview', 'module' => 'overview']);?>
+<?php
+
+use NutriScore\Utils\Session;
+
+getTemplatePart('head', ['title' => 'overview', 'module' => 'overview']);?>
 <?php getTemplatePart('header', ['active' => 'overview']);?>
 <div class="fixed bottom-[88px] right-6">
   <div data-actions class="flex hidden flex-col items-center mb-6 space-y-4">
@@ -68,9 +72,9 @@
   
   <?php getTemplatePart('date-selector');?>
 
-  <?php if(!empty($errors['root'])): ?>
+  <?php if(!empty($errors['root']) || Session::hasFlashMessages()): ?>
     <div class="w-full pb-2 pt-4 md:px-4 bg-gray-100">
-      <?php getTemplatePart('global-messages', ['messages' => $errors['root']]);?>
+      <?php getTemplatePart('global-messages', ['errors' => $errors['root'] ?? []]);?>
     </div>
   <?php endif;?>
   <section class="w-full bg-gray-100 flex flex-col lg:flex-row pb-24">

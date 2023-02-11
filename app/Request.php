@@ -2,12 +2,7 @@
 
 namespace NutriScore;
 
-enum InputType {
-    case GET;
-    case POST;
-    case FILE;
-    case PAGE;
-}
+use NutriScore\Enums\InputType;
 
 class Request {
     private array $pageParams;
