@@ -2,14 +2,14 @@
 
 namespace NutriScore\Services;
 
-use NutriScore\DataMappers\WeightRecordingDataMapper;
+use NutriScore\DataMappers\WeightRecordingMapper;
 use NutriScore\Models\WeightRecording\WeightRecording;
 
 class WeightRecordingService {
-    private WeightRecordingDataMapper $weightRecordingDataMapper;
+    private WeightRecordingMapper $weightRecordingDataMapper;
 
     public function __construct() {
-        $this->weightRecordingDataMapper = new WeightRecordingDataMapper();
+        $this->weightRecordingDataMapper = new WeightRecordingMapper();
     }
 
     public function findByUserId(int $userId): WeightRecording {

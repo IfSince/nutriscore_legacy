@@ -5,7 +5,7 @@ namespace NutriScore\DataMappers;
 use NutriScore\DataMapper;
 use NutriScore\Models\WeightRecording\WeightRecording;
 
-class WeightRecordingDataMapper extends DataMapper {
+class WeightRecordingMapper extends DataMapper {
     private const RELATED_TABLE = 'weight_recordings';
 
     public function __construct() {
@@ -28,12 +28,13 @@ class WeightRecordingDataMapper extends DataMapper {
     }
 
     protected function _insert(mixed $obj): void {
-        $sql = 'INSERT INTO weight_recordings (user_id, weight, date_of_recording)
-                    VALUES (:userId, :weight, :dateOfRecording)';
+        $sql = 'INSERT INTO weight_recordings (user_id, weight, date_of_recording, image_id)
+                    VALUES (:userId, :weight, :dateOfRecording, :imageId)';
         $params = [
             'userId' => $obj->getUserId(),
             'weight' => $obj->getWeight(),
             'dateOfRecording' => $obj->getDateOfRecording(),
+            'imageId' => $obj->getImageId(),
         ];
 
         $this->database->prepareAndExecute($sql, $params);
@@ -44,12 +45,14 @@ class WeightRecordingDataMapper extends DataMapper {
         $sql = 'UPDATE weight_recordings wr
                    SET wr.user_id = :userId,
                        wr.weight = :weight,
-                       wr.date_of_recording = :dateOfRecording
+                       wr.date_of_recording = :dateOfRecording,
+                       wr.image_id = :imageId
                  WHERE wr.id = :id';
         $params = [
             'userId' => $obj->getUserId(),
             'weight' => $obj->getWeight(),
-            'dateOfRecording' => $obj->getDateOfRecording()
+            'dateOfRecording' => $obj->getDateOfRecording(),
+            'imageId' => $obj->getImageId(),
         ];
 
         $this->database->prepareAndExecute($sql, $params);
