@@ -1,8 +1,11 @@
 <?php
+
+use NutriScore\Enums\MessageType;
 use NutriScore\Utils\Session;
 
-getTemplatePart('head', ['title' => 'Profile']);?>
-<?php getTemplatePart('header', ['active' => 'profile']);?>
+getTemplatePart('head', ['title' => 'Profile']);
+getTemplatePart('header', ['active' => 'profile']);
+?>
 
 <div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
   <section class="w-full bg-gradient-to-b from-gray-600 to-gray-800 pb-10">
@@ -18,9 +21,17 @@ getTemplatePart('head', ['title' => 'Profile']);?>
     </div>
   </section>
 
-  <?php if(!empty($errors['root']) || Session::hasFlashMessages()): ?>
+  <?php if(!empty($errors['root']) || !empty($warnings['root']) || !empty($hints['root']) || !empty($success['root']) || Session::hasFlashMessages()): ?>
     <div class="w-full pb-2 pt-4 md:px-4 bg-gray-100">
-      <?php getTemplatePart('global-messages', ['errors' => $errors['root'] ?? []]);?>
+      <?php getTemplatePart(
+              'global-messages',
+              [
+                      'errors' => array_merge($errors['root'] ?? [], Session::getFlashMessagesByType(MessageType::ERROR)),
+                      'warnings' => array_merge($warnings['root'] ?? [], Session::getFlashMessagesByType(MessageType::WARNING)),
+                      'hints' => array_merge($hints['root'] ?? [], Session::getFlashMessagesByType(MessageType::HINT)),
+                      'success' => array_merge($success['root'] ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS))
+              ]
+      );?>
     </div>
   <?php endif;?>
   <section class="w-full bg-gray-100 flex flex-col lg:flex-row pb-24">

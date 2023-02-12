@@ -12,6 +12,17 @@ class WeightRecordingDataMapper extends DataMapper {
         parent::__construct(self::RELATED_TABLE);
     }
 
+    public function findLatestByUserId(int $userId): WeightRecording {
+        $sql = 'SELECT *
+                  FROM weight_recordings wr
+                 WHERE wr.user_id = :userId
+              ORDER BY wr.date_of_recording DESC
+                 LIMIT 1';
+        $params = ['userId' => $userId];
+
+        return $this->load($sql, $params);
+    }
+
     protected function _create(array $data = null): WeightRecording {
         return WeightRecording::create($data);
     }

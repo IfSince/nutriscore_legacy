@@ -9,6 +9,7 @@ use NutriScore\Request;
 use NutriScore\Services\FileService;
 use NutriScore\Services\PersonService;
 use NutriScore\Services\UserService;
+use NutriScore\Services\WeightRecordingService;
 use NutriScore\Utils\Session;
 
 final class ProfileController extends AbstractController {
@@ -19,13 +20,15 @@ final class ProfileController extends AbstractController {
 
     private UserService $userService;
     private PersonService $personService;
-    private FileService $imageService;
+    private FileService $fileService;
+    private WeightRecordingService $weightRecordingService;
 
     public function __construct(Request $request) {
         parent::__construct($request);
         $this->userService = new UserService();
         $this->personService = new PersonService();
-        $this->imageService = new FileService();
+        $this->fileService = new FileService();
+        $this->weightRecordingService = new WeightRecordingService();
     }
 
     protected function beforeHandling(): void {
@@ -37,26 +40,28 @@ final class ProfileController extends AbstractController {
     protected function handleGetRequest(): void {
         $userId = Session::get('id');
 
-        $personData = $this->personService->findByUserId($userId);
-
         $user = $this->userService->findById($userId);
+        $person = $this->personService->findByUserId($userId);
 
         $profileImageId = $user->getProfileImageId();
-        $profileImage = ($profileImageId != null) ? $this->imageService->findById($profileImageId) : null;
+        $profileImage = ($profileImageId != null) ? $this->fileService->findById($profileImageId) : null;
+
+        $currentWeight = $this->weightRecordingService->findByUserId($userId);
 
         $this->view->render(
             self::PROFILE_TEMPLATE,
             [
-                'personData' => $personData,
+                'person' => $person,
                 'user' => $user,
-                'profileImage' => $profileImage
+                'profileImage' => $profileImage,
+                'currentWeight' => $currentWeight
             ]
         );
     }
 
     protected function handlePostRequest(): void {
         $fileUpload = $this->request->getInput(InputType::FILE);
-        $validationObject = $this->imageService->validateAndUpload($fileUpload);
+        $validationObject = $this->fileService->validateAndUpload($fileUpload);
 
         $userId = Session::get('id');
         if ($validationObject->isValid()) {

@@ -1,5 +1,6 @@
 <?php
 
+use NutriScore\Enums\MessageType;
 use NutriScore\Utils\Session;
 
 $errors = $data['errors'] ?? [];
@@ -29,8 +30,16 @@ $errors = $data['errors'] ?? [];
     <div class="px-7 w-full flex-grow flex flex-col justify-evenly items-center lg:py-14">
       <h2 class="text-5xl text-green font-medium hidden md:block">Login</h2>
       <form class="w-full max-w-sm" method="post">
-        <?php if(!empty($errors['root']) || Session::hasFlashMessages()): ?>
-            <?php getTemplatePart('global-messages', ['errors' => $errors['root'] ?? []]);?>
+        <?php if(!empty($errors['root']) || !empty($warnings['root']) || !empty($hints['root']) || !empty($success['root']) || Session::hasFlashMessages()): ?>
+          <?php getTemplatePart(
+                  'global-messages',
+                  [
+                          'errors' => array_merge($errors['root'] ?? [], Session::getFlashMessagesByType(MessageType::ERROR)),
+                          'warnings' => array_merge($warnings['root'] ?? [], Session::getFlashMessagesByType(MessageType::WARNING)),
+                          'hints' => array_merge($hints['root'] ?? [], Session::getFlashMessagesByType(MessageType::HINT)),
+                          'success' => array_merge($success['root'] ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS))
+                  ]
+          );?>
         <?php endif;?>
         <div class="w-full">
           <label class="default-input__label" for="username">Username</label>

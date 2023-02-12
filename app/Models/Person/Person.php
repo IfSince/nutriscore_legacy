@@ -3,9 +3,12 @@
 namespace NutriScore\Models\Person;
 
 use NutriScore\Models\Model;
+use NutriScore\Utils\Calculations;
 use NutriScore\Utils\EnumUtil;
 
 class Person extends Model {
+    use Calculations;
+
     private ?int $userId = null;
     private string $firstName;
     private string $surname;
@@ -24,6 +27,21 @@ class Person extends Model {
             $obj = Person::populate($obj, $data);
         }
         return $obj;
+    }
+
+    public function getFullname(): string {
+        return "$this->firstName $this->surname";
+    }
+
+    public function getFormattedDate(): string {
+        $date = date_create($this->dateOfBirth);
+        return date_format($date, 'd.m.Y');
+    }
+
+    public function getAge(): int {
+        $today = date("Y-m-d");
+        $diff = date_diff(date_create($this->dateOfBirth), date_create($today));
+        return (int) $diff->format('%y');
     }
 
     public function getUserId(): ?int {

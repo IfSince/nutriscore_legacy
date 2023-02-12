@@ -1,7 +1,11 @@
-<?php use NutriScore\Utils\Session;
+<?php
 
-getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);?>
-<?php getTemplatePart('header', ['active' => 'profile']);?>
+use NutriScore\Enums\MessageType;
+use NutriScore\Utils\Session;
+
+getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);
+getTemplatePart('header', ['active' => 'profile']);
+?>
 
 <div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
   <section class="px-6 md:px-10 lg:px-20 pt-6 pb-3 md:pb-6 lg:py-10 bg-gradient-to-b from-gray-600 to-gray-800 relative">
@@ -28,8 +32,8 @@ getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);?>
           <input type="file" id="upload" name="upload" accept="image/*" hidden>
         </div>
         <div class="flex flex-col pt-4 md:pt-6 ml-4 sm:ml-6 md:ml-8 lg:ml-10">
-          <span class="text-white/90 font-medium text-2xl sm:text-3xl md:text-3xl lg:text-5xl">Leon Laade</span>
-          <span class="text-white/70 text-lg md:pt-2 sm:text-xl md:text-xl lg:text-2xl">27.10.2000</span>
+          <span class="text-white/90 font-medium text-2xl sm:text-3xl md:text-3xl lg:text-5xl"><?=$person->getFullname()?></span>
+          <span class="text-white/70 text-lg md:pt-2 sm:text-xl md:text-xl lg:text-2xl"><?=$person->getFormattedDate()?></span>
         </div>
       </form>
       <ul class="text-sm font-medium text-red-500 pl-2 pt-1 w-full">
@@ -38,25 +42,25 @@ getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);?>
 
       <div class="flex flex-col mt-4 w-full lg:max-w-xl">
         <div class="flex w-full justify-between px-1 py-2.5 border-b-2 border-b-white/10">
-          <span class="font-medium tracking-wide text-white/90">Objective</span>
-          <span class="text-white/70">Loose weight</span>
+          <span class="font-medium tracking-wide text-white/90">Goal</span>
+          <span class="text-white/70"><?=$person->getGoal()->value?></span>
         </div>
         <div class="flex w-full justify-between px-1 py-2.5 border-b-2 border-b-white/10">
           <span class="font-medium tracking-wide text-white/90">Current weight</span>
-          <span class="text-white/70">90kg</span>
+          <span class="text-white/70"><?=$currentWeight->getWeight()?> kg</span>
         </div>
         <div class="flex w-full justify-between px-1 py-2.5 border-b-2 border-b-white/10">
           <span class="font-medium tracking-wide text-white/90">BMI</span>
-          <span class="text-white/70">25,47</span>
+          <span class="text-white/70"><?=$person->getBmi($currentWeight->getWeight())?></span>
         </div>
 
         <div class="mt-6 flex w-full justify-between px-1 py-2.5 border-b-2 border-b-white/10">
           <span class="font-medium tracking-wide text-white/90">Activity level</span>
-          <span class="text-white/70">1-3/week</span>
+          <span class="text-white/70"><?=$person->getActivityLevel()->value?></span>
         </div>
         <div class="flex w-full justify-between px-1 py-2.5">
           <span class="font-medium tracking-wide text-white/90">BMR</span>
-          <span class="text-white/70">2075 kcal</span>
+          <span class="text-white/70"><?=$person->getBmr($currentWeight->getWeight())?> kcal</span>
         </div>
       </div>
 
@@ -64,9 +68,18 @@ getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);?>
   </section>
 
   <section class="w-full bg-gray-100 pb-10">
-    <?php if(!empty($errors['root']) || Session::hasFlashMessages()): ?>
+    <?php if(!empty($errors['root']) || !empty($warnings['root']) || !empty($hints['root']) || !empty($success['root']) ||
+            Session::hasFlashMessages()): ?>
       <div class="w-full pb-2 pt-4 md:px-4 bg-gray-100">
-        <?php getTemplatePart('global-messages', ['errors' => $errors['root'] ?? []]);?>
+        <?php getTemplatePart(
+                'global-messages',
+                [
+                        'errors' => array_merge($errors['root'] ?? [], Session::getFlashMessagesByType(MessageType::ERROR)),
+                        'warnings' => array_merge($warnings['root'] ?? [], Session::getFlashMessagesByType(MessageType::WARNING)),
+                        'hints' => array_merge($hints['root'] ?? [], Session::getFlashMessagesByType(MessageType::HINT)),
+                        'success' => array_merge($success['root'] ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS))
+                ]
+        );?>
       </div>
     <?php endif;?>
     <div class="py-4 md:px-4 ">

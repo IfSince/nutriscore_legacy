@@ -12,6 +12,10 @@ class WeightRecordingService {
         $this->weightRecordingDataMapper = new WeightRecordingDataMapper();
     }
 
+    public function findByUserId(int $userId): WeightRecording {
+        return $this->weightRecordingDataMapper->findLatestByUserId($userId);
+    }
+
     public function createAndSave(array $data): void {
         $weightRecording = WeightRecording::create($data);
         $this->save($weightRecording);

@@ -1,10 +1,11 @@
 <?php
-use NutriScore\Enums\MessageType;
+
 use NutriScore\Utils\Session;
+
 ?>
 <?php if (isset($errors) || isset($warnings) || isset($hints) || isset($success) || Session::hasFlashMessages()):?>
   <ul class="w-full bg-white p-3 md:rounded-md flex flex-col gap-4 shadow-border" data-toast-parent>
-    <?php foreach (array_merge($errors ?? [], Session::getFlashMessagesByType(MessageType::ERROR)) as $message): ?>
+    <?php foreach ($errors ?? [] as $message): ?>
       <li class="flex items-center w-full px-4 py-2 rounded-lg shadow border bg-red-100/75 border-red-500 text-red-900"
           data-toast>
         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 rounded-lg">
@@ -21,7 +22,7 @@ use NutriScore\Utils\Session;
       </li>
     <?php endforeach;?>
 
-    <?php foreach (array_merge($warnings ?? [], Session::getFlashMessagesByType(MessageType::WARNING)) as $message): ?>
+    <?php foreach ($warnings ?? [] as $message): ?>
       <li class="flex items-center w-full px-4 py-2 rounded-lg shadow border bg-orange-100/75 border-orange-500 text-orange-900"
           data-toast>
         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 rounded-lg">
@@ -38,7 +39,7 @@ use NutriScore\Utils\Session;
       </li>
     <?php endforeach;?>
 
-    <?php foreach (array_merge($hints ?? [], Session::getFlashMessagesByType(MessageType::HINT)) as $message): ?>
+    <?php foreach ($hints ?? [] as $message): ?>
       <li class="flex items-center w-full px-4 py-2 mb-4 rounded-lg shadow border bg-blue-100/75 border-blue-500 text-blue-900"
           data-toast>
         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 rounded-lg">
@@ -55,7 +56,7 @@ use NutriScore\Utils\Session;
       </li>
     <?php endforeach;?>
 
-    <?php foreach (array_merge($success ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS)) as $message): ?>
+    <?php foreach ($success ?? [] as $message): ?>
       <li class="flex items-center w-full px-4 py-2 mb-4 rounded-lg shadow border bg-green-100/75 border-green-500 text-green-900"
           data-toast>
         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 rounded-lg">

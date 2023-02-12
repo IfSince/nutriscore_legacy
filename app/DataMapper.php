@@ -2,6 +2,7 @@
 
 namespace NutriScore;
 
+use Exception;
 use NutriScore\Models\Model;
 
 abstract class DataMapper {
@@ -22,6 +23,19 @@ abstract class DataMapper {
 
     public function load(string $sql, array $values): ?Model {
         $data = $this->database->fetch($sql, $values);
+        return $this->returnOptionalOf($data);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function loadOrThrow(string $sql, array $values): Model {
+        $data = $this->database->fetch($sql, $values);
+
+        if (!$data) {
+            throw new Exception("The query did not return any results. SQL: \"$sql\"", 404);
+        }
+
         return $this->returnOptionalOf($data);
     }
 
