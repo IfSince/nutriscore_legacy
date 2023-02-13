@@ -1,5 +1,7 @@
 <?php
 
+use NutriScore\Models\Person\Gender;
+
 $messages = $messages ?? [];
 
 getTemplatePart('head', ['title' => 'Profile']);
@@ -22,19 +24,19 @@ getTemplatePart('header', ['active' => 'profile']);
         My Personal Data
       </h3>
       <div class="border-b border-b-gray-200 pb-3 mb-6"></div>
-      <form method="post">
+      <form method="post" action="/person/update/<?=$person->getId()?>">
         <div class="pb-8">
           <div class="flex flex-wrap gap-4 sm:gap-6">
             <div class="basis-full sm:basis-1/3 md:basis-1/3 lg:basis-1/4">
               <label class="default-input__label" for="firstName">First name</label>
-              <input class="default-input" type="text" id="firstName" name="firstName">
+              <input class="default-input" type="text" id="firstName" name="firstName" value="<?=$person->getFirstName()?>">
               <ul class="text-sm font-medium text-red-500 pl-2">
                 <?php renderValidationFieldMessages('firstName', $messages);?>
               </ul>
             </div>
             <div class="basis-full sm:basis-1/3 md:basis-1/3 lg:basis-1/4">
               <label class="default-input__label" for="surname">Surname</label>
-              <input class="default-input" type="text" id="surname" name="surname">
+              <input class="default-input" type="text" id="surname" name="surname" value="<?=$person->getSurname()?>">
               <ul class="text-sm font-medium text-red-500 pl-2">
                 <?php renderValidationFieldMessages('surname', $messages);?>
               </ul>
@@ -45,9 +47,7 @@ getTemplatePart('header', ['active' => 'profile']);
             <div class="basis-full sm:basis-1/4 md:basis-1/6 lg:basis-1/8">
               <label class="default-input__label" for="gender">Gender</label>
               <select class="default-input" name="gender" id="gender">
-                <option value="MALE" <?php renderSelectedByValue('gender', 'MALE');?>>Male</option>
-                <option value="FEMALE" <?php renderSelectedByValue('gender', 'FEMALE');?>>Female</option>
-                <option value="OTHER" <?php renderSelectedByValue('gender', 'OTHER');?>>Other</option>
+                <?php renderEnumSelectOptions($person->getGender() ?? null, Gender::cases())?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2">
                 <?php renderValidationFieldMessages('gender', $messages);?>
@@ -56,28 +56,18 @@ getTemplatePart('header', ['active' => 'profile']);
 
             <div class="basis-full sm:basis-1/4 md:basis-1/5 lg:basis-1/5">
               <label class="default-input__label" for="dateOfBirth">Date of Birth</label>
-              <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" <?php renderValue('dateOfBirth');?>>
+              <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" value="<?=$person->getDateOfBirth()?>">
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                 <?php renderValidationFieldMessages('dateOfBirth', $messages);?>
               </ul>
             </div>
 
-            <div class="basis-full md:basis-1/2 flex flex-row gap-4 sm:gap-6 md:gap-8">
-              <div class="basis-full sm:basis-1/4 md:basis-1/6 lg:basis-1/8">
-                <label class="default-input__label" for="height">Height (in cm)</label>
-                <input class="default-input" type="number" name="height" id="height" <?php renderValue('height');?>>
-                <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderValidationFieldMessages('height', $messages);?>
-                </ul>
-              </div>
-
-              <div class="basis-full sm:basis-1/4 md:basis-1/6 lg:basis-1/8">
-                <label class="default-input__label" for="weight">Weight (in kg)</label>
-                <input class="default-input" type="number" name="weight" id="weight" <?php renderValue('weight');?>>
-                <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderValidationFieldMessages('weight', $messages);?>
-                </ul>
-              </div>
+            <div class="basis-full sm:basis-1/4 md:basis-1/6 lg:basis-1/8">
+              <label class="default-input__label" for="height">Height (in cm)</label>
+              <input class="default-input" type="number" name="height" id="height" value="<?=$person->getHeight()?>">
+              <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
+                <?php renderValidationFieldMessages('height', $messages);?>
+              </ul>
             </div>
           </div>
         </div>

@@ -80,35 +80,57 @@ final class ProfileController extends AbstractController {
     }
 
     public function userData(): void {
-        $this->preAuthorize();
-        if ($this->request->getMethod() === self::GET_METHOD) {
-            $userId = Session::get('id');
-
-            $user = $this->userService->findById($userId);
-            $profileImageId = $user->getProfileImageId();
-            $profileImage = ($profileImageId != null) ? $this->fileService->findById($profileImageId) : null;
-
-
-            $this->view->render(
-                self::USER_DATA_TEMPLATE,
-                [
-                    'user' => $user,
-                    'profileImage' => $profileImage
-                ]
-            );
-
-        } else if ($this->request->getMethod() === self::POST_METHOD) {
-            exit();
-        }
+        $this->handleRequest(getFunction: $this->getUserData(...));
     }
 
     public function personalData(): void {
-        $this->preAuthorize();
-        $this->view->render(self::PERSONAL_DATA_TEMPLATE);
+        $this->handleRequest(getFunction: $this->getPersonalData(...));
     }
 
     public function nutritionalData(): void {
-        $this->preAuthorize();
-        $this->view->render(self::NUTRITIONAL_DATA_TEMPLATE);
+        $this->handleRequest(getFunction: $this->getNutritionalData(...));
+    }
+
+    private function getUserData(): void {
+        $userId = Session::get('id');
+        $user = $this->userService->findById($userId);
+        $profileImageId = $user->getProfileImageId();
+        $profileImage = ($profileImageId != null) ? $this->fileService->findById($profileImageId) : null;
+
+        $this->view->render(
+            self::USER_DATA_TEMPLATE,
+            [
+                'user' => $user,
+                'profileImage' => $profileImage
+            ]
+        );
+    }
+
+    private function getPersonalData(): void {
+        $userId = Session::get('id');
+        $person = $this->personService->findByUserId($userId);
+
+        $this->view->render(
+            self::PERSONAL_DATA_TEMPLATE,
+            [
+                'person' => $person,
+            ]
+        );
+    }
+
+    private function postPersonalData(): void {
+        $userId = Session::get('id');
+    }
+
+    private function getNutritionalData(): void {
+        $userId = Session::get('id');
+        $person = $this->personService->findByUserId($userId);
+
+        $this->view->render(
+            self::NUTRITIONAL_DATA_TEMPLATE,
+            [
+                'person' => $person,
+            ]
+        );
     }
 }

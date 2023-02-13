@@ -4,7 +4,6 @@ namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
 use NutriScore\Enums\InputType;
-use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\UserService;
@@ -41,11 +40,6 @@ class UserController extends AbstractController {
         $data = $this->request->getInput(InputType::POST);
         $validationObject = $this->userService->update($data);
 
-        if (!$validationObject->isValid()) {
-            Session::flash('error', 'The data contains one or more errors and was not saved.', MessageType::ERROR);
-        } else {
-            Session::flash('success', 'The changes were saved successfully. ', MessageType::SUCCESS);
-        }
         $this->view->render(
             self::USER_DATA_TEMPLATE,
             [

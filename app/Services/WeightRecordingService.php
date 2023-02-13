@@ -12,7 +12,7 @@ class WeightRecordingService {
         $this->weightRecordingDataMapper = new WeightRecordingMapper();
     }
 
-    public function findByUserId(int $userId): WeightRecording {
+    public function findLatestByUserId(int $userId): WeightRecording {
         return $this->weightRecordingDataMapper->findLatestByUserId($userId);
     }
 

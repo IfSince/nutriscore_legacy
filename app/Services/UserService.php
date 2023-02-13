@@ -3,6 +3,7 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
+use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Utils\Session;
 use NutriScore\Validators\LoginValidator;
@@ -35,8 +36,10 @@ class UserService {
 
         if ($validator->isValid()) {
             $this->userMapper->save($user);
+            Session::flash('success', 'The changes were saved successfully. ', MessageType::SUCCESS);
+        } else {
+            Session::flash('error', 'The data contains one or more errors and was not saved.', MessageType::ERROR);
         }
-
         return $validator->getValidationObject();
     }
 

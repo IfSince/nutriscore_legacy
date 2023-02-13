@@ -27,7 +27,7 @@
         <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
         <div class="w-full">
           <label class="default-input__label" for="username">Username</label>
-          <input class="default-input" type="text" name="username" id="username" <?php renderValue('username');?>>
+          <input class="default-input" type="text" name="username" id="username" <?php renderPostValue('username');?>>
           <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
             <?php renderValidationFieldMessages('username', $messages);?>
           </ul>
@@ -45,7 +45,7 @@
                    type="checkbox"
                    name="remember-me"
                    id="remember-me"
-                   <?php renderChecked('remember-me');?>>
+                   <?php renderPostChecked('remember-me');?>>
             <label class="text-gray-700 cursor-pointer pl-2" for="remember-me">Remember Me</label>
           </div>
           <a class="text-green cursor-pointer hover:underline focus:underline focus:outline-none" href="#">Forgot Password?</a>

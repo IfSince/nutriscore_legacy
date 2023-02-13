@@ -1,4 +1,9 @@
-<?php $messages = $messages ?? []; ?>
+<?php use NutriScore\Models\Person\ActivityLevel;
+use NutriScore\Models\Person\BmrCalculationType;
+use NutriScore\Models\Person\Goal;
+use NutriScore\Models\Person\NutritionType;
+
+$messages = $messages ?? []; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,28 +34,28 @@
         <div data-quest-panel="true" data-quest-step="account">
           <div class="w-full mt-8">
             <label class="default-input__label" for="username">Username</label>
-            <input class="default-input" type="text" name="username" id="username" <?php renderValue('username');?>>
+            <input class="default-input" type="text" name="username" id="username" <?php renderPostValue('username');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('username', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="email">E-Mail</label>
-            <input class="default-input" type="text" name="email" id="email" <?php renderValue('email');?>>
+            <input class="default-input" type="text" name="email" id="email" <?php renderPostValue('email');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('email', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="password">Password</label>
-            <input class="default-input" type="password" name="password" id="password" <?php renderValue('password');?>>
+            <input class="default-input" type="password" name="password" id="password" <?php renderPostValue('password');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('password', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="repeatPassword">Repeat password</label>
-            <input class="default-input" type="password" name="repeatPassword" id="repeatPassword" <?php renderValue('repeatPassword');?>>
+            <input class="default-input" type="password" name="repeatPassword" id="repeatPassword" <?php renderPostValue('repeatPassword');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('repeatPassword', $messages);?>
             </ul>
@@ -61,7 +66,7 @@
                      type="checkbox"
                      name="acceptedTos"
                      id="acceptedTos"
-                     <?php renderChecked('acceptedTos');?>>
+                     <?php renderPostChecked('acceptedTos');?>>
               <label class="cursor-pointer pl-2" for="acceptedTos">
                 I agree to the
                 <a class="text-green cursor-pointer hover:underline focus:underline focus:outline-none" href="#">
@@ -78,14 +83,14 @@
         <div data-quest-panel="false" data-quest-step="personal">
           <div class="w-full mt-8">
             <label class="default-input__label" for="firstName">First name</label>
-            <input class="default-input" type="text" name="firstName" id="firstName" <?php renderValue('firstName');?>>
+            <input class="default-input" type="text" name="firstName" id="firstName" <?php renderPostValue('firstName');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('firstName', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="surname">Surname</label>
-            <input class="default-input" type="text" name="surname" id="surname" <?php renderValue('surname');?>>
+            <input class="default-input" type="text" name="surname" id="surname" <?php renderPostValue('surname');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('surname', $messages);?>
             </ul>
@@ -99,7 +104,7 @@
                        id="genderMale"
                        name="gender"
                        value="MALE"
-                       <?php renderCheckedByValue('gender', 'MALE');?>>
+                       <?php renderPostCheckedByValue('gender', 'MALE');?>>
                 <label class="text-gray-700 font-medium cursor-pointer pl-0.5 peer-checked:text-green"
                        for="genderMale">Male</label>
               </div>
@@ -109,7 +114,7 @@
                        id="genderFemale"
                        name="gender"
                        value="FEMALE"
-                        <?php renderCheckedByValue('gender', 'FEMALE');?>>
+                        <?php renderPostCheckedByValue('gender', 'FEMALE');?>>
                 <label class="text-gray-700 font-medium pl-0.5 peer-checked:text-green"
                        for="genderFemale">Female</label>
               </div>
@@ -119,7 +124,7 @@
                        id="genderOther"
                        name="gender"
                        value="OTHER"
-                        <?php renderCheckedByValue('gender', 'OTHER');?>>
+                        <?php renderPostCheckedByValue('gender', 'OTHER');?>>
                 <label class="text-gray-700 font-medium cursor-pointer pl-0.5 peer-checked:text-green"
                        for="genderOther">Other</label>
               </div>
@@ -130,21 +135,21 @@
           </div>
           <div class="w-full mt-6">
             <label class="default-input__label" for="dateOfBirth">Date of Birth</label>
-            <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" <?php renderValue('dateOfBirth');?>>
+            <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" <?php renderPostValue('dateOfBirth');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('dateOfBirth', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="height">Height (in cm)</label>
-            <input class="default-input" type="number" name="height" id="height" <?php renderValue('height');?>>
+            <input class="default-input" type="number" name="height" id="height" <?php renderPostValue('height');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('height', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="weight">Starting weight (in kg)</label>
-            <input class="default-input" type="number" name="weight" id="weight" <?php renderValue('weight');?>>
+            <input class="default-input" type="number" name="weight" id="weight" <?php renderPostValue('weight');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('weight', $messages);?>
             </ul>
@@ -155,14 +160,7 @@
           <div class="w-full mt-8">
             <label class=default-input__label for="nutritionType">Nutrition type</label>
             <select class="default-input" name="nutritionType" id="nutritionType">
-              <option value="NORMAL" <?php renderSelectedByValue('nutritionType', 'NORMAL');?>>Normal</option>
-              <option value="KETOGENIC" <?php renderSelectedByValue('nutritionType', 'KETOGENIC');?>>Ketogenic</option>
-              <option value="LOW_CARB" <?php renderSelectedByValue('nutritionType', 'LOW_CARB');?>>Low carb</option>
-              <option value="LOW_FAT" <?php renderSelectedByValue('nutritionType', 'lowFat');?>>Low fat</option>
-              <option value="HIGH_PROTEIN" <?php renderSelectedByValue('nutritionType', 'LOW_FAT');?>>High protein</option>
-              <option value="HP_HF" <?php renderSelectedByValue('nutritionType', 'HP_HF');?>>HP + HF</option>
-              <option value="DACH_REFERENCE" <?php renderSelectedByValue('nutritionType', 'DACH_REFERENCE');?>>D-A-C-H Reference</option>
-              <option value="MANUALLY" <?php renderSelectedByValue('nutritionType', 'MANUALLY');?>>Manually</option>
+              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'nutritionType') ?? null, NutritionType::cases())?>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('nutritionType', $messages);?>
@@ -170,21 +168,21 @@
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="protein">Protein</label>
-            <input class="default-input" type="number" name="protein" id="protein" <?php renderValue('protein');?>>
+            <input class="default-input" type="number" name="protein" id="protein" <?php renderPostValue('protein');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('protein', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="carbohydrates">Carbohydrates</label>
-            <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderValue('carbohydrates');?>>
+            <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderPostValue('carbohydrates');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('carbohydrates', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="fat">Fat</label>
-            <input class="default-input" type="number" name="fat" id="fat" <?php renderValue('fat');?>>
+            <input class="default-input" type="number" name="fat" id="fat" <?php renderPostValue('fat');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('fat', $messages);?>
             </ul>
@@ -195,10 +193,7 @@
           <div class="w-full mt-8">
             <label class=default-input__label for="bmrCalculationType">BMR Calculation Type</label>
             <select class="default-input" name="bmrCalculationType" id="bmrCalculationType">
-              <option value="EASY" <?php renderSelectedByValue('bmrCalculationType', 'EASY');?>>BMR (easy)</option>
-              <option value="COMPLICATED" <?php renderSelectedByValue('bmrCalculationType', 'COMPLICATED');?>>BMR (complicated)</option>
-              <option value="HARRIS_BENEDICT" <?php renderSelectedByValue('bmrCalculationType', 'HARRIS_BENEDICT');?>>BMR (Harris Benedict)</option>
-              <option value="MIFFLIN_ST_JEOR" <?php renderSelectedByValue('bmrCalculationType', 'MIFFLIN_ST_JEOR');?>>BMR (Mifflin-St. Jeor)</option>
+              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'bmrCalculationType') ?? null, BmrCalculationType::cases())?>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('bmrCalculationType', $messages);?>
@@ -207,15 +202,7 @@
           <div class="w-full mt-4">
             <label class=default-input__label for="activityLevel">Activity Level</label>
             <select class="default-input" name="activityLevel" id="activityLevel">
-              <option value="NO_SPORTS" <?php renderSelectedByValue('activityLevel', 'NO_SPORTS');?>>No exercise</option>
-              <option value="ONE_TO_THREE" <?php renderSelectedByValue('activityLevel', 'ONE_TO_THREE');?>>Exercise 1-3/week</option>
-              <option value="THREE_TO_FIVE" <?php renderSelectedByValue('activityLevel', 'THREE_TO_FIVE');?>>Exercise 3-5/week</option>
-              <option value="SIX_TO_SEVEN" <?php renderSelectedByValue('activityLevel', 'SIX_TO_SEVEN');?>>Exercise 6-7/week</option>
-              <option value="DAILY" <?php renderSelectedByValue('activityLevel', 'DAILY');?>>Exercise daily</option>
-              <option value="PAL_LEVEL" <?php renderSelectedByValue('activityLevel', 'PAL_LEVEL');?>>PAL Level</option>
-              <option value="MET" <?php renderSelectedByValue('activityLevel', 'MET');?>>MET</option>
-              <option value="MET_FACTOR" <?php renderSelectedByValue('activityLevel', 'MET_FACTOR');?>>MET Factor</option>
-              <option value="PAL_FACTOR" <?php renderSelectedByValue('activityLevel', 'PAL_FACTOR');?>>PAL Factor</option>
+              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'activityLevel') ?? null, ActivityLevel::cases())?>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('activityLevel', $messages);?>
@@ -223,17 +210,15 @@
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="palLevel">PAL Level</label>
-            <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderValue('palLevel');?>>
+            <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderPostValue('palLevel');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('palLevel', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class=default-input__label for="goal">Objective</label>
-            <select class="default-input" name="goal" id="goal" <?php renderValue('goal');?>>
-              <option value="KEEP">Keep weight</option>
-              <option value="LOOSE">Loose weight</option>
-              <option value="GAIN">Gain weight</option>
+            <select class="default-input" name="goal" id="goal">
+              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'goal') ?? null, Goal::cases())?>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('goal', $messages);?>

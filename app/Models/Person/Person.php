@@ -21,6 +21,12 @@ class Person extends Model {
     private Goal $goal;
     private bool $acceptedTos;
 
+    public static function update(Person $user, array $data = null): void {
+        if ($data) {
+            Person::populate($user, $data);
+        }
+    }
+
     public static function create(array $data = null): Person {
         $obj = new Person();
         if ($data) {

@@ -8,12 +8,14 @@ function getTemplatePart(string $name, ?array $data = []): void {
     require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR ."$name.php";
 }
 
-function renderValue(string $fieldName): void {
+// Post input value rendering
+
+function renderPostValue(string $fieldName): void {
     $value = filter_input(INPUT_POST, $fieldName) ?? null;
     echo "value=\"$value\"";
 }
 
-function renderChecked(string $fieldName): void {
+function renderPostChecked(string $fieldName): void {
     $value = filter_input(INPUT_POST, $fieldName);
 
     if (isset($value)) {
@@ -21,7 +23,7 @@ function renderChecked(string $fieldName): void {
     }
 }
 
-function renderCheckedByValue(string $fieldName, $expectedValue): void {
+function renderPostCheckedByValue(string $fieldName, $expectedValue): void {
     $value = filter_input(INPUT_POST, $fieldName);
 
     if ($value == $expectedValue) {
@@ -29,13 +31,27 @@ function renderCheckedByValue(string $fieldName, $expectedValue): void {
     }
 }
 
-function renderSelectedByValue(string $fieldName, $expectedValue): void {
+function renderPostSelected(string $fieldName, $expectedValue): void {
     $value = filter_input(INPUT_POST, $fieldName);
 
     if ($value == $expectedValue) {
         echo 'selected';
     }
 }
+
+// Other rendering
+function renderEnumSelectOptions(mixed $value, array $enum, bool $nullable = false): void {
+    if ($nullable) {
+        echo "<option value=null></option>";
+    }
+    foreach ($enum as $case) {
+        $selected = ($value === $case) ? 'selected' : null;
+        echo "<option value=$case->value $selected>" . _($case->value) . "</option>";
+
+    }
+}
+
+// Messaging
 
 function renderFieldErrors(?array $errors, string $fieldName): void {
     if (isset($errors[$fieldName])) {

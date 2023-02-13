@@ -1,5 +1,10 @@
 <?php
 
+use NutriScore\Models\Person\ActivityLevel;
+use NutriScore\Models\Person\BmrCalculationType;
+use NutriScore\Models\Person\Goal;
+use NutriScore\Models\Person\NutritionType;
+
 $messages = $messages ?? [];
 
 getTemplatePart('head', ['title' => 'Profile']);
@@ -28,41 +33,34 @@ getTemplatePart('header', ['active' => 'profile']);
             <div class="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
               <label class=default-input__label for="nutritionType">Nutrition type</label>
               <select class="default-input" name="nutritionType" id="nutritionType">
-                <option value="NORMAL" <?php renderSelectedByValue('nutritionType', 'NORMAL');?>>Normal</option>
-                <option value="KETOGENIC" <?php renderSelectedByValue('nutritionType', 'KETOGENIC');?>>Ketogenic</option>
-                <option value="LOW_CARB" <?php renderSelectedByValue('nutritionType', 'LOW_CARB');?>>Low carb</option>
-                <option value="LOW_FAT" <?php renderSelectedByValue('nutritionType', 'lowFat');?>>Low fat</option>
-                <option value="HIGH_PROTEIN" <?php renderSelectedByValue('nutritionType', 'LOW_FAT');?>>High protein</option>
-                <option value="HP_HF" <?php renderSelectedByValue('nutritionType', 'HP_HF');?>>HP + HF</option>
-                <option value="DACH_REFERENCE" <?php renderSelectedByValue('nutritionType', 'DACH_REFERENCE');?>>D-A-C-H Reference</option>
-                <option value="MANUALLY" <?php renderSelectedByValue('nutritionType', 'MANUALLY');?>>Manually</option>
+                <?php renderEnumSelectOptions($person->getNutritionType() ?? null, NutritionType::cases())?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                <?php renderFieldErrors($errors ?? null, 'nutritionType'); ?>
+                <?php renderValidationFieldMessages('nutritionType', $messages);?>
               </ul>
             </div>
             <div class="basis-full md:basis-1/2 lg:basis-2/3 xl:basis-1/2 2xl:basis-1/3 flex flex-row gap-4 sm:gap-6 md:gap-8">
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="protein">Protein</label>
-                <input class="default-input" type="number" name="protein" id="protein" <?php renderValue('protein');?>>
+                <input class="default-input" type="number" name="protein" id="protein" <?php renderPostValue('protein');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderFieldErrors($errors ?? null, 'protein'); ?>
+                  <?php renderValidationFieldMessages('protein', $messages);?>
                 </ul>
               </div>
 
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="carbohydrates">Carbs</label>
-                <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderValue('carbohydrates');?>>
+                <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderPostValue('carbohydrates');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderFieldErrors($errors ?? null, 'carbohydrates'); ?>
+                  <?php renderValidationFieldMessages('carbohydrates', $messages);?>
                 </ul>
               </div>
 
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="fat">Fat</label>
-                <input class="default-input" type="number" name="fat" id="fat" <?php renderValue('fat');?>>
+                <input class="default-input" type="number" name="fat" id="fat" <?php renderPostValue('fat');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderFieldErrors($errors ?? null, 'fat'); ?>
+                  <?php renderValidationFieldMessages('fat', $messages);?>
                 </ul>
               </div>
             </div>
@@ -73,26 +71,18 @@ getTemplatePart('header', ['active' => 'profile']);
               <div class="basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/2 2xl:basis-1/4 sm:grow-[3] md:grow-[2]">
                 <label class=default-input__label for="activityLevel">Activity Level</label>
                 <select class="default-input" name="activityLevel" id="activityLevel">
-                  <option value="NO_SPORTS" <?php renderSelectedByValue('activityLevel', 'NO_SPORTS');?>>No exercise</option>
-                  <option value="ONE_TO_THREE" <?php renderSelectedByValue('activityLevel', 'ONE_TO_THREE');?>>Exercise 1-3/week</option>
-                  <option value="THREE_TO_FIVE" <?php renderSelectedByValue('activityLevel', 'THREE_TO_FIVE');?>>Exercise 3-5/week</option>
-                  <option value="SIX_TO_SEVEN" <?php renderSelectedByValue('activityLevel', 'SIX_TO_SEVEN');?>>Exercise 6-7/week</option>
-                  <option value="DAILY" <?php renderSelectedByValue('activityLevel', 'DAILY');?>>Exercise daily</option>
-                  <option value="PAL_LEVEL" <?php renderSelectedByValue('activityLevel', 'PAL_LEVEL');?>>PAL Level</option>
-                  <option value="MET" <?php renderSelectedByValue('activityLevel', 'MET');?>>MET</option>
-                  <option value="MET_FACTOR" <?php renderSelectedByValue('activityLevel', 'MET_FACTOR');?>>MET Factor</option>
-                  <option value="PAL_FACTOR" <?php renderSelectedByValue('activityLevel', 'PAL_FACTOR');?>>PAL Factor</option>
+                  <?php renderEnumSelectOptions($person->getActivityLevel() ?? null, ActivityLevel::cases())?>
                 </select>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderFieldErrors($errors ?? null, 'activityLevel'); ?>
+                  <?php renderValidationFieldMessages('activityLevel', $messages);?>
                 </ul>
               </div>
 
               <div class="basis-2/5 md:basis-1/4 lg:basis-1/4 2xl:basis-1/6 grow">
                 <label class="default-input__label" for="palLevel">PAL Level</label>
-                <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderValue('palLevel');?>>
+                <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderPostValue('palLevel');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderFieldErrors($errors ?? null, 'palLevel'); ?>
+                  <?php renderValidationFieldMessages('palLevel', $messages);?>
                 </ul>
               </div>
             </div>
@@ -102,24 +92,19 @@ getTemplatePart('header', ['active' => 'profile']);
             <div class="basis-full sm:basis-5/12 md:basis-1/3 lg:basis-1/4 2xl:basis-1/4">
               <label class=default-input__label for="bmrCalculationType">BMR Calculation Type</label>
               <select class="default-input" name="bmrCalculationType" id="bmrCalculationType">
-                <option value="EASY" <?php renderSelectedByValue('bmrCalculationType', 'EASY');?>>Easy</option>
-                <option value="COMPLICATED" <?php renderSelectedByValue('bmrCalculationType', 'COMPLICATED');?>>Complicated</option>
-                <option value="HARRIS_BENEDICT" <?php renderSelectedByValue('bmrCalculationType', 'HARRIS_BENEDICT');?>>Harris Benedict</option>
-                <option value="MIFFLIN_ST_JEOR" <?php renderSelectedByValue('bmrCalculationType', 'MIFFLIN_ST_JEOR');?>>Mifflin-St. Jeor</option>
+                <?php renderEnumSelectOptions($person->getBmrCalculationType() ?? null, BmrCalculationType::cases())?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                <?php renderFieldErrors($errors ?? null, 'bmrCalculationType'); ?>
+                <?php renderValidationFieldMessages('bmrCalculationType', $messages);?>
               </ul>
             </div>
             <div class="basis-full sm:basis-5/12 md:basis-1/3 lg:basis-1/4 2xl:basis-1/4">
               <label class=default-input__label for="goal">Objective</label>
-              <select class="default-input" name="goal" id="goal" <?php renderValue('goal');?>>
-                <option value="KEEP">Keep weight</option>
-                <option value="LOOSE">Loose weight</option>
-                <option value="GAIN">Gain weight</option>
+              <select class="default-input" name="goal" id="goal" <?php renderPostValue('goal');?>>
+                <?php renderEnumSelectOptions($person->getGoal() ?? null, Goal::cases())?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                <?php renderFieldErrors($errors ?? null, 'goal'); ?>
+                <?php renderValidationFieldMessages('goal', $messages);?>
               </ul>
             </div>
           </div>

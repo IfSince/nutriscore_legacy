@@ -73,10 +73,9 @@ getTemplatePart('header', ['active' => 'overview']);
   
   <?php getTemplatePart('date-selector');?>
 
-  <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
   <section class="w-full bg-gray-100 flex flex-col lg:flex-row pb-24">
     <div class="py-4 md:px-4 flex flex-col lg:flex-row lg:flex-wrap flex-grow basis-4/6 h-fit">
-      test
+      <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
     </div>
   </section>
 </div>
