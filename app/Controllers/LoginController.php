@@ -20,7 +20,7 @@ final class LoginController extends AbstractController {
         $this->userService = new UserService();
     }
 
-    protected function beforeHandling(): void {
+    protected function preAuthorize(): void {
         if (User::isLoggedIn()) {
             $this->redirectTo('/overview');
         }
@@ -36,7 +36,7 @@ final class LoginController extends AbstractController {
         $errors = $this->userService->login($formInput);
         if (empty($errors)) {
             Session::flash('login', 'You have been successfully signed in.', MessageType::SUCCESS);
-            header('Location: /overview');
+            $this->redirectTo('/overview');
         } else {
             $this->view->render(self::LOGIN_TEMPLATE, ['errors' => $errors]);
         }

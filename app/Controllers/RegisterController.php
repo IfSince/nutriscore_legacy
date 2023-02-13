@@ -20,7 +20,7 @@ final class RegisterController extends AbstractController {
         $this->userService = new UserService();
     }
 
-    protected function beforeHandling(): void {
+    protected function preAuthorize(): void {
         if (User::isLoggedIn()) {
             $this->redirectTo('/overview');
         }
@@ -37,7 +37,7 @@ final class RegisterController extends AbstractController {
 
         if (empty($errors)) {
             Session::flash('success', 'Your registration was successful. You can log in.', MessageType::SUCCESS);
-            header('Location: /login');
+            $this->redirectTo('/login');
         } else {
             $this->view->render(self::REGISTER_TEMPLATE, ['errors' => $errors]);
         }

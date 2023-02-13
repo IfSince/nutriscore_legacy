@@ -2,6 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: 'jit',
   content: [
       "./app/Views/**",
       "./public/assets/scripts/**/*.js",
@@ -25,6 +26,9 @@ module.exports = {
         'blue': {
           DEFAULT: '#2492DB',
         }
+      },
+      flexBasis: {
+        '1/8': '12.5%',
       },
       transitionDuration: {
         '400': '400ms',

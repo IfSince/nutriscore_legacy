@@ -3,18 +3,17 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
+use NutriScore\Enums\InputType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\PersonService;
-use NutriScore\Utils\Session;
 
-final class OverviewController extends AbstractController {
-    private const OVERVIEW_TEMPLATE = 'overview/index';
-
+class PersonController extends AbstractController {
     private PersonService $personService;
 
     public function __construct(Request $request) {
         parent::__construct($request);
+
         $this->personService = new PersonService();
     }
 
@@ -24,8 +23,13 @@ final class OverviewController extends AbstractController {
         }
     }
 
-    protected function handleGetRequest(): void {
-        $personData = $this->personService->findByUserId(Session::get('id'));
-        $this->view->render(self::OVERVIEW_TEMPLATE, ['personData' => $personData]);
+    public function update(): void {
+        $this->handleRequest(postFunction: $this->postUpdate(...));
     }
+
+    private function postUpdate(): void {
+        $data = $this->request->getInput(InputType::POST);
+        var_dump($data);
+    }
+
 }

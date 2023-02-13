@@ -19,6 +19,12 @@ class User extends Model {
         $this->startDate = date('Y/m/d');
     }
 
+    public static function update(User $user, array $data = null): void {
+        if ($data) {
+            User::populate($user, $data);
+        }
+    }
+
     public static function create(array $data = null): User {
         $obj = new User();
         if ($data) {

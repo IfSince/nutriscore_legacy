@@ -7,6 +7,8 @@ use NutriScore\Models\User\User;
 use NutriScore\Utils\Session;
 use NutriScore\Validators\LoginFormValidator;
 use NutriScore\Validators\RegisterFormValidator;
+use NutriScore\Validators\UserValidator;
+use NutriScore\Validators\ValidationObject;
 
 class UserService {
     private UserMapper $userMapper;
@@ -21,6 +23,21 @@ class UserService {
 
     public function findById(int $id): User {
         return $this->userMapper->findById($id);
+    }
+
+    public function update(array $data): ValidationObject {
+        $userId = Session::get('id');
+        $user = $this->findById($userId);
+        User::update($user, $data);
+
+        $validator = new UserValidator($user, $this->userMapper);
+        $validator->validate();
+
+        if ($validator->isValid()) {
+            $this->userMapper->save($user);
+        }
+
+        return $validator->getValidationObject();
     }
 
     public function login(array $formInput): array {
