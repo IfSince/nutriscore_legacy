@@ -1,7 +1,6 @@
 <?php
 
-use NutriScore\Enums\MessageType;
-use NutriScore\Utils\Session;
+$messages = $messages ?? null;
 
 getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);
 getTemplatePart('header', ['active' => 'profile']);
@@ -15,8 +14,8 @@ getTemplatePart('header', ['active' => 'profile']);
           <label for="upload"
                  class="cursor-pointer bg-gray-100 rounded-full w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36
                         overflow-hidden flex justify-center items-center group relative">
-            <img src="<?= $profileImage?->getPath() ?? 'assets/images/profile_img.svg'?>"
-                 alt="Default profile image"
+            <img src="<?=$profileImage?->getPath() ?? 'assets/images/profile_img.svg'?>"
+                 alt="<?=$profileImage?->getText() ?? 'Uploaded profile image'?>"
                  data-profile-img
                  class="w-full h-full object-cover transition-opacity group-hover:opacity-50">
             <div class="absolute w-12 h-12 transition-opacity opacity-0 group-hover:opacity-100">
@@ -43,18 +42,7 @@ getTemplatePart('header', ['active' => 'profile']);
   </section>
 
   <section class="w-full bg-gray-100 pb-10 py-6 md:px-4">
-    <?php if(!empty($errors['root']) || !empty($warnings['root']) || !empty($hints['root']) || !empty($success['root']) ||
-            Session::hasFlashMessages()): ?>
-        <?php getTemplatePart(
-                'global-messages',
-                [
-                        'errors' => array_merge($errors['root'] ?? [], Session::getFlashMessagesByType(MessageType::ERROR)),
-                        'warnings' => array_merge($warnings['root'] ?? [], Session::getFlashMessagesByType(MessageType::WARNING)),
-                        'hints' => array_merge($hints['root'] ?? [], Session::getFlashMessagesByType(MessageType::HINT)),
-                        'success' => array_merge($success['root'] ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS))
-                ]
-        );?>
-    <?php endif;?>
+    <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
     <div class="bg-white md:rounded-md px-6 pt-4 pb-10 shadow-border flex-grow basis-1/2 min-w-[300px]">
       <h3 class="font-medium text-gray-700 text-2xl tracking-tight ">
         My Account Data

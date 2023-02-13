@@ -1,7 +1,6 @@
 <?php
 
-use NutriScore\Enums\MessageType;
-use NutriScore\Utils\Session;
+$messages = $messages ?? [];
 
 getTemplatePart('head', ['title' => 'Profile']);
 getTemplatePart('header', ['active' => 'profile']);
@@ -17,18 +16,7 @@ getTemplatePart('header', ['active' => 'profile']);
   </section>
 
   <section class="w-full bg-gray-100 pb-20 md:pb-10 py-6 md:px-4">
-    <?php if(!empty($errors['root']) || !empty($warnings['root']) || !empty($hints['root']) || !empty($success['root']) ||
-            Session::hasFlashMessages()): ?>
-      <?php getTemplatePart(
-              'global-messages',
-              [
-                      'errors' => array_merge($errors['root'] ?? [], Session::getFlashMessagesByType(MessageType::ERROR)),
-                      'warnings' => array_merge($warnings['root'] ?? [], Session::getFlashMessagesByType(MessageType::WARNING)),
-                      'hints' => array_merge($hints['root'] ?? [], Session::getFlashMessagesByType(MessageType::HINT)),
-                      'success' => array_merge($success['root'] ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS))
-              ]
-      );?>
-    <?php endif;?>
+    <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
     <div class="bg-white md:rounded-md px-6 pt-4 py-6 shadow-border flex-grow basis-1/2 min-w-[300px]">
       <h3 class="font-medium text-gray-700 text-2xl tracking-tight sm:font-medium">
         My Nutritional Data

@@ -1,7 +1,6 @@
 <?php
 
-use NutriScore\Enums\MessageType;
-use NutriScore\Utils\Session;
+$messages = $messages ?? [];
 
 getTemplatePart('head', ['title' => 'Profile']);
 getTemplatePart('header', ['active' => 'profile']);
@@ -17,18 +16,7 @@ getTemplatePart('header', ['active' => 'profile']);
   </section>
 
   <section class="w-full bg-gray-100 pb-20 md:pb-10 py-6 md:px-4">
-    <?php if(!empty($errors['root']) || !empty($warnings['root']) || !empty($hints['root']) || !empty($success['root']) ||
-            Session::hasFlashMessages()): ?>
-      <?php getTemplatePart(
-              'global-messages',
-              [
-                      'errors' => array_merge($errors['root'] ?? [], Session::getFlashMessagesByType(MessageType::ERROR)),
-                      'warnings' => array_merge($warnings['root'] ?? [], Session::getFlashMessagesByType(MessageType::WARNING)),
-                      'hints' => array_merge($hints['root'] ?? [], Session::getFlashMessagesByType(MessageType::HINT)),
-                      'success' => array_merge($success['root'] ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS))
-              ]
-      );?>
-    <?php endif;?>
+    <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
     <div class="bg-white md:rounded-md px-6 pt-4 py-6 shadow-border flex-grow basis-1/2 min-w-[300px]">
       <h3 class="font-medium text-gray-700 text-2xl tracking-tight sm:font-medium">
         My Personal Data
@@ -41,14 +29,14 @@ getTemplatePart('header', ['active' => 'profile']);
               <label class="default-input__label" for="firstName">First name</label>
               <input class="default-input" type="text" id="firstName" name="firstName">
               <ul class="text-sm font-medium text-red-500 pl-2">
-                <?php renderFieldErrors($errors ?? null, 'firstName'); ?>
+                <?php renderValidationFieldMessages('firstName', $messages);?>
               </ul>
             </div>
             <div class="basis-full sm:basis-1/3 md:basis-1/3 lg:basis-1/4">
               <label class="default-input__label" for="surname">Surname</label>
               <input class="default-input" type="text" id="surname" name="surname">
               <ul class="text-sm font-medium text-red-500 pl-2">
-                <?php renderFieldErrors($errors ?? null, 'surname'); ?>
+                <?php renderValidationFieldMessages('surname', $messages);?>
               </ul>
             </div>
           </div>
@@ -62,7 +50,7 @@ getTemplatePart('header', ['active' => 'profile']);
                 <option value="OTHER" <?php renderSelectedByValue('gender', 'OTHER');?>>Other</option>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2">
-                <?php renderFieldErrors($errors ?? null, 'gender'); ?>
+                <?php renderValidationFieldMessages('gender', $messages);?>
               </ul>
             </div>
 
@@ -70,7 +58,7 @@ getTemplatePart('header', ['active' => 'profile']);
               <label class="default-input__label" for="dateOfBirth">Date of Birth</label>
               <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" <?php renderValue('dateOfBirth');?>>
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                <?php renderFieldErrors($errors ?? null, 'dateOfBirth'); ?>
+                <?php renderValidationFieldMessages('dateOfBirth', $messages);?>
               </ul>
             </div>
 
@@ -79,7 +67,7 @@ getTemplatePart('header', ['active' => 'profile']);
                 <label class="default-input__label" for="height">Height (in cm)</label>
                 <input class="default-input" type="number" name="height" id="height" <?php renderValue('height');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderFieldErrors($errors ?? null, 'height'); ?>
+                  <?php renderValidationFieldMessages('height', $messages);?>
                 </ul>
               </div>
 
@@ -87,7 +75,7 @@ getTemplatePart('header', ['active' => 'profile']);
                 <label class="default-input__label" for="weight">Weight (in kg)</label>
                 <input class="default-input" type="number" name="weight" id="weight" <?php renderValue('weight');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                  <?php renderFieldErrors($errors ?? null, 'weight'); ?>
+                  <?php renderValidationFieldMessages('weight', $messages);?>
                 </ul>
               </div>
             </div>

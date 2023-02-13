@@ -4,6 +4,7 @@ namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
 use NutriScore\Enums\InputType;
+use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\FileService;
@@ -53,20 +54,26 @@ final class ProfileController extends AbstractController {
     }
 
     protected function postRequest(): void {
-        $fileUpload = $this->request->getInput(InputType::FILE);
-        $validationObject = $this->fileService->validateAndUpload($fileUpload);
+        $fileData = $this->request->getInput(InputType::FILE)['upload'] ?? null;
 
         $userId = Session::get('id');
+        $existingImageId = $this->userService->findById($userId)->getProfileImageId();
+
+        $validationObject = $this->fileService->save(file: $fileData, existingImageId: $existingImageId);
+
         if ($validationObject->isValid()) {
-            $this->userService->linkUserToProfileImage($userId, $validationObject->getData());
+
+            $this->userService->linkUserToProfileImage($userId, $validationObject->getData()->getId());
+            Session::flash('profile-success', 'Your profile image was updated successfully.', MessageType::SUCCESS);
             $this->redirectTo('/profile');
         } else {
+            Session::flash('profile-error', 'An error occurred when trying to update your profile image.');
             $this->view->render(
                 self::PROFILE_TEMPLATE,
                 [
                     'personData' => $this->personService->findByUserId($userId),
                     'user' => $this->userService->findById($userId),
-                    'errors' => $validationObject->getErrors()
+                    'messages' => $validationObject->renderMessages()
                 ]
             );
         }

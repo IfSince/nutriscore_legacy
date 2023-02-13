@@ -42,14 +42,14 @@ class UserController extends AbstractController {
         $validationObject = $this->userService->update($data);
 
         if (!$validationObject->isValid()) {
-            Session::flash('error', 'Die Daten enthalten einen oder mehr Fehler und wurden nicht gespeichert.', MessageType::ERROR);
+            Session::flash('error', 'The data contains one or more errors and was not saved.', MessageType::ERROR);
         } else {
-            Session::flash('success', 'Die Änderungen wurden erfolgreich gespeichert', MessageType::SUCCESS);
+            Session::flash('success', 'The changes were saved successfully. ', MessageType::SUCCESS);
         }
         $this->view->render(
             self::USER_DATA_TEMPLATE,
             [
-                'errors' => $validationObject->getErrors(),
+                'messages' => $validationObject->renderMessages(),
                 'user' => $validationObject->getData()
             ]
         );

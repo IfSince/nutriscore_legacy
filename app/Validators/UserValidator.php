@@ -23,11 +23,20 @@ class UserValidator extends AbstractValidator {
         parent::validate();
 
         $this->validateUsernameExists();
+        $this->validateEmailExists();
     }
 
     public function validateUsernameExists(): void {
-        if ($this->userMapper->findByUsername($this->data->getUsername())) {
-            $this->validationObject->addMessage('username', 'This username already exists.');
+        $user = $this->userMapper->findByUsername($this->data->getUsername());
+        if ($user !== null && $user->getId() !== $this->data->getId()) {
+            $this->validationObject->addError('username', 'This username is already taken.');
+        }
+    }
+
+    public function validateEmailExists(): void {
+        $user = $this->userMapper->findByEmail($this->data->getEmail());
+        if ($user !== null && $user->getId() !== $this->data->getId()) {
+            $this->validationObject->addError('username', 'This email is already taken.');
         }
     }
 }

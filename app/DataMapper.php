@@ -48,7 +48,7 @@ abstract class DataMapper {
     }
 
     public function delete(Model $obj): void {
-        $sql = "DELETE FROM {$this->table} t WHERE t.id = :id";
+        $sql = "DELETE FROM {$this->table} WHERE id = :id";
         $this->database->prepareAndExecute($sql, ['id' => $obj->getId()]);
     }
 

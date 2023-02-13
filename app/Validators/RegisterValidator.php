@@ -49,14 +49,14 @@ class RegisterValidator extends AbstractValidator {
     private function validateUsernameExists(): void {
         $user = $this->userMapper->findByUsername($this->data['username']);
         if ($user !== null) {
-            $this->validationObject->addMessage('username', 'This username is already taken.');
+            $this->validationObject->addError('username', 'This username is already taken.');
         }
     }
 
     private function validateEmailExists(): void {
         $user = $this->userMapper->findByEmail($this->data['email']);
         if ($user !== null) {
-            $this->validationObject->addMessage('email', 'This email is already taken.');
+            $this->validationObject->addError('email', 'This email is already taken.');
         }
     }
 
@@ -67,7 +67,7 @@ class RegisterValidator extends AbstractValidator {
              empty($this->data['fat'])
             )
         ) {
-            $this->validationObject->addMessage(
+            $this->validationObject->addError(
                 'nutritionType',
                 'If you select "Manually", you have to choose your protein, carbohydrates and fat manually.'
             );
@@ -76,7 +76,7 @@ class RegisterValidator extends AbstractValidator {
 
     private function validateActivityLevelPalLevelAndPalLevelEmpty(): void {
         if ($this->data['activityLevel'] === ActivityLevel::PAL_LEVEL->value && empty($this->data['palLevel'])) {
-            $this->validationObject->addMessage('palLevel', 'If you select "PAL Level", you have to specify the PAL Level below.');
+            $this->validationObject->addError('palLevel', 'If you select "PAL Level", you have to specify the PAL Level below.');
         }
     }
 

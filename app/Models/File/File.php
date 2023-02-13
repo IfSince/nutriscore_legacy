@@ -10,6 +10,12 @@ class File extends Model {
     private string $text;
     private FileType $fileType = FileType::IMAGE;
 
+    public static function update(File $file, array $data = null): void {
+        if ($data) {
+            File::populate($file, $data);
+        }
+    }
+
     public static function create(array $data = null): File {
         $obj = new File();
 

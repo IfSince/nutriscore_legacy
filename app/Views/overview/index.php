@@ -1,7 +1,6 @@
 <?php
 
-use NutriScore\Enums\MessageType;
-use NutriScore\Utils\Session;
+$messages = $messages ?? [];
 
 getTemplatePart('head', ['title' => 'overview', 'module' => 'overview']);
 getTemplatePart('header', ['active' => 'overview']);
@@ -74,19 +73,7 @@ getTemplatePart('header', ['active' => 'overview']);
   
   <?php getTemplatePart('date-selector');?>
 
-  <?php if(!empty($errors['root']) || !empty($warnings['root']) || !empty($hints['root']) || !empty($success['root']) || Session::hasFlashMessages()): ?>
-    <div class="w-full pb-2 pt-4 md:px-4 bg-gray-100">
-      <?php getTemplatePart(
-              'global-messages',
-              [
-                      'errors' => array_merge($errors['root'] ?? [], Session::getFlashMessagesByType(MessageType::ERROR)),
-                      'warnings' => array_merge($warnings['root'] ?? [], Session::getFlashMessagesByType(MessageType::WARNING)),
-                      'hints' => array_merge($hints['root'] ?? [], Session::getFlashMessagesByType(MessageType::HINT)),
-                      'success' => array_merge($success['root'] ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS))
-              ]
-      );?>
-    </div>
-  <?php endif;?>
+  <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
   <section class="w-full bg-gray-100 flex flex-col lg:flex-row pb-24">
     <div class="py-4 md:px-4 flex flex-col lg:flex-row lg:flex-wrap flex-grow basis-4/6 h-fit">
       test

@@ -19,19 +19,13 @@ class FileService {
         return $this->fileMapper->findById($fileId);
     }
 
-    public function validateAndUpload(?array $file, ?string $text = ''): ValidationObject {
-        $image = isset($file['upload']) && $file['upload']['size'] > 0 ? $file['upload'] : null;
-        if (!isset($image)) {
-            return new ValidationObject(
-                null,
-                ['errors' => ['file' => 'Failed to read uploaded file']]
-            );
-        }
-        $validator = new FileValidator($image);
+    public function save(?array $file, ?string $text = 'Uploaded File', int $existingImageId = null): ValidationObject {
+        $fileData = array_merge($file, ['text' => $text]);
+        $validator = new FileValidator($fileData);
         $validator->validate();
 
         if ($validator->isValid()) {
-            $fileName = $this->createUniqueFilename($image['name']);
+            $fileName = $this->createUniqueFilename($fileData['name']);
             $absolutePath = APP_UPLOADS_DIR . DIRECTORY_SEPARATOR . $this->createDateCodedPath();
             $relativePath = str_replace(APP_PUBLIC_DIR , '', $absolutePath);
             $uploadPath = $absolutePath . DIRECTORY_SEPARATOR . $fileName;
@@ -40,26 +34,30 @@ class FileService {
                 mkdir($absolutePath, 0777, true);
             }
 
-            if (!move_uploaded_file($image['tmp_name'], $uploadPath)) {
-                return new ValidationObject(
-                    null,
-                    ['errors' => ['file' => 'Failed to upload file.']]
-                );
+            if (!move_uploaded_file($fileData['tmp_name'], $uploadPath)) {
+                $validator->getValidationObject()->addError('file', 'Failed to upload file');
             } else {
                 $data = [
                     'path' => $relativePath . DIRECTORY_SEPARATOR . $fileName,
                     'text' => $text,
                     'fileType' => FileType::IMAGE
                 ];
-                $file = File::create($data);
 
+                if ($existingImageId) {
+                    $file = $this->findById($existingImageId);
+                    $this->fileMapper->delete($file);
+                    $this->deleteFile($file);
+                }
+
+                $file = File::create($data);
                 $this->fileMapper->save($file);
 
-                $imageId = $file->getId();
+                $validator->getValidationObject()->setData($file);
             }
+
         }
 
-        return new ValidationObject($imageId ?? null, $validator->getErrors());
+        return $validator->getValidationObject();
     }
 
     private function createDateCodedPath(): string {
@@ -75,6 +73,14 @@ class FileService {
         $rand = rand(1234, 9876);
 
         return "{$namePart}-{$time}-{$rand}.{$fileExt}";
+    }
+
+    private function deleteFile(File $file): void {
+        $absolutePath = APP_ROOT_DIR . $file->getPath();
+
+        if (file_exists($absolutePath)) {
+            unlink($absolutePath);
+        }
     }
 
 }

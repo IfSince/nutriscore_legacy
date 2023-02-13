@@ -3,7 +3,6 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Enums\InputType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\PersonService;
@@ -22,14 +21,4 @@ class PersonController extends AbstractController {
             $this->redirectTo('/login');
         }
     }
-
-    public function update(): void {
-        $this->handleRequest(postFunction: $this->postUpdate(...));
-    }
-
-    private function postUpdate(): void {
-        $data = $this->request->getInput(InputType::POST);
-        var_dump($data);
-    }
-
 }
