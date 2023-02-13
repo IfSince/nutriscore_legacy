@@ -30,5 +30,4 @@ class LoginValidator extends AbstractValidator {
             $this->validationObject->addMessage('root', 'The username or password is incorrect');
         }
     }
-
 }

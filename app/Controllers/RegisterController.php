@@ -33,13 +33,13 @@ final class RegisterController extends AbstractController {
     protected function postRequest(): void {
         $formInput = $this->request->getInput(InputType::POST);
 
-        $errors = $this->userService->register($formInput);
+        $validationObject = $this->userService->register($formInput);
 
-        if (empty($errors)) {
+        if ($validationObject->isValid()) {
             Session::flash('success', 'Your registration was successful. You can log in.', MessageType::SUCCESS);
             $this->redirectTo('/login');
         } else {
-            $this->view->render(self::REGISTER_TEMPLATE, ['errors' => $errors]);
+            $this->view->render(self::REGISTER_TEMPLATE, ['messages' => $validationObject->renderMessages()]);
         }
     }
 

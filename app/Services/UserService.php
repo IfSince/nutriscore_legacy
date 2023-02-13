@@ -6,7 +6,7 @@ use NutriScore\DataMappers\UserMapper;
 use NutriScore\Models\User\User;
 use NutriScore\Utils\Session;
 use NutriScore\Validators\LoginValidator;
-use NutriScore\Validators\RegisterFormValidator;
+use NutriScore\Validators\RegisterValidator;
 use NutriScore\Validators\UserValidator;
 use NutriScore\Validators\ValidationObject;
 
@@ -51,8 +51,8 @@ class UserService {
         return $validator->getValidationObject();
     }
 
-    public function register(array $formInput): array {
-        $validator = new RegisterFormValidator($formInput, $this->userMapper);
+    public function register(array $formInput): ValidationObject {
+        $validator = new RegisterValidator($formInput, $this->userMapper);
         $validator->validate();
 
         if ($validator->isValid()) {
@@ -63,7 +63,7 @@ class UserService {
             $this->personService->createAndSave($formInput);
             $this->weightRecordingService->createAndSave($formInput);
         }
-        return $validator->getErrors();
+        return $validator->getValidationObject();
     }
 
     public function linkUserToProfileImage(int $userId, int $imageId): void {
