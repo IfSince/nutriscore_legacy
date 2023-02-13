@@ -26,19 +26,19 @@ final class LoginController extends AbstractController {
         }
     }
 
-    protected function handleGetRequest(): void {
+    protected function getRequest(): void {
         $this->view->render(self::LOGIN_TEMPLATE);
     }
 
-    protected function handlePostRequest(): void {
+    protected function postRequest(): void {
         $formInput = $this->request->getInput(InputType::POST);
 
-        $errors = $this->userService->login($formInput);
-        if (empty($errors)) {
+        $validationObject = $this->userService->login($formInput);
+        if ($validationObject->isValid()) {
             Session::flash('login', 'You have been successfully signed in.', MessageType::SUCCESS);
             $this->redirectTo('/overview');
         } else {
-            $this->view->render(self::LOGIN_TEMPLATE, ['errors' => $errors]);
+            $this->view->render(self::LOGIN_TEMPLATE, ['messages' => $validationObject->renderMessages()]);
         }
     }
 }

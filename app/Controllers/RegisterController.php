@@ -26,11 +26,11 @@ final class RegisterController extends AbstractController {
         }
     }
 
-    protected function handleGetRequest(): void {
+    protected function getRequest(): void {
         $this->view->render(self::REGISTER_TEMPLATE);
     }
 
-    protected function handlePostRequest(): void {
+    protected function postRequest(): void {
         $formInput = $this->request->getInput(InputType::POST);
 
         $errors = $this->userService->register($formInput);

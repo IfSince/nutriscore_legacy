@@ -6,16 +6,12 @@ use NutriScore\DataMappers\UserMapper;
 use NutriScore\Models\User\User;
 
 class UserValidator extends AbstractValidator {
-    private User $user;
     private UserMapper $userMapper;
 
     public function __construct(User $user, UserMapper $userMapper) {
-        parent::__construct();
+        parent::__construct($user);
 
         $this->userMapper = $userMapper;
-
-        $this->user = $user;
-        $this->validationObject->setData($user);
 
         $this->addFieldRules(
             new ValidationRule('username', $user->getUsername(), ['required', 'minLength' => 3]),
@@ -30,8 +26,8 @@ class UserValidator extends AbstractValidator {
     }
 
     public function validateUsernameExists(): void {
-        if ($this->userMapper->findByUsername($this->user->getUsername())) {
-            $this->validationObject->addMessage('username', "This username already exists.");
+        if ($this->userMapper->findByUsername($this->data->getUsername())) {
+            $this->validationObject->addMessage('username', 'This username already exists.');
         }
     }
 }

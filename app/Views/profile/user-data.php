@@ -42,7 +42,7 @@ getTemplatePart('header', ['active' => 'profile']);
               <label class="default-input__label" for="username">Username</label>
               <input class="default-input" type="text" id="username" name="username" value="<?=$user->getUsername()?>">
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-                <?php renderValidationFieldErrors( 'username', $errors ?? null); ?>
+                <?php renderValidationFieldMessages( 'username', $errors ?? null); ?>
               </ul>
             </div>
             <div class="basis-full sm:basis-1/3 md:basis-1/3 lg:basis-1/4">

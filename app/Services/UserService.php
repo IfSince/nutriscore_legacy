@@ -5,7 +5,7 @@ namespace NutriScore\Services;
 use NutriScore\DataMappers\UserMapper;
 use NutriScore\Models\User\User;
 use NutriScore\Utils\Session;
-use NutriScore\Validators\LoginFormValidator;
+use NutriScore\Validators\LoginValidator;
 use NutriScore\Validators\RegisterFormValidator;
 use NutriScore\Validators\UserValidator;
 use NutriScore\Validators\ValidationObject;
@@ -40,15 +40,15 @@ class UserService {
         return $validator->getValidationObject();
     }
 
-    public function login(array $formInput): array {
-        $validator = new LoginFormValidator($formInput, $this->userMapper);
+    public function login(array $formInput): ValidationObject {
+        $validator = new LoginValidator($formInput, $this->userMapper);
         $validator->validate();
 
         if ($validator->isValid()) {
             $user = $this->userMapper->findByUsername($formInput['username']);
             Session::set('id', $user->getId());
         }
-        return $validator->getErrors();
+        return $validator->getValidationObject();
     }
 
     public function register(array $formInput): array {

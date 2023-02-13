@@ -1,10 +1,4 @@
-<?php
-
-use NutriScore\Enums\MessageType;
-use NutriScore\Utils\Session;
-
-$errors = $data['errors'] ?? [];
-?>
+<?php $messages = $messages ?? []; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,29 +24,19 @@ $errors = $data['errors'] ?? [];
     <div class="px-7 w-full flex-grow flex flex-col justify-evenly items-center lg:py-14">
       <h2 class="text-5xl text-green font-medium hidden md:block">Login</h2>
       <form class="w-full max-w-sm" method="post">
-        <?php if(!empty($errors['root']) || !empty($warnings['root']) || !empty($hints['root']) || !empty($success['root']) || Session::hasFlashMessages()): ?>
-          <?php getTemplatePart(
-                  'global-messages',
-                  [
-                          'errors' => array_merge($errors['root'] ?? [], Session::getFlashMessagesByType(MessageType::ERROR)),
-                          'warnings' => array_merge($warnings['root'] ?? [], Session::getFlashMessagesByType(MessageType::WARNING)),
-                          'hints' => array_merge($hints['root'] ?? [], Session::getFlashMessagesByType(MessageType::HINT)),
-                          'success' => array_merge($success['root'] ?? [], Session::getFlashMessagesByType(MessageType::SUCCESS))
-                  ]
-          );?>
-        <?php endif;?>
+        <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
         <div class="w-full">
           <label class="default-input__label" for="username">Username</label>
           <input class="default-input" type="text" name="username" id="username" <?php renderValue('username');?>>
           <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-            <?php renderFieldErrors($errors, 'username');?>
+            <?php renderValidationFieldMessages('username', $messages);?>
           </ul>
         </div>
         <div class="w-full mt-6">
           <label class="default-input__label" for="password">Password</label>
           <input class="default-input" type="password" name="password" id="password">
           <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
-            <?php renderFieldErrors($errors, 'password');?>
+            <?php renderValidationFieldMessages('password', $messages);?>
           </ul>
         </div>
         <div class="w-full mt-6 pl-2 flex justify-between">
@@ -61,7 +45,7 @@ $errors = $data['errors'] ?? [];
                    type="checkbox"
                    name="remember-me"
                    id="remember-me"
-                   <?php renderChecked('remember-me');  ?>>
+                   <?php renderChecked('remember-me');?>>
             <label class="text-gray-700 cursor-pointer pl-2" for="remember-me">Remember Me</label>
           </div>
           <a class="text-green cursor-pointer hover:underline focus:underline focus:outline-none" href="#">Forgot Password?</a>

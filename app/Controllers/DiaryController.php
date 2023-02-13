@@ -4,7 +4,6 @@ namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
 use NutriScore\Models\User\User;
-use NutriScore\Utils\Session;
 
 final class DiaryController extends AbstractController {
     private const DIARY_TEMPLATE = 'diary/index';
@@ -15,8 +14,7 @@ final class DiaryController extends AbstractController {
         }
     }
 
-    protected function handleGetRequest(): void {
-        Session::delete('id');
+    protected function getRequest(): void {
         $this->view->render(self::DIARY_TEMPLATE);
     }
 }

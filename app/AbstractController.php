@@ -14,6 +14,10 @@ class AbstractController {
         $this->request = $request;
     }
 
+    public function index(): void {
+        $this->handleRequest($this->getRequest(...), $this->postRequest(...));
+    }
+
     protected function handleRequest(callable $getFunction = null, callable $postFunction = null): void {
         $this->preAuthorize();
         $getFunction = $getFunction ?? $this->methodNotAllowed(...);
@@ -30,15 +34,11 @@ class AbstractController {
         echo '405 - Not allowed';
     }
 
-    public function index(): void {
-        $this->handleRequest($this->handleGetRequest(...), $this->handlePostRequest(...));
-    }
-
-    protected function handleGetRequest(): void {
+    protected function getRequest(): void {
         $this->methodNotAllowed();
     }
 
-    protected function handlePostRequest(): void {
+    protected function postRequest(): void {
         $this->methodNotAllowed();
     }
 

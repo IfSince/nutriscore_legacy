@@ -3,7 +3,7 @@
 namespace NutriScore\Validators;
 
 class AbstractValidator {
-    protected array $fieldData = [];
+    protected mixed $data;
 
     /**
      * @var array<ValidationRule>
@@ -12,8 +12,10 @@ class AbstractValidator {
 
     protected ValidationObject $validationObject;
 
-    public function __construct() {
+    public function __construct(mixed $data) {
         $this->validationObject = new ValidationObject();
+        $this->validationObject->setData($data);
+        $this->data = $data;
     }
 
     public function getValidationObject(): ValidationObject {

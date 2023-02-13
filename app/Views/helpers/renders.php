@@ -1,5 +1,6 @@
 <?php
 
+use NutriScore\Enums\MessageType;
 use NutriScore\Validators\ValidationField;
 
 function getTemplatePart(string $name, ?array $data = []): void {
@@ -44,13 +45,39 @@ function renderFieldErrors(?array $errors, string $fieldName): void {
     }
 }
 
-function renderValidationFieldErrors(string $fieldName, ?array $validationFields = null): void {
-    if ($validationFields != null) {
-        $temp = array_filter($validationFields, fn(ValidationField $field) => $field->getField() === $fieldName);
-        $temp = array_map(fn(ValidationField $field) => $field->getMessage(), $temp);
+function getValidationFieldMessages(string $fieldName, ?array $messages = null): array {
+    if (isset($messages)) {
+        return array_merge(
+            array_filter($messages['errors'] ?? [], fn(ValidationField $field) => $field->getField() === $fieldName),
+            array_filter($messages['warnings'] ?? [], fn(ValidationField $field) => $field->getField() === $fieldName),
+            array_filter($messages['hints'] ?? [], fn(ValidationField $field) => $field->getField() === $fieldName),
+            array_filter($messages['success'] ?? [], fn(ValidationField $field) => $field->getField() === $fieldName),
+        );
+    } else {
+        return [];
+    }
+}
 
-        foreach ($temp as $message) {
+function renderValidationFieldMessages(string $fieldName, ?array $messages = null): void {
+    if (isset($messages)) {
+        $fieldMessages = getValidationFieldMessages($fieldName, $messages);
+
+        foreach ($fieldMessages as $fieldMessage) {
+            $message = $fieldMessage->getMessage();
             echo "<li>$message</li>";
         }
+    }
+}
+
+function getValidationFieldMessagesByType(string $fieldName, ?array $messages = [], MessageType $type): array {
+    if (isset($messages)) {
+        return match ($type) {
+            MessageType::ERROR => array_filter($messages['errors'] ?? [], fn(ValidationField $field) => $field->getField() === $fieldName),
+            MessageType::WARNING => array_filter($messages['warnings'] ?? [], fn(ValidationField $field) => $field->getField() === $fieldName),
+            MessageType::HINT => array_filter($messages['hints'] ?? [], fn(ValidationField $field) => $field->getField() === $fieldName),
+            MessageType::SUCCESS => array_filter($messages['success'] ?? [], fn(ValidationField $field) => $field->getField() === $fieldName)
+        };
+    } else {
+        return [];
     }
 }

@@ -35,7 +35,7 @@ final class ProfileController extends AbstractController {
         }
     }
 
-    protected function handleGetRequest(): void {
+    protected function getRequest(): void {
         $userId = Session::get('id');
 
         $person = $this->personService->findByUserId($userId);
@@ -52,7 +52,7 @@ final class ProfileController extends AbstractController {
         );
     }
 
-    protected function handlePostRequest(): void {
+    protected function postRequest(): void {
         $fileUpload = $this->request->getInput(InputType::FILE);
         $validationObject = $this->fileService->validateAndUpload($fileUpload);
 

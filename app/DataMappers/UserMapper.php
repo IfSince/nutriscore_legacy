@@ -14,14 +14,14 @@ class UserMapper extends DataMapper {
         parent::__construct(self::RELATED_TABLE);
     }
 
-    public function findByUsername(string $username): ?User {
+    public function findByUsername(?string $username): ?User {
         $sql = 'SELECT * FROM users u WHERE u.username = :username';
         $params = ['username' => $username];
 
         return $this->load($sql, $params);
     }
 
-    public function findByEmail(string $email): ?User {
+    public function findByEmail(?string $email): ?User {
         $sql = 'SELECT * FROM users u WHERE u.email = :email';
         $params = ['email' => $email];
 

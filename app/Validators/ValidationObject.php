@@ -35,6 +35,18 @@ class ValidationObject {
         return $this->errors;
     }
 
+    public function getWarnings(): array {
+        return $this->warnings;
+    }
+
+    public function getHints(): array {
+        return $this->hints;
+    }
+
+    public function getSuccess(): array {
+        return $this->success;
+    }
+
     public function addMessage(string $field, string $message = "", MessageType $type = MessageType::ERROR): void {
         match ($type) {
             MessageType::ERROR => $this->errors[] = new ValidationField($field, $message),
@@ -42,6 +54,15 @@ class ValidationObject {
             MessageType::HINT => $this->hints[] = new ValidationField($field, $message),
             MessageType::SUCCESS => $this->success[] = new ValidationField($field, $message),
         };
+    }
+
+    public function renderMessages(): array {
+        return [
+            'errors' => $this->getErrors(),
+            'warnings' => $this->getWarnings(),
+            'hints' => $this->getHints(),
+            'success' => $this->getSuccess()
+        ];
     }
 
 }
