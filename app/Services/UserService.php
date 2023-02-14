@@ -3,7 +3,6 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
-use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Utils\Session;
 use NutriScore\Validators\LoginValidator;
@@ -21,19 +20,12 @@ class UserService {
         return $this->userMapper->findById($id);
     }
 
-    public function update(array $data): ValidationObject {
-        $userId = Session::get('id');
-        $user = $this->findById($userId);
-        User::update($user, $data);
-
-        $validator = new UserValidator($user, $this->userMapper);
+    public function save(User $user): ValidationObject {
+        $validator = new UserValidator($user);
         $validator->validate();
 
         if ($validator->isValid()) {
             $this->userMapper->save($user);
-            Session::flash('success', 'The changes were saved successfully. ', MessageType::SUCCESS);
-        } else {
-            Session::flash('error', 'The data contains one or more errors and was not saved.', MessageType::ERROR);
         }
         return $validator->getValidationObject();
     }
@@ -48,17 +40,6 @@ class UserService {
         }
         return $validator->getValidationObject();
     }
-
-    public function save(User $user): ValidationObject {
-        $validator = new UserValidator($user);
-        $validator->validate();
-
-        if ($validator->isValid()) {
-            $this->userMapper->save($user);
-        }
-        return $validator->getValidationObject();
-    }
-
 
     public function linkUserToProfileImage(int $userId, int $imageId): void {
         $this->userMapper->updateImage($userId, $imageId);

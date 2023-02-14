@@ -4,10 +4,12 @@ namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
 use NutriScore\Enums\InputType;
+use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\UserService;
 use NutriScore\Utils\Session;
+use NutriScore\Utils\UserUtil;
 
 class UserController extends AbstractController {
     private const USER_DATA_TEMPLATE = 'profile/user-data';
@@ -38,11 +40,19 @@ class UserController extends AbstractController {
 
     private function postUpdate(): void {
         $data = $this->request->getInput(InputType::POST);
-        $validationObject = $this->userService->update($data);
+        $userId = Session::get('id');
+
+        $user = UserUtil::createOrUpdateByForm($data, $userId);
+
+        $validationObject = $this->userService->save($user);
 
         if ($validationObject->isValid()) {
+            Session::flash('success', 'The changes were saved successfully. ', MessageType::SUCCESS);
+
             $this->redirectTo("/profile/user-data");
         } else {
+            Session::flash('error', 'The data contains one or more errors and was not saved.', MessageType::ERROR);
+
             $this->view->render(
                 self::USER_DATA_TEMPLATE,
                 [

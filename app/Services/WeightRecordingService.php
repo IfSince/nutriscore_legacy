@@ -20,15 +20,4 @@ class WeightRecordingService {
         $this->weightRecordingDataMapper->save($weightRecording);
         return $weightRecording;
     }
-
-    public function createOrUpdateWeightRecordingByForm(array $data, int $weightRecordingId = null): WeightRecording {
-        $weightRecording = $this->weightRecordingDataMapper->findById($weightRecordingId);
-
-        if (isset($weightRecording)) {
-            WeightRecording::update($weightRecording, $data);
-        } else {
-            WeightRecording::create($data);
-        }
-        return $weightRecording;
-    }
 }

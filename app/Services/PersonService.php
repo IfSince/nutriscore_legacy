@@ -25,18 +25,6 @@ class PersonService {
         if ($validator->isValid()) {
             $this->personMapper->save($person);
         }
-
         return $validator->getValidationObject();
-    }
-
-    public function createOrUpdateUserByForm(array $data, int $personId = null): Person {
-        $person = $this->personMapper->findById($personId);
-
-        if (isset($person)) {
-            Person::update($person, $data);
-        } else {
-            Person::create($data);
-        }
-        return $person;
     }
 }

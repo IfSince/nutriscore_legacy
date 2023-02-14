@@ -8,6 +8,7 @@ use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\PersonService;
+use NutriScore\Utils\PersonUtil;
 use NutriScore\Utils\Session;
 
 class PersonController extends AbstractController {
@@ -34,7 +35,7 @@ class PersonController extends AbstractController {
         $data = $this->request->getInput(InputType::POST);
         $personId = $this->request->getInput(InputType::PAGE)[0];
 
-        $person = $this->personService->createOrUpdateUserByForm($data, $personId);
+        $person = PersonUtil::createOrUpdateByForm($data, $personId);
         $validationObject = $this->personService->save($person);
 
         if ($validationObject->isValid()) {
