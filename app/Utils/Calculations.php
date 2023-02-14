@@ -6,10 +6,6 @@ use NutriScore\Models\Person\BmrCalculationType;
 use NutriScore\Models\Person\Gender;
 
 trait Calculations {
-    private int $height;
-    private string $dateOfBirth;
-    private BmrCalculationType $bmrCalculationType;
-
     public function getBmi(int $weight): float {
         $heightInMeters = $this->height / 100;
         $divider = pow($heightInMeters, 2);

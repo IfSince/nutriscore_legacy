@@ -27,7 +27,7 @@ getTemplatePart('header', ['active' => 'profile']);
         My Nutritional Data
       </h3>
       <div class="border-b border-b-gray-200 pb-3 mb-6"></div>
-      <form method="post">
+      <form method="post" action="/person/save/<?=$person->getId()?>">
         <div class="pb-8">
           <div class="flex flex-wrap gap-4 sm:gap-6 md:gap-8">
             <div class="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">

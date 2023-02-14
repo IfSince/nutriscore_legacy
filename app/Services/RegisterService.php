@@ -1,0 +1,79 @@
+<?php
+
+namespace NutriScore\Services;
+
+use NutriScore\DataMappers\PersonMapper;
+use NutriScore\DataMappers\UserMapper;
+use NutriScore\DataMappers\WeightRecordingMapper;
+use NutriScore\Models\Person\Person;
+use NutriScore\Models\User\User;
+use NutriScore\Models\WeightRecording\WeightRecording;
+use NutriScore\Validators\PersonValidator;
+use NutriScore\Validators\RegisterValidator;
+use NutriScore\Validators\UserValidator;
+use NutriScore\Validators\ValidationObject;
+
+class RegisterService {
+    private UserMapper $userMapper;
+    private PersonMapper $personMapper;
+    private WeightRecordingMapper $weightRecordingMapper;
+
+    public function __construct() {
+        $this->userMapper = new UserMapper();
+        $this->personMapper = new PersonMapper();
+        $this->weightRecordingMapper = new WeightRecordingMapper();
+    }
+
+
+    public function register(array $data): ValidationObject {
+        $user = User::create($data);
+        $person = Person::create($data);
+        $weightRecording = WeightRecording::create($data);
+
+        $registerValidator = new RegisterValidator($data);
+        $registerValidator->validate();
+
+        $userValidator = new UserValidator($user);
+        $userValidator->validate();
+
+        $personValidator = new PersonValidator($person);
+        $personValidator->validate();
+
+        if (
+            $registerValidator->isValid() &&
+            $userValidator->isValid() &&
+            $personValidator->isValid()
+        ) {
+            $this->userMapper->save($user);
+
+            $person->setUserId($user->getId());
+            $this->personMapper->save($person);
+
+            $weightRecording->setUserId($user->getId());
+            $this->weightRecordingMapper->save($weightRecording);
+        }
+
+        return new ValidationObject(
+            errors: [
+                ...$registerValidator->getValidationObject()->getErrors(),
+                ...$userValidator->getValidationObject()->getErrors(),
+                ...$personValidator->getValidationObject()->getErrors()
+            ],
+            warnings: [
+                ...$registerValidator->getValidationObject()->getWarnings(),
+                ...$userValidator->getValidationObject()->getWarnings(),
+                ...$personValidator->getValidationObject()->getWarnings()
+            ],
+            hints: [
+                ...$registerValidator->getValidationObject()->getHints(),
+                ...$userValidator->getValidationObject()->getHints(),
+                ...$personValidator->getValidationObject()->getHints()
+            ],
+            success: [
+                ...$registerValidator->getValidationObject()->getSuccess(),
+                ...$userValidator->getValidationObject()->getSuccess(),
+                ...$personValidator->getValidationObject()->getSuccess()
+            ],
+        );
+    }
+}

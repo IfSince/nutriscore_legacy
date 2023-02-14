@@ -16,13 +16,19 @@ class WeightRecordingService {
         return $this->weightRecordingDataMapper->findLatestByUserId($userId);
     }
 
-    public function createAndSave(array $data): void {
-        $weightRecording = WeightRecording::create($data);
-        $this->save($weightRecording);
-    }
-
     public function save(WeightRecording $weightRecording): WeightRecording {
         $this->weightRecordingDataMapper->save($weightRecording);
+        return $weightRecording;
+    }
+
+    public function createOrUpdateWeightRecordingByForm(array $data, int $weightRecordingId = null): WeightRecording {
+        $weightRecording = $this->weightRecordingDataMapper->findById($weightRecordingId);
+
+        if (isset($weightRecording)) {
+            WeightRecording::update($weightRecording, $data);
+        } else {
+            WeightRecording::create($data);
+        }
         return $weightRecording;
     }
 }

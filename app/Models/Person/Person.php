@@ -14,12 +14,12 @@ class Person extends Model {
     private string $surname;
     private string $dateOfBirth;
     private int $height;
-    private Gender $gender;
-    private NutritionType $nutritionType;
-    private BmrCalculationType $bmrCalculationType;
-    private ActivityLevel $activityLevel;
-    private Goal $goal;
-    private bool $acceptedTos;
+    private Gender $gender = Gender::MALE;
+    private NutritionType $nutritionType = NutritionType::NORMAL;
+    private BmrCalculationType $bmrCalculationType = BmrCalculationType::EASY;
+    private ActivityLevel $activityLevel = ActivityLevel::NO_SPORTS;
+    private Goal $goal = Goal::KEEP;
+    private bool $acceptedTos = false;
 
     public static function update(Person $user, array $data = null): void {
         if ($data) {
@@ -86,8 +86,8 @@ class Person extends Model {
         return $this->height;
     }
 
-    public function setHeight(int $height): void {
-        $this->height = $height;
+    public function setHeight(int|string $height): void {
+        $this->height = (int) $height;
     }
 
     public function getGender(): Gender {

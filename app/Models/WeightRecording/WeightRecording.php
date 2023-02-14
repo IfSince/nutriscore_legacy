@@ -14,6 +14,12 @@ class WeightRecording extends Model {
         $this->dateOfRecording = date('Y-m-d');
     }
 
+    public static function update(WeightRecording $user, array $data = null): void {
+        if ($data) {
+            WeightRecording::populate($user, $data);
+        }
+    }
+
     public static function create(array $data = null): WeightRecording {
         $obj = new WeightRecording();
         if ($data) {
@@ -34,8 +40,8 @@ class WeightRecording extends Model {
         return $this->weight;
     }
 
-    public function setWeight(int $weight): void {
-        $this->weight = $weight;
+    public function setWeight(int|string $weight): void {
+        $this->weight = (int) $weight;
     }
 
     public function getDateOfRecording(): string {

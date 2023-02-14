@@ -24,7 +24,7 @@ getTemplatePart('header', ['active' => 'profile']);
         My Personal Data
       </h3>
       <div class="border-b border-b-gray-200 pb-3 mb-6"></div>
-      <form method="post" action="/person/update/<?=$person->getId()?>">
+      <form method="post" action="/person/save/<?=$person->getId()?>">
         <div class="pb-8">
           <div class="flex flex-wrap gap-4 sm:gap-6">
             <div class="basis-full sm:basis-1/3 md:basis-1/3 lg:basis-1/4">

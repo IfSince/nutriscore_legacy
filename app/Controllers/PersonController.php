@@ -4,9 +4,11 @@ namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
 use NutriScore\Enums\InputType;
+use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\PersonService;
+use NutriScore\Utils\Session;
 
 class PersonController extends AbstractController {
     private const PERSON_DATA_TEMPLATE = 'profile/personal-data';
@@ -24,19 +26,24 @@ class PersonController extends AbstractController {
         }
     }
 
-    public function update(): void {
-        $this->handleRequest(postFunction: $this->postUpdate(...));
+    public function save(): void {
+        $this->handleRequest(postFunction: $this->postSave(...));
     }
 
-    private function postUpdate(): void {
+    private function postSave(): void {
         $data = $this->request->getInput(InputType::POST);
         $personId = $this->request->getInput(InputType::PAGE)[0];
 
-        $validationObject = $this->personService->updateAndSave($data, $personId);
+        $person = $this->personService->createOrUpdateUserByForm($data, $personId);
+        $validationObject = $this->personService->save($person);
 
         if ($validationObject->isValid()) {
+            Session::flash('success', 'The changes were saved successfully. ', MessageType::SUCCESS);
+
             $this->redirectTo("/profile/personal-data");
         } else {
+            Session::flash('error', 'The data contains one or more errors and was not saved.', MessageType::ERROR);
+
             $this->view->render(
                 self::PERSON_DATA_TEMPLATE,
                 [
