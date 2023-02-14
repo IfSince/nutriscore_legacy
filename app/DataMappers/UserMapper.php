@@ -62,7 +62,6 @@ class UserMapper extends DataMapper {
         $sql = 'UPDATE users u
                    SET u.username = :username,
                        u.email = :email,
-                       u.password = :password,
                        u.user_type = :userType,
                        u.start_date = :startDate,
                        u.end_date = :endDate,
@@ -71,7 +70,6 @@ class UserMapper extends DataMapper {
         $params = [
             'username' => $obj->getUsername(),
             'email' => $obj->getEmail(),
-            'password' => $obj->getPasswordHashed(),
             'userType' => $obj->getUserType()->value,
             'startDate' => $obj->getStartDate(),
             'endDate' => $obj->getEndDate(),

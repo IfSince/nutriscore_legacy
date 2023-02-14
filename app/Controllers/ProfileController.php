@@ -94,14 +94,11 @@ final class ProfileController extends AbstractController {
     private function getUserData(): void {
         $userId = Session::get('id');
         $user = $this->userService->findById($userId);
-        $profileImageId = $user->getProfileImageId();
-        $profileImage = ($profileImageId != null) ? $this->fileService->findById($profileImageId) : null;
 
         $this->view->render(
             self::USER_DATA_TEMPLATE,
             [
-                'user' => $user,
-                'profileImage' => $profileImage
+                'user' => $user
             ]
         );
     }

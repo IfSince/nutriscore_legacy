@@ -40,12 +40,16 @@ class UserController extends AbstractController {
         $data = $this->request->getInput(InputType::POST);
         $validationObject = $this->userService->update($data);
 
-        $this->view->render(
-            self::USER_DATA_TEMPLATE,
-            [
-                'messages' => $validationObject->renderMessages(),
-                'user' => $validationObject->getData()
-            ]
-        );
+        if ($validationObject->isValid()) {
+            $this->redirectTo("/profile/user-data");
+        } else {
+            $this->view->render(
+                self::USER_DATA_TEMPLATE,
+                [
+                    'messages' => $validationObject->renderMessages(),
+                    'user' => $validationObject->getData()
+                ]
+            );
+        }
     }
 }
