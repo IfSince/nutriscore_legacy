@@ -7,17 +7,18 @@ use NutriScore\Enums\InputType;
 use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
-use NutriScore\Services\UserService;
+use NutriScore\Services\LoginService;
 use NutriScore\Utils\Session;
 
 final class LoginController extends AbstractController {
     private const LOGIN_TEMPLATE = 'login/index';
 
-    private UserService $userService;
+    private LoginService $loginService;
 
     public function __construct(Request $request) {
         parent::__construct($request);
-        $this->userService = new UserService();
+
+        $this->loginService = new LoginService();
     }
 
     protected function preAuthorize(): void {
@@ -33,7 +34,7 @@ final class LoginController extends AbstractController {
     protected function postRequest(): void {
         $formInput = $this->request->getInput(InputType::POST);
 
-        $validationObject = $this->userService->login($formInput);
+        $validationObject = $this->loginService->login($formInput);
         if ($validationObject->isValid()) {
             Session::flash('login', 'You have been successfully signed in.', MessageType::SUCCESS);
             $this->redirectTo('/overview');
