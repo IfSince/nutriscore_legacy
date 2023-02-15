@@ -10,8 +10,11 @@ function getTemplatePart(string $name, ?array $data = []): void {
 
 // Post input value rendering
 
-function renderPostValue(string $fieldName): void {
-    $value = filter_input(INPUT_POST, $fieldName) ?? null;
+function renderRequestValue(string $fieldName, string $type = 'post'): void {
+    $value = match ($type) {
+        'post' => filter_input(INPUT_POST, $fieldName) ?? null,
+        'get' => filter_input(INPUT_GET, $fieldName) ?? null,
+    };
     echo "value=\"$value\"";
 }
 
@@ -28,14 +31,6 @@ function renderPostCheckedByValue(string $fieldName, $expectedValue): void {
 
     if ($value == $expectedValue) {
         echo 'checked';
-    }
-}
-
-function renderPostSelected(string $fieldName, $expectedValue): void {
-    $value = filter_input(INPUT_POST, $fieldName);
-
-    if ($value == $expectedValue) {
-        echo 'selected';
     }
 }
 

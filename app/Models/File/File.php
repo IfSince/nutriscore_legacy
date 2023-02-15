@@ -10,9 +10,9 @@ class File extends Model {
     private string $text;
     private FileType $fileType = FileType::IMAGE;
 
-    public static function update(File $file, array $data = null): void {
+    public static function update(Model $obj, array $data = null): void {
         if ($data) {
-            File::populate($file, $data);
+            File::populate($obj, $data);
         }
     }
 

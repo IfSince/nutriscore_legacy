@@ -5,22 +5,7 @@ if(isset($title)) {
 } else {
   $title = 'NutriScore';
 }
-
 $module = $module ?? null;
-if (isset($module)) {
-  $directory = substr($module, 0, strrpos($module, '/'));
-  $directory = (!empty($directory)) ? $directory : $module;
-
-  $moduleName = (strrpos($module, '/')) ? substr($module, strrpos($module, '/') + 1) : $module;
-  $pathElements = array_filter(['assets', 'scripts', $directory, $moduleName]);
-  $times = substr_count($directory, '/') + 1;
-
-  $moduleSrcPath = str_repeat('../', $times) . implode('/', $pathElements) . '.module.js';
-}
-
-$tailwindPath = str_repeat('../', $times ?? 1) . "assets/styles/dist/tailwind.css";
-$materialIconsPath = str_repeat('../', $times ?? 1) . "assets/styles/material-icons.css";
-$sharedModulePath = str_repeat('../', $times ?? 1) . "assets/scripts/shared/shared.module.js";
 ?>
 
 <!DOCTYPE html>
@@ -32,13 +17,14 @@ $sharedModulePath = str_repeat('../', $times ?? 1) . "assets/scripts/shared/shar
 
   <title><?php echo $title ?></title>
 
-  <link rel="stylesheet" type="text/css" href="<?php echo $materialIconsPath?>">
-  <link rel="stylesheet" type="text/css" href="<?php echo $tailwindPath?>">
+  <link rel="stylesheet" type="text/css" href="/assets/styles/material-icons.css">
+  <link rel="stylesheet" type="text/css" href="/assets/styles/dist/tailwind.css">
 
-  <?php if(isset($moduleSrcPath)) {
-    echo "<script type=\"module\" src=$moduleSrcPath defer></script>";
+  <script type="module" src=/assets/scripts/shared/shared.module.js defer></script>
+
+  <?php if(isset($module)) {
+    echo "<script type=\"module\" src=\"/assets/scripts/$module/$module.module.js\" defer></script>";
   }
   ?>
-  <?= "<script type=\"module\" src=$sharedModulePath defer></script>"; ?>
 </head>
 <body>

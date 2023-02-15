@@ -26,6 +26,11 @@ abstract class DataMapper {
         return $this->returnOptionalOf($data);
     }
 
+    public function loadAll(string $sql, array $values): array {
+        $data = $this->database->fetchAll($sql, $values);
+        return array_map(fn(array $row) => $this->returnOptionalOf($row), $data);
+    }
+
     /**
      * @throws Exception
      */

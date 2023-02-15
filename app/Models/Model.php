@@ -37,4 +37,6 @@ abstract class Model {
     }
 
     abstract public static function create(array $data = null): Model;
+
+    abstract public static function update(Model $obj, array $data = null): void;
 }

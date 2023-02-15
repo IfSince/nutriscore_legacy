@@ -21,9 +21,9 @@ class Person extends Model {
     private Goal $goal = Goal::KEEP;
     private bool $acceptedTos = false;
 
-    public static function update(Person $user, array $data = null): void {
+    public static function update(Model $obj, array $data = null): void {
         if ($data) {
-            Person::populate($user, $data);
+            Person::populate($obj, $data);
         }
     }
 

@@ -34,28 +34,28 @@ $messages = $messages ?? []; ?>
         <div data-quest-panel="true" data-quest-step="account">
           <div class="w-full mt-8">
             <label class="default-input__label" for="username">Username</label>
-            <input class="default-input" type="text" name="username" id="username" <?php renderPostValue('username');?>>
+            <input class="default-input" type="text" name="username" id="username" <?php renderRequestValue('username');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('username', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="email">E-Mail</label>
-            <input class="default-input" type="text" name="email" id="email" <?php renderPostValue('email');?>>
+            <input class="default-input" type="text" name="email" id="email" <?php renderRequestValue('email');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('email', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="password">Password</label>
-            <input class="default-input" type="password" name="password" id="password" <?php renderPostValue('password');?>>
+            <input class="default-input" type="password" name="password" id="password" <?php renderRequestValue('password');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('password', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="repeatPassword">Repeat password</label>
-            <input class="default-input" type="password" name="repeatPassword" id="repeatPassword" <?php renderPostValue('repeatPassword');?>>
+            <input class="default-input" type="password" name="repeatPassword" id="repeatPassword" <?php renderRequestValue('repeatPassword');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('repeatPassword', $messages);?>
             </ul>
@@ -83,14 +83,14 @@ $messages = $messages ?? []; ?>
         <div data-quest-panel="false" data-quest-step="personal">
           <div class="w-full mt-8">
             <label class="default-input__label" for="firstName">First name</label>
-            <input class="default-input" type="text" name="firstName" id="firstName" <?php renderPostValue('firstName');?>>
+            <input class="default-input" type="text" name="firstName" id="firstName" <?php renderRequestValue('firstName');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('firstName', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="surname">Surname</label>
-            <input class="default-input" type="text" name="surname" id="surname" <?php renderPostValue('surname');?>>
+            <input class="default-input" type="text" name="surname" id="surname" <?php renderRequestValue('surname');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('surname', $messages);?>
             </ul>
@@ -135,21 +135,21 @@ $messages = $messages ?? []; ?>
           </div>
           <div class="w-full mt-6">
             <label class="default-input__label" for="dateOfBirth">Date of Birth</label>
-            <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" <?php renderPostValue('dateOfBirth');?>>
+            <input class="default-input" type="date" name="dateOfBirth" id="dateOfBirth" <?php renderRequestValue('dateOfBirth');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('dateOfBirth', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="height">Height (in cm)</label>
-            <input class="default-input" type="number" name="height" id="height" <?php renderPostValue('height');?>>
+            <input class="default-input" type="number" name="height" id="height" <?php renderRequestValue('height');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('height', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="weight">Starting weight (in kg)</label>
-            <input class="default-input" type="number" name="weight" id="weight" <?php renderPostValue('weight');?>>
+            <input class="default-input" type="number" name="weight" id="weight" <?php renderRequestValue('weight');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('weight', $messages);?>
             </ul>
@@ -168,21 +168,21 @@ $messages = $messages ?? []; ?>
           </div>
           <div class="w-full mt-8">
             <label class="default-input__label" for="protein">Protein</label>
-            <input class="default-input" type="number" name="protein" id="protein" <?php renderPostValue('protein');?>>
+            <input class="default-input" type="number" name="protein" id="protein" <?php renderRequestValue('protein');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('protein', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="carbohydrates">Carbohydrates</label>
-            <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderPostValue('carbohydrates');?>>
+            <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderRequestValue('carbohydrates');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('carbohydrates', $messages);?>
             </ul>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="fat">Fat</label>
-            <input class="default-input" type="number" name="fat" id="fat" <?php renderPostValue('fat');?>>
+            <input class="default-input" type="number" name="fat" id="fat" <?php renderRequestValue('fat');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('fat', $messages);?>
             </ul>
@@ -210,7 +210,7 @@ $messages = $messages ?? []; ?>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="palLevel">PAL Level</label>
-            <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderPostValue('palLevel');?>>
+            <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderRequestValue('palLevel');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('palLevel', $messages);?>
             </ul>

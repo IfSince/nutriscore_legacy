@@ -14,9 +14,9 @@ class WeightRecording extends Model {
         $this->dateOfRecording = date('Y-m-d');
     }
 
-    public static function update(WeightRecording $user, array $data = null): void {
+    public static function update(Model $obj, array $data = null): void {
         if ($data) {
-            WeightRecording::populate($user, $data);
+            WeightRecording::populate($obj, $data);
         }
     }
 

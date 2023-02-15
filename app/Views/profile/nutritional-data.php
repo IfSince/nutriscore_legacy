@@ -42,7 +42,7 @@ getTemplatePart('header', ['active' => 'profile']);
             <div class="basis-full md:basis-1/2 lg:basis-2/3 xl:basis-1/2 2xl:basis-1/3 flex flex-row gap-4 sm:gap-6 md:gap-8">
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="protein">Protein</label>
-                <input class="default-input" type="number" name="protein" id="protein" <?php renderPostValue('protein');?>>
+                <input class="default-input" type="number" name="protein" id="protein" <?php renderRequestValue('protein');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('protein', $messages);?>
                 </ul>
@@ -50,7 +50,7 @@ getTemplatePart('header', ['active' => 'profile']);
 
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="carbohydrates">Carbs</label>
-                <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderPostValue('carbohydrates');?>>
+                <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderRequestValue('carbohydrates');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('carbohydrates', $messages);?>
                 </ul>
@@ -58,7 +58,7 @@ getTemplatePart('header', ['active' => 'profile']);
 
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="fat">Fat</label>
-                <input class="default-input" type="number" name="fat" id="fat" <?php renderPostValue('fat');?>>
+                <input class="default-input" type="number" name="fat" id="fat" <?php renderRequestValue('fat');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('fat', $messages);?>
                 </ul>
@@ -80,7 +80,7 @@ getTemplatePart('header', ['active' => 'profile']);
 
               <div class="basis-2/5 md:basis-1/4 lg:basis-1/4 2xl:basis-1/6 grow">
                 <label class="default-input__label" for="palLevel">PAL Level</label>
-                <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderPostValue('palLevel');?>>
+                <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderRequestValue('palLevel');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('palLevel', $messages);?>
                 </ul>
@@ -100,7 +100,7 @@ getTemplatePart('header', ['active' => 'profile']);
             </div>
             <div class="basis-full sm:basis-5/12 md:basis-1/3 lg:basis-1/4 2xl:basis-1/4">
               <label class=default-input__label for="goal">Objective</label>
-              <select class="default-input" name="goal" id="goal" <?php renderPostValue('goal');?>>
+              <select class="default-input" name="goal" id="goal" <?php renderRequestValue('goal');?>>
                 <?php renderEnumSelectOptions($person->getGoal() ?? null, Goal::cases())?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">

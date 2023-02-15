@@ -27,7 +27,7 @@
         <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
         <div class="w-full">
           <label class="default-input__label" for="username">Username</label>
-          <input class="default-input" type="text" name="username" id="username" <?php renderPostValue('username');?>>
+          <input class="default-input" type="text" name="username" id="username" <?php renderRequestValue('username');?>>
           <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
             <?php renderValidationFieldMessages('username', $messages);?>
           </ul>

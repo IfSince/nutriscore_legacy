@@ -8,9 +8,9 @@ function renderActive(string $link, string $active): void {
 }
 ?>
 <header class="h-16 w-full fixed top-0 left-0 py-3 px-6 bg-white flex justify-between z-50
-                 lg:px-0 lg:py-6 lg:w-60 lg:h-full lg:shadow-lg lg:flex-col lg:gap-y-14">
+                 lg:px-0 lg:py-6 lg:w-60 lg:h-full shadow-sm lg:shadow-lg lg:flex-col lg:gap-y-14">
     <a href="#">
-        <img class="w-auto h-full lg:h-auto w-full lg:px-6" src="assets/logo.svg" alt="logo">
+        <img class="w-auto h-full lg:h-auto w-full lg:px-6" src="/assets/logo.svg" alt="logo">
     </a>
     <nav class="flex items-center lg:flex-col-reverse lg:grow justify-between bg-white">
         <div class="flex lg:flex-col gap-x-4 w-full">

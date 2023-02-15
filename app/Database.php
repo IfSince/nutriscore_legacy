@@ -46,4 +46,9 @@ class Database extends PDO {
         $this->prepareAndExecute($sql, $values);
         return $this->statement->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function fetchAll(string $sql, array $values = []): bool|array {
+        $this->prepareAndExecute($sql, $values);
+        return $this->statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

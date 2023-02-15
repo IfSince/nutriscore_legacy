@@ -53,6 +53,5 @@ class PersonController extends AbstractController {
                 ]
             );
         }
-
     }
 }
