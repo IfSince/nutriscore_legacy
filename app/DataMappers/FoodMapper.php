@@ -12,10 +12,6 @@ class FoodMapper extends DataMapper {
         parent::__construct(self::RELATED_TABLE);
     }
 
-    protected function _create(array $data = null): Food {
-        return Food::create($data);
-    }
-
     public function findAllByDescriptionLike(string $description): array {
         $description = "%$description%";
         $sql = "SELECT *
@@ -24,6 +20,10 @@ class FoodMapper extends DataMapper {
         $params = ['description' => $description];
 
         return $this->loadAll($sql, $params);
+    }
+
+    protected function _create(array $data = null): Food {
+        return Food::create($data);
     }
 
     protected function _insert(mixed $obj): void {
@@ -49,6 +49,7 @@ class FoodMapper extends DataMapper {
                        f.fat = :fat
                  WHERE f.id = :id';
         $params = [
+            'id'  => $obj->getId(),
             'description' => $obj->getDescription(),
             'calories' => $obj->getCalories(),
             'protein' => $obj->getProtein(),

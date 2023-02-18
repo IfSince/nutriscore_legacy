@@ -10,11 +10,12 @@ function getTemplatePart(string $name, ?array $data = []): void {
 
 // Post input value rendering
 
-function renderRequestValue(string $fieldName, string $type = 'post'): void {
+function renderRequestValue(string $fieldName, string $type = 'post', string $altValue = null): void {
     $value = match ($type) {
         'post' => filter_input(INPUT_POST, $fieldName) ?? null,
         'get' => filter_input(INPUT_GET, $fieldName) ?? null,
     };
+    $value = $value ?? $altValue ?? null;
     echo "value=\"$value\"";
 }
 

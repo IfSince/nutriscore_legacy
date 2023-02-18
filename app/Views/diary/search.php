@@ -18,7 +18,7 @@ getTemplatePart('header', ['active' => 'diary']);
   <section class="w-full bg-gray-100 pb-20 md:pb-10 py-6 md:px-4">
     <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
 
-    <div class="w-full bg-white p-3 md:rounded-md flex flex-col gap-4 shadow-border mb-6">
+    <div class="w-full bg-white p-3 pb-10 md:rounded-md flex flex-col gap-4 shadow-border mb-6">
       <div class="border-b border-b-gray-200 pb-3 px-2">
         <h3 class="text-xl md:text-2xl text-gray-800">Food Search</h3>
       </div>
@@ -34,9 +34,9 @@ getTemplatePart('header', ['active' => 'diary']);
                     fill-rule="evenodd" clip-rule="evenodd"></path>
             </svg>
           </button>
-          <div data-dropdown="categories"
-               class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-border w-44 absolute inset-y-auto inset-x-0 m-0"
-               style="transform: translate(5px, 50px)">
+          <div class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-border w-44 absolute inset-y-auto inset-x-0 m-0
+                      translate-x-[5px] translate-y-[50px]"
+               data-dropdown="categories">
             <ul class="py-2 text-sm text-gray-700">
               <li>
                 <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-200">Food</button>
@@ -92,21 +92,21 @@ getTemplatePart('header', ['active' => 'diary']);
             </thead>
             <tbody>
               <?php foreach ($searchResults as $row):?>
-                <tr class="bg-white border-b hover:bg-gray-100 cursor-pointer">
+                <tr class="bg-white border-b last:border-none hover:bg-gray-100 cursor-pointer">
                   <th scope="row" class="font-medium text-gray-900 whitespace-nowrap">
-                    <a href="#" class="px-6 py-4 block"><?=$row->getDescription()?></a>
+                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=ucfirst($row->getDescription())?></a>
                   </th>
                   <td>
-                    <a href="#" class="px-6 py-4 block"><?=$row->getCalories()?></a>
+                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=$row->getCalories()?></a>
                   </td>
                   <td>
-                    <a href="#" class="px-6 py-4 block"><?=$row->getProtein()?></a>
+                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=$row->getProtein()?></a>
                   </td>
                   <td>
-                    <a href="#" class="px-6 py-4 block"><?=$row->getCarbohydrates()?></a>
+                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=$row->getCarbohydrates()?></a>
                   </td>
                   <td>
-                    <a href="#" class="px-6 py-4 block"><?=$row->getFat()?></a>
+                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=$row->getFat()?></a>
                   </td>
                 </tr>
               <?php endforeach;?>
