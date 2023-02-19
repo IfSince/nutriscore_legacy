@@ -44,9 +44,8 @@ final class DiaryController extends AbstractController {
         $data = $this->request->getInput(InputType::GET);
         $queryString = $data['query'] ?? '';
 
-        $result = $this->diarySearchService->findAllByQuery($queryString);
-
-        $this->view->render(self::SEARCH_TEMPLATE, ['searchResults' => $result]);
+        $searchResult = $this->diarySearchService->findAllByQuery($queryString);
+        $this->view->render(self::SEARCH_TEMPLATE, ['searchResult' => $searchResult]);
     }
 
     public function add(): void {

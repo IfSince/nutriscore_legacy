@@ -1,7 +1,6 @@
 <?php
 $messages = $messages ?? [];
-
-$searchResults = $searchResults ?? [];
+$searchResult = $searchResult ?? [];
 
 getTemplatePart('head', ['title' => 'diary']);
 getTemplatePart('header', ['active' => 'diary']);
@@ -68,53 +67,7 @@ getTemplatePart('header', ['active' => 'diary']);
         </div>
       </form>
 
-      <?php if(count($searchResults) > 0): ?>
-        <div class="relative overflow-x-auto pt-4">
-          <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
-            <thead class="text-xs text-gray-900 uppercase">
-              <tr>
-                <th scope="col" class="px-6 py-3">
-                  Description
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Calories
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Protein
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Carbohydrates
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Fat
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($searchResults as $row):?>
-                <tr class="bg-white border-b last:border-none hover:bg-gray-100 cursor-pointer">
-                  <th scope="row" class="font-medium text-gray-900 whitespace-nowrap">
-                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=ucfirst($row->getDescription())?></a>
-                  </th>
-                  <td>
-                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=$row->getCalories()?></a>
-                  </td>
-                  <td>
-                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=$row->getProtein()?></a>
-                  </td>
-                  <td>
-                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=$row->getCarbohydrates()?></a>
-                  </td>
-                  <td>
-                    <a href="/diary/add/food/<?=$row->getId()?>" class="px-6 py-4 block"><?=$row->getFat()?></a>
-                  </td>
-                </tr>
-              <?php endforeach;?>
-            </tbody>
-          </table>
-        </div>
-      <?php endif;?>
-
+      <?php getTemplatePart('search-result-list', ['searchResult' => $searchResult])?>
     </div>
   </section>
 </div>
