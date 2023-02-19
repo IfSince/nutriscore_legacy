@@ -27,7 +27,7 @@ getTemplatePart('header', ['active' => 'diary']);
         <div class="w-full flex flex-col 2xl:flex-row gap-8 pb-8">
           <div class="bg-white md:rounded-md px-2 py-4 shadow-border flex-grow basis-1/2 min-w-[300px]">
             <div class="border-b border-b-gray-200 pb-3 px-2">
-              <h3 class="text-xl md:text-2xl text-gray-800">Breakfast</h3>
+              <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Breakfast')?></h3>
             </div>
             <div class="pt-2 flex flex-col gap-1">
               <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
@@ -65,7 +65,7 @@ getTemplatePart('header', ['active' => 'diary']);
 
           <div class="bg-white md:rounded-md px-2 py-4 shadow-border flex-grow basis-1/2 min-w-[300px]">
             <div class="border-b border-b-gray-200 pb-3 px-2">
-              <h3 class="text-xl md:text-2xl text-gray-800">Lunch</h3>
+              <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Lunch')?></h3>
             </div>
             <div class="pt-2 flex flex-col gap-1">
               <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
@@ -95,7 +95,7 @@ getTemplatePart('header', ['active' => 'diary']);
         <div class="w-full flex flex-col 2xl:flex-row gap-8">
           <div class="bg-white md:rounded-md px-2 py-4 shadow-border lg:basis-1/2 min-w-[300px]">
             <div class="border-b border-b-gray-200 pb-3 px-2">
-              <h3 class="text-xl md:text-2xl text-gray-800">Dinner</h3>
+              <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Dinner')?></h3>
             </div>
             <div class="pt-2 flex flex-col gap-1">
               <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
@@ -123,7 +123,7 @@ getTemplatePart('header', ['active' => 'diary']);
 
           <div class="bg-white md:rounded-md px-2 py-4 shadow-border lg:basis-1/2 min-w-[300px]">
             <div class="border-b border-b-gray-200 pb-3 px-2">
-              <h3 class="text-xl md:text-2xl text-gray-800">Snacks</h3>
+              <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Snacks')?></h3>
             </div>
             <div class="pt-2 flex flex-col gap-1">
               <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
@@ -154,12 +154,12 @@ getTemplatePart('header', ['active' => 'diary']);
       <div class="md:px-4 mt-8 md:mt-12 lg:mt-0 flex flex-col gap-6 h-fit flex-grow basis-1/6">
         <div class="bg-white md:rounded-md px-2 py-4 pb-8 shadow-border flex-grow min-w-[250px]">
           <div class="border-b border-b-gray-200 pb-3 px-2">
-            <h3 class="text-xl md:text-2xl text-gray-800">Macros</h3>
+            <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Macros')?></h3>
           </div>
           <div class="pt-2 px-4 flex flex-col gap-2">
             <div class="pt-2 flex flex-col">
               <div class="flex w-full justify-between pl-1 pr-2 text-sm">
-                <span class="font-medium">Protein</span>
+                <span class="font-medium"><?=_('Protein')?></span>
                 <span>10mg/15mg</span>
               </div>
               <div class="px-3 py-2 flex relative">
@@ -169,7 +169,7 @@ getTemplatePart('header', ['active' => 'diary']);
             </div>
             <div class="pt-2 flex flex-col">
               <div class="flex w-full justify-between pl-1 pr-2 text-sm">
-                <span class="font-medium">Carbohydrates</span>
+                <span class="font-medium"><?=_('Carbohydrates')?></span>
                 <span>10mg/15mg</span>
               </div>
               <div class="px-3 py-2 flex relative">
@@ -179,7 +179,7 @@ getTemplatePart('header', ['active' => 'diary']);
             </div>
             <div class="pt-2 flex flex-col">
               <div class="flex w-full justify-between pl-1 pr-2 text-sm">
-                <span class="font-medium">Fat</span>
+                <span class="font-medium"><?=_('Fat')?></span>
                 <span>10mg/15mg</span>
               </div>
               <div class="px-3 py-2 flex relative">
@@ -192,7 +192,7 @@ getTemplatePart('header', ['active' => 'diary']);
 
         <div class="bg-white md:rounded-md px-2 pt-4 pb-8 shadow-border flex-grow min-w-[250px]">
           <div class="border-b border-b-gray-200 pb-3 px-2">
-            <h3 class="text-xl md:text-2xl text-gray-800">Vitamins</h3>
+            <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Vitamins')?></h3>
           </div>
           <div class="pt-2 px-4 flex flex-col gap-2">
             <div class="flex w-full gap-6">
@@ -216,7 +216,7 @@ getTemplatePart('header', ['active' => 'diary']);
 
         <div class="bg-white md:rounded-md px-2 pt-4 pb-8 shadow-border flex-grow min-w-[250px]">
           <div class="border-b border-b-gray-200 pb-3 px-2">
-            <h3 class="text-2xl text-gray-800">Minerals</h3>
+            <h3 class="text-2xl text-gray-800"><?=_('Minerals')?></h3>
           </div>
           <div class="pt-2 px-4 flex flex-col gap-2">
             <div class="flex w-full gap-6">

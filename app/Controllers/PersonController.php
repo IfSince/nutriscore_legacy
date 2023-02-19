@@ -39,11 +39,11 @@ class PersonController extends AbstractController {
         $validationObject = $this->personService->save($person);
 
         if ($validationObject->isValid()) {
-            Session::flash('success', 'The changes were saved successfully. ', MessageType::SUCCESS);
+            Session::flash('success', _('The changes were saved successfully.'), MessageType::SUCCESS);
 
             $this->redirectTo("/profile/personal-data");
         } else {
-            Session::flash('error', 'The data contains one or more errors and was not saved.', MessageType::ERROR);
+            Session::flash('error', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
 
             $this->view->render(
                 self::PERSON_DATA_TEMPLATE,

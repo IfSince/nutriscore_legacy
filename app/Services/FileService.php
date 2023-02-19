@@ -35,7 +35,7 @@ class FileService {
             }
 
             if (!move_uploaded_file($fileData['tmp_name'], $uploadPath)) {
-                $validator->getValidationObject()->addError('file', 'Failed to upload file');
+                $validator->getValidationObject()->addError('file', _('Failed to upload file'));
             } else {
                 $data = [
                     'path' => $relativePath . DIRECTORY_SEPARATOR . $fileName,

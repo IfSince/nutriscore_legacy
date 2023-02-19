@@ -36,14 +36,14 @@ class PersonValidator extends AbstractValidator {
         if ($this->data->getNutritionType() === NutritionType::MANUALLY->value) {
             $this->validationObject->addError(
                 'nutritionType',
-                'If you select "Manually", you have to choose your protein, carbohydrates and fat manually.'
+                _('If you select "Manually", you have to choose your protein, carbohydrates and fat manually.')
             );
         }
     }
 
     private function validateActivityLevelPalLevelAndPalLevelEmpty(): void {
         if ($this->data->getNutritionType() === ActivityLevel::PAL_LEVEL) {
-            $this->validationObject->addError('palLevel', 'If you select "PAL Level", you have to specify the PAL Level below.');
+            $this->validationObject->addError('palLevel', _('If you select "PAL Level", you have to specify the PAL Level below.'));
         }
     }
 

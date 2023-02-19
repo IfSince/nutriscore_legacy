@@ -29,14 +29,14 @@ class UserValidator extends AbstractValidator {
     public function validateUserIsNewAndUsernameExists(): void {
         $user = $this->userMapper->findByUsername($this->data->getUsername());
         if ($user !== null && $user->getId() !== $this->data->getId()) {
-            $this->validationObject->addError('username', 'This username is already taken.');
+            $this->validationObject->addError('username', _('This username is already taken.'));
         }
     }
 
     public function validateUserIsNewEmailExists(): void {
         $user = $this->userMapper->findByEmail($this->data->getEmail());
         if ($user !== null && $user->getId() !== $this->data->getId()) {
-            $this->validationObject->addError('username', 'This email is already taken.');
+            $this->validationObject->addError('username', _('This email is already taken.'));
         }
     }
 }

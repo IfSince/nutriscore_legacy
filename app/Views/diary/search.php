@@ -19,7 +19,7 @@ getTemplatePart('header', ['active' => 'diary']);
 
     <div class="w-full bg-white p-3 pb-10 md:rounded-md flex flex-col gap-4 shadow-border mb-6">
       <div class="border-b border-b-gray-200 pb-3 px-2">
-        <h3 class="text-xl md:text-2xl text-gray-800">Food Search</h3>
+        <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Food Search')?></h3>
       </div>
       <form method="get">
         <div class="flex relative">

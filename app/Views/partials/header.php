@@ -16,7 +16,7 @@ function renderActive(string $link, string $active): void {
         <div class="flex lg:flex-col gap-x-4 w-full">
             <a class="menu-link flex w-full items-center gap-x-6 text-green lg:text-gray-400" href="/profile">
                 <span class="material-icons text-5xl lg:text-4xl  <?php renderActive('profile', $active) ?>">person</span>
-                <span class="hidden font-medium text-base tracking-wide lg:inline  <?php renderActive('profile', $active) ?>">Profile</span>
+                <span class="hidden font-medium text-base tracking-wide lg:inline  <?php renderActive('profile', $active) ?>"><?=_('Profile')?></span>
             </a>
         </div>
 
@@ -25,7 +25,7 @@ function renderActive(string $link, string $active): void {
                 <a class="menu-link mobile-menu__entry pl-6" href="/overview">
                     <span class="material-icons <?php renderActive('overview', $active) ?>">home</span>
                     <span class="font-medium text-xs lg:text-base tracking-wide lg:inline <?php renderActive('overview', $active) ?>">
-                      Overview
+                      <?=_('Overview')?>
                     </span>
                 </a>
             </li>
@@ -33,7 +33,7 @@ function renderActive(string $link, string $active): void {
                 <a class="menu-link mobile-menu__entry" href="/diary">
                     <span class="material-icons <?php renderActive('diary', $active) ?>">library_books</span>
                     <span class="font-medium text-xs lg:text-base tracking-wide lg:inline <?php renderActive('diary', $active) ?>">
-                      Diary
+                      <?=_('Diary')?>
                     </span>
                 </a>
             </li>
@@ -41,7 +41,7 @@ function renderActive(string $link, string $active): void {
                 <a class="menu-link mobile-menu__entry" href="/statistics">
                     <span class="material-icons <?php renderActive('statistics', $active) ?>">show_chart</span>
                     <span class="font-medium text-xs lg:text-base tracking-wide lg:inline <?php renderActive('statistics', $active) ?>">
-                      Statistics
+                      <?=_('Statistics')?>
                     </span>
                 </a>
             </li>
@@ -49,7 +49,7 @@ function renderActive(string $link, string $active): void {
                 <a class="menu-link mobile-menu__entry pr-6" href="/notifications">
                     <span class="material-icons <?php renderActive('notifications', $active) ?>">notifications</span>
                     <span class="font-medium text-xs lg:text-base tracking-wide lg:inline <?php renderActive('notifications', $active) ?>">
-                      Notifications
+                      <?=_('Notifications')?>
                     </span>
                 </a>
             </li>

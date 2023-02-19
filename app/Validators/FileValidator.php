@@ -28,7 +28,7 @@ class FileValidator extends AbstractValidator {
 
     private function validateNotEmpty(): void {
         if (empty($this->data) || $this->data['error'] === 4 || !$this->data['size'] > 0) {
-            $this->validationObject->addError('file', 'You need to choose a file to upload');
+            $this->validationObject->addError('file', _('You need to choose a file to upload'));
         }
     }
 

@@ -29,7 +29,7 @@ class UserController extends AbstractController {
     }
 
     public function logout(): void {
-        Session::flash('logout', 'You have been signed out.');
+        Session::flash('logout', _('You have been signed out.'));
         Session::delete('id');
         $this->redirectTo('/login');
     }
@@ -47,11 +47,11 @@ class UserController extends AbstractController {
         $validationObject = $this->userService->save($user);
 
         if ($validationObject->isValid()) {
-            Session::flash('success', 'The changes were saved successfully. ', MessageType::SUCCESS);
+            Session::flash('success', _('The changes were saved successfully.'), MessageType::SUCCESS);
 
             $this->redirectTo("/profile/user-data");
         } else {
-            Session::flash('error', 'The data contains one or more errors and was not saved.', MessageType::ERROR);
+            Session::flash('error', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
 
             $this->view->render(
                 self::USER_DATA_TEMPLATE,

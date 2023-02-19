@@ -39,7 +39,7 @@ final class RegisterController extends AbstractController {
         $validationObject = $this->registerService->register($formInput);
 
         if ($validationObject->isValid()) {
-            Session::flash('success', 'Your registration was successful. You can log in.', MessageType::SUCCESS);
+            Session::flash('success', _('Your registration was successful. You can log in.'), MessageType::SUCCESS);
             $this->redirectTo('/login');
         } else {
             $this->view->render(self::REGISTER_TEMPLATE, ['messages' => $validationObject->renderMessages()]);

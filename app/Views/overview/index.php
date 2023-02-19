@@ -13,7 +13,7 @@ getTemplatePart('header', ['active' => 'overview']);
       <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
       </svg>
-      <span class="absolute block mb-px text-sm font-medium -translate-y-1/2 -left-[68px] top-1/2 text-gray-400">Activity</span>
+      <span class="absolute block mb-px text-sm font-medium -translate-y-1/2 -left-[68px] top-1/2 text-gray-400"><?=_('Activity')?></span>
     </button>
     <button class="w-14 h-14 flex items-center justify-center rounded-full text-gray-400 bg-white transition-colors border border-gray-200
                      shadow-border relative hover:text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:outline-none"
@@ -21,7 +21,7 @@ getTemplatePart('header', ['active' => 'overview']);
       <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
       </svg>
-      <span class="absolute block mb-px text-sm font-medium -translate-y-1/2 -left-14 top-1/2">Meal</span>
+      <span class="absolute block mb-px text-sm font-medium -translate-y-1/2 -left-14 top-1/2"><?=_('Meal')?></span>
     </button>
   </div>
   <button class="w-14 h-14 flex items-center justify-center rounded-full text-white bg-green shadow-border

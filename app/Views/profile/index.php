@@ -51,7 +51,7 @@ getTemplatePart('header', ['active' => 'profile']);
       <div class="mt-3 flex flex-col md:flex-row sm:gap-6">
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
           <a href="profile/user-data" class="flex items-center">
-            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700">User Data</h5>
+            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('User Data')?></h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at distinctio dolorem dolorum fuga
@@ -60,14 +60,14 @@ getTemplatePart('header', ['active' => 'profile']);
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
              href="profile/user-data">
-            Edit data
+            <?=_('Edit Data')?>
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>
         </div>
 
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
           <a href="profile/personal-data" class="flex items-center">
-            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700">Personal Data</h5>
+            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Personal Data')?>/h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at distinctio dolorem dolorum fuga
@@ -76,14 +76,14 @@ getTemplatePart('header', ['active' => 'profile']);
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
              href="profile/personal-data">
-            Edit data
+            <?=_('Edit Data')?>
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>
         </div>
 
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
           <a href="profile/nutritional-data" class="flex items-center">
-            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700">Nutritional Data</h5>
+            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Nutritional Data')?></h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at distinctio dolorem dolorum fuga
@@ -92,7 +92,7 @@ getTemplatePart('header', ['active' => 'profile']);
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
              href="profile/nutritional-data">
-            Edit data
+            <?=_('Edit Data')?>
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>
         </div>
@@ -101,13 +101,13 @@ getTemplatePart('header', ['active' => 'profile']);
 
     <div class="mt-8 bg-white md:rounded-md px-6 pt-4 pb-10 shadow-border flex-grow basis-1/2 min-w-[300px]">
       <h3 class="font-medium text-gray-700 text-2xl tracking-tight ">
-        Account Settings
+        <?=_('Account Settings')?>
       </h3>
       <div class="border-b border-b-gray-200 pb-3"></div>
       <div class="mt-3 flex flex-col md:flex-row sm:gap-6">
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
           <a href="#" class="flex items-center">
-            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700">Change Password</h5>
+            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Change Password')?></h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at distinctio dolorem dolorum fuga
@@ -116,14 +116,14 @@ getTemplatePart('header', ['active' => 'profile']);
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
              href="#">
-            Edit data
+            <?=_('Edit Data')?>
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>
         </div>
 
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
           <a href="/user/logout" class="flex items-center">
-            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700">Sign Out</h5>
+            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Sign Out')?></h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at distinctio dolorem dolorum fuga
@@ -132,14 +132,14 @@ getTemplatePart('header', ['active' => 'profile']);
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
              href="/user/logout">
-            Edit data
+            <?=_('Edit Data')?>
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>
         </div>
 
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
           <a href="#" class="flex items-center">
-            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700">Delete Account</h5>
+            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Delete Account')?></h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at distinctio dolorem dolorum fuga
@@ -148,7 +148,7 @@ getTemplatePart('header', ['active' => 'profile']);
                     sm:text-white sm:bg-red-600 rounded-lg hover:text-red-800 sm:hover:text-white
                     sm:hover:bg-red-800 focus:outline-2 focus:outline-red-900 h-fit w-fit"
              href="#">
-            Delete
+            <?=_('Delete')?>
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>
         </div>

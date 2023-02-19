@@ -27,7 +27,7 @@ class LoginValidator extends AbstractValidator {
         $passwordVerify = password_verify($password, $user?->getPassword());
 
         if ($user === null || !$passwordVerify) {
-            $this->validationObject->addError('root', 'The username or password is incorrect');
+            $this->validationObject->addError('root', _('The username or password is incorrect'));
         }
     }
 }

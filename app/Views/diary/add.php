@@ -31,27 +31,27 @@ getTemplatePart('header', ['active' => 'diary']);
       <div class="flex gap-4">
         <div class="flex flex-col">
           <span class="font-medium text-xl md:text-2xl text-gray-800"><?=$diaryRecording->calories?></span>
-          <span class="text-sm text-gray-400">Calories</span>
+          <span class="text-sm text-gray-400"><?=_('Calories')?></span>
         </div>
 
         <div class="flex flex-col">
           <span class="font-medium text-xl md:text-2xl text-gray-800"><?=$diaryRecording->protein?></span>
-          <span class="text-sm text-gray-400">Protein</span>
+          <span class="text-sm text-gray-400"><?=_('Protein')?></span>
         </div>
 
         <div class="flex flex-col">
           <span class="font-medium text-xl md:text-2xl text-gray-800"><?=$diaryRecording->carbohydrates?></span>
-          <span class="text-sm text-gray-400">Carbs</span>
+          <span class="text-sm text-gray-400"><?=_('Carbs')?></span>
         </div>
 
         <div class="flex flex-col">
           <span class="font-medium text-xl md:text-2xl text-gray-800"><?=$diaryRecording->fat?></span>
-          <span class="text-sm text-gray-400">Fat</span>
+          <span class="text-sm text-gray-400"><?=_('Fat')?></span>
         </div>
       </div>
 
       <div>
-        <label class="default-input__label" for="amount">Amount</label>
+        <label class="default-input__label" for="amount"><?=_('Amount')?></label>
         <input class="default-input" type="number" name="amount" id="amount" <?php renderRequestValue('dateOfRecording', altValue: 1);?>>
         <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
           <?php renderValidationFieldMessages('amount', $messages);?>
@@ -59,7 +59,7 @@ getTemplatePart('header', ['active' => 'diary']);
       </div>
 
       <div>
-        <label class="default-input__label" for="dateOfRecording">Date of recording</label>
+        <label class="default-input__label" for="dateOfRecording"><?=_('Date of recording')?></label>
         <input class="default-input" type="date" name="dateOfRecording" id="dateOfRecording" <?php renderRequestValue('dateOfRecording', altValue: date('Y-m-d'));?>>
         <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
           <?php renderValidationFieldMessages('dateOfRecording', $messages);?>
@@ -67,7 +67,7 @@ getTemplatePart('header', ['active' => 'diary']);
       </div>
 
       <div>
-        <label class=default-input__label for="timeOfDay">Time of day</label>
+        <label class=default-input__label for="timeOfDay"><?=_('Time of day')?></label>
         <select class="default-input" name="timeOfDay" id="timeOfDay">
           <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'timeOfDay') ?? null, TimeOfDay::cases())?>
         </select>
@@ -78,7 +78,7 @@ getTemplatePart('header', ['active' => 'diary']);
 
       <div class="pt-4 md:pt-6 flex flex-col sm:flex-row justify-between w-full">
         <div>
-          <button class="btn btn-primary" type="submit">Add to Diary</button>
+          <button class="btn btn-primary" type="submit"><?=_('Add to diary')?></button>
         </div>
         <div></div>
       </div>

@@ -64,10 +64,10 @@ final class ProfileController extends AbstractController {
         if ($validationObject->isValid()) {
 
             $this->userService->linkUserToProfileImage($userId, $validationObject->getData()->getId());
-            Session::flash('profile-success', 'Your profile image was updated successfully.', MessageType::SUCCESS);
+            Session::flash('profile-success', _('Your profile image was updated successfully.'), MessageType::SUCCESS);
             $this->redirectTo('/profile');
         } else {
-            Session::flash('profile-error', 'An error occurred when trying to update your profile image.');
+            Session::flash('profile-error', _('An error occurred when trying to update your profile image.'));
             $this->view->render(
                 self::PROFILE_TEMPLATE,
                 [

@@ -31,7 +31,7 @@ getTemplatePart('header', ['active' => 'profile']);
         <div class="pb-8">
           <div class="flex flex-wrap gap-4 sm:gap-6 md:gap-8">
             <div class="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
-              <label class=default-input__label for="nutritionType">Nutrition type</label>
+              <label class=default-input__label for="nutritionType"><?=_('Nutrition type')?></label>
               <select class="default-input" name="nutritionType" id="nutritionType">
                 <?php renderEnumSelectOptions($person->getNutritionType() ?? null, NutritionType::cases())?>
               </select>
@@ -41,7 +41,7 @@ getTemplatePart('header', ['active' => 'profile']);
             </div>
             <div class="basis-full md:basis-1/2 lg:basis-2/3 xl:basis-1/2 2xl:basis-1/3 flex flex-row gap-4 sm:gap-6 md:gap-8">
               <div class="basis-full md:basis-1/3">
-                <label class="default-input__label" for="protein">Protein</label>
+                <label class="default-input__label" for="protein"><?=_('Protein')?></label>
                 <input class="default-input" type="number" name="protein" id="protein" <?php renderRequestValue('protein');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('protein', $messages);?>
@@ -49,7 +49,7 @@ getTemplatePart('header', ['active' => 'profile']);
               </div>
 
               <div class="basis-full md:basis-1/3">
-                <label class="default-input__label" for="carbohydrates">Carbs</label>
+                <label class="default-input__label" for="carbohydrates"><?=_('Carbs')?></label>
                 <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderRequestValue('carbohydrates');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('carbohydrates', $messages);?>
@@ -57,7 +57,7 @@ getTemplatePart('header', ['active' => 'profile']);
               </div>
 
               <div class="basis-full md:basis-1/3">
-                <label class="default-input__label" for="fat">Fat</label>
+                <label class="default-input__label" for="fat"><?=_('Fat')?></label>
                 <input class="default-input" type="number" name="fat" id="fat" <?php renderRequestValue('fat');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('fat', $messages);?>
@@ -69,7 +69,7 @@ getTemplatePart('header', ['active' => 'profile']);
           <div class="flex mt-4 sm:mt-6 md:mt-8 flex-wrap gap-4 sm:gap-6 md:gap-8">
             <div class="basis-full md:basis-1/2 lg:basis-2/3 xl:basis-2/3 2xl:basis-1/2 flex flex-row gap-4 sm:gap-6 md:gap-8">
               <div class="basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/2 2xl:basis-1/4 sm:grow-[3] md:grow-[2]">
-                <label class=default-input__label for="activityLevel">Activity Level</label>
+                <label class=default-input__label for="activityLevel"><?=_('Activity level')?></label>
                 <select class="default-input" name="activityLevel" id="activityLevel">
                   <?php renderEnumSelectOptions($person->getActivityLevel() ?? null, ActivityLevel::cases())?>
                 </select>
@@ -79,7 +79,7 @@ getTemplatePart('header', ['active' => 'profile']);
               </div>
 
               <div class="basis-2/5 md:basis-1/4 lg:basis-1/4 2xl:basis-1/6 grow">
-                <label class="default-input__label" for="palLevel">PAL Level</label>
+                <label class="default-input__label" for="palLevel"><?=_('PAL Level')?></label>
                 <input class="default-input" type="number" name="palLevel" id="palLevel" <?php renderRequestValue('palLevel');?>>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('palLevel', $messages);?>
@@ -90,7 +90,7 @@ getTemplatePart('header', ['active' => 'profile']);
 
           <div class="flex mt-4 sm:mt-6 md:mt-8 flex-wrap gap-4 sm:gap-6 md:gap-8">
             <div class="basis-full sm:basis-5/12 md:basis-1/3 lg:basis-1/4 2xl:basis-1/4">
-              <label class=default-input__label for="bmrCalculationType">BMR Calculation Type</label>
+              <label class=default-input__label for="bmrCalculationType"><?=_('BMR Calculation Type')?></label>
               <select class="default-input" name="bmrCalculationType" id="bmrCalculationType">
                 <?php renderEnumSelectOptions($person->getBmrCalculationType() ?? null, BmrCalculationType::cases())?>
               </select>
@@ -99,7 +99,7 @@ getTemplatePart('header', ['active' => 'profile']);
               </ul>
             </div>
             <div class="basis-full sm:basis-5/12 md:basis-1/3 lg:basis-1/4 2xl:basis-1/4">
-              <label class=default-input__label for="goal">Objective</label>
+              <label class=default-input__label for="goal"><?=_('Objective')?></label>
               <select class="default-input" name="goal" id="goal" <?php renderRequestValue('goal');?>>
                 <?php renderEnumSelectOptions($person->getGoal() ?? null, Goal::cases())?>
               </select>
@@ -112,7 +112,7 @@ getTemplatePart('header', ['active' => 'profile']);
 
         <div class="pt-4 md:pt-6 flex flex-col sm:flex-row justify-between w-full border-t border-t-gray-200">
           <div>
-            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit"><?=_('Save')?></button>
           </div>
           <div></div>
         </div>

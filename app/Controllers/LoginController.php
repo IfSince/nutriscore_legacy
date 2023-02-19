@@ -36,7 +36,7 @@ final class LoginController extends AbstractController {
 
         $validationObject = $this->loginService->login($formInput);
         if ($validationObject->isValid()) {
-            Session::flash('login', 'You have been successfully signed in.', MessageType::SUCCESS);
+            Session::flash('login', _('You have been successfully signed in.'), MessageType::SUCCESS);
             $this->redirectTo('/overview');
         } else {
             $this->view->render(self::LOGIN_TEMPLATE, ['messages' => $validationObject->renderMessages()]);
