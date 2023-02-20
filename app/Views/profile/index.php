@@ -67,7 +67,7 @@ getTemplatePart('header', ['active' => 'profile']);
 
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
           <a href="profile/personal-data" class="flex items-center">
-            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Personal Data')?>/h5>
+            <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Personal Data')?></h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at distinctio dolorem dolorum fuga

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-css": "npx tailwindcss -i public/assets/styles/tailwind.css -o public/assets/styles/dist/tailwind.css --watch --minify"
+    "build-css": "npx tailwindcss -i public/assets/styles/tailwind.css -o public/assets/styles/dist/tailwind.css --watch"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
     "tailwindcss": "^3.2.4"
   },
   "dependencies": {
-    "material-icons": "^1.13.1"
+    "material-icons": "^1.13.1",
+    "chart.js": "^4.0.0"
   }
 }

@@ -39,7 +39,6 @@ class DiaryRecordingService {
                 $model->getId(),
                 DiaryRecordingType::FOOD,
                 $model->getDescription(),
-                null,
                 $model->getCalories(),
                 $model->getProtein(),
                 $model->getCarbohydrates(),

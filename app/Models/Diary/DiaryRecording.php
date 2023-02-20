@@ -15,7 +15,6 @@ class DiaryRecording {
         int                $id,
         DiaryRecordingType $type = DiaryRecordingType::FOOD,
         ?string            $title = '',
-        ?string            $description = '',
         ?float             $calories = 0,
         ?float             $protein = 0,
         ?float             $carbohydrates = 0,
