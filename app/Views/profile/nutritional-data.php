@@ -8,10 +8,10 @@ use NutriScore\Models\Person\NutritionType;
 $messages = $messages ?? [];
 
 getTemplatePart('head', ['title' => 'Profile']);
-getTemplatePart('header', ['active' => 'profile']);
+getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile']);
 ?>
 
-<div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
+<div class="pt-14 lg:pt-0 lg:pl-60 h-full w-full">
   <section class="w-full bg-gradient-to-b from-gray-600 to-gray-800 pb-10">
     <div class="sm:px-6 md:px-10 lg:px-20 py-8 md:py-10">
       <h3 class="px-6 md:pl-2 sm:text-2xl md:text-3xl font-medium sm:font-bold tracking-wide sm:tracking-tight text-gray-100">
@@ -111,7 +111,10 @@ getTemplatePart('header', ['active' => 'profile']);
         </div>
 
         <div class="pt-4 md:pt-6 flex flex-col sm:flex-row justify-between w-full border-t border-t-gray-200">
-          <div>
+          <div class="flex gap-4 sm:gp-6 md:gap-8">
+            <a href="/profile" class="btn btn-default justify-center items-center hidden lg:flex">
+              <?=_('Cancel')?>
+            </a>
             <button class="btn btn-primary" type="submit"><?=_('Save')?></button>
           </div>
           <div></div>

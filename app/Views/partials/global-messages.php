@@ -25,7 +25,7 @@ $success = array_merge(
 );
 ?>
 <?php if (!empty($errors) || !empty($warnings) || !empty($hints) || !empty($success)):?>
-  <ul class="w-full bg-white p-3 pb-0 md:rounded-md flex flex-col gap-4 shadow-border mb-6" data-toast-parent>
+  <ul class="w-full bg-white p-3 md:rounded-md flex flex-col gap-4 shadow-border mb-6" data-toast-parent>
     <?php foreach ($errors as $message):?>
       <li class="flex items-center w-full px-4 py-2 rounded-lg shadow border bg-red-100/75 border-red-500 text-red-900"
           data-toast>

@@ -6,7 +6,7 @@ getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);
 getTemplatePart('header', ['active' => 'profile']);
 ?>
 
-<div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
+<div class="pt-14 lg:pt-0 lg:pl-60 h-full w-full">
   <section class="px-6 md:px-10 lg:px-20 pt-6 pb-3 md:pb-6 lg:py-10 bg-gradient-to-b from-gray-600 to-gray-800 relative">
     <div class="lg:mt-16 flex flex-col md:flex-row flex-wrap gap-x-28">
       <form class="flex pb-3" method="post" enctype="multipart/form-data" id="profileForm">

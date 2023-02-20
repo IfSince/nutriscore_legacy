@@ -3,18 +3,11 @@ $messages = $messages ?? [];
 $searchResult = $searchResult ?? [];
 
 getTemplatePart('head', ['title' => 'diary']);
-getTemplatePart('header', ['active' => 'diary']);
+getTemplatePart('header', ['active' => 'diary', 'previousPage' => '/diary']);
 ?>
 
-<div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
-  <section class="w-full border-b border-b-gray-200 flex justify-start bg-white">
-    <div class="w-full flex justify-start items-center py-1 md:py-2 px-4 md:px-6 text-gray-400 max-w-2xl">
-      <a class="flex hover:text-gray-700 transition-colors" href="#">
-        <span class="material-icons text-2xl md:text-3xl">arrow_back</span>
-      </a>
-    </div>
-  </section>
-  <section class="w-full bg-gray-100 pb-20 md:pb-10 py-6 md:px-4">
+<div class="pt-14 lg:pt-0 lg:pl-60 h-full w-full">
+  <section class="w-full bg-gray-100 py-6 md:px-4">
     <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
 
     <div class="w-full bg-white p-3 pb-10 md:rounded-md flex flex-col gap-4 shadow-border mb-6">
@@ -68,6 +61,17 @@ getTemplatePart('header', ['active' => 'diary']);
       </form>
 
       <?php getTemplatePart('search-result-list', ['searchResult' => $searchResult])?>
+
+    </div>
+
+    <div class="w-full bg-white px-3 py-3.5 md:rounded-md hidden lg:flex flex-col gap-4 shadow-border">
+      <div class="flex">
+        <div class="flex gap-4 sm:gp-6 md:gap-8">
+          <a href="/diary" class="btn btn-default justify-center items-center flex">
+            <?=_('Cancel')?>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </div>

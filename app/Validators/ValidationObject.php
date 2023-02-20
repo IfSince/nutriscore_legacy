@@ -57,5 +57,4 @@ class ValidationObject {
             'success' => $this->getSuccess()
         ];
     }
-
 }

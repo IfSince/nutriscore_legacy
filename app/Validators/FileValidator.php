@@ -28,19 +28,19 @@ class FileValidator extends AbstractValidator {
 
     private function validateNotEmpty(): void {
         if (empty($this->data) || $this->data['error'] === 4 || !$this->data['size'] > 0) {
-            $this->validationObject->addError('file', _('You need to choose a file to upload'));
+            $this->validationObject->addError('root', _('You need to choose a file to upload'));
         }
     }
 
     private function validateFileTypeAllowed(): void {
         if (!in_array($this->data['type'], $this->ALLOWED_FILE_TYPES)) {
-            $this->validationObject->addError('file', 'Please upload a file with valid file type');
+            $this->validationObject->addError('root', 'Please upload a file with valid file type');
         }
     }
 
     private function validateFileSize(): void {
         if ($this->data['size'] > $this->MAX_ALLOWED_FILE_SIZE) {
-            $this->validationObject->addError('file', 'The size of the uploaded file is too big');
+            $this->validationObject->addError('root', 'The size of the uploaded file is too big');
         }
     }
 }

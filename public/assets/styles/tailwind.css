@@ -52,7 +52,11 @@
 
   /* Buttons */
   .btn {
-    @apply w-full rounded-lg min-w-[7.5rem] px-8 py-3 font-medium tracking-wide text-lg ease-in-out duration-200;
+    @apply w-full rounded-lg min-w-[7.5rem] px-8 h-12 font-medium tracking-wide text-lg ease-in-out duration-200;
+  }
+
+  .btn-default {
+    @apply bg-white text-green hover:bg-gray-100 hover:text-green-dark border-green-dark focus:outline-none focus:bg-gray-100 border border-green shadow-lg;
   }
 
   .btn-primary {

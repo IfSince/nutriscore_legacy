@@ -8,7 +8,7 @@ getTemplatePart('head', ['title' => 'statistics', 'module' => 'statistics']);
 getTemplatePart('header', ['active' => 'statistics']);
 ?>
 
-<div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
+<div class="pt-14 lg:pt-0 lg:pl-60 h-full w-full">
     <section class="px-6 py-4 lg:pt-16 lg:pb-10 flex justify-center items-center bg-gradient-to-b from-gray-600 to-gray-800 relative">
     </section>
 

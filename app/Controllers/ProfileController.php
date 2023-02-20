@@ -40,9 +40,7 @@ final class ProfileController extends AbstractController {
         $userId = Session::get('id');
 
         $person = $this->personService->findByUserId($userId);
-
-        $profileImageId = $this->userService->findById($userId)->getProfileImageId();
-        $profileImage = ($profileImageId != null) ? $this->fileService->findById($profileImageId) : null;
+        $profileImage = $this->fileService->findProfileImageByUserId($userId);
 
         $this->view->render(
             self::PROFILE_TEMPLATE,
@@ -55,11 +53,11 @@ final class ProfileController extends AbstractController {
 
     protected function postRequest(): void {
         $fileData = $this->request->getInput(InputType::FILE)['upload'] ?? null;
-
         $userId = Session::get('id');
-        $existingImageId = $this->userService->findById($userId)->getProfileImageId();
 
-        $validationObject = $this->fileService->save(file: $fileData, existingImageId: $existingImageId);
+        $existingImage = $this->fileService->findProfileImageByUserId($userId);
+
+        $validationObject = $this->fileService->save(file: $fileData, existingImageId: $existingImage?->getId());
 
         if ($validationObject->isValid()) {
 
@@ -67,12 +65,11 @@ final class ProfileController extends AbstractController {
             Session::flash('profile-success', _('Your profile image was updated successfully.'), MessageType::SUCCESS);
             $this->redirectTo('/profile');
         } else {
-            Session::flash('profile-error', _('An error occurred when trying to update your profile image.'));
             $this->view->render(
                 self::PROFILE_TEMPLATE,
                 [
-                    'personData' => $this->personService->findByUserId($userId),
-                    'user' => $this->userService->findById($userId),
+                    'person' => $this->personService->findByUserId($userId),
+                    'profileImage' => $existingImage,
                     'messages' => $validationObject->renderMessages()
                 ]
             );

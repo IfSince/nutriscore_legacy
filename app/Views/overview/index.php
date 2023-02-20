@@ -34,7 +34,7 @@ getTemplatePart('header', ['active' => 'overview']);
   </button>
 </div>
 
-<div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
+<div class="pt-14 lg:pt-0 lg:pl-60 h-full w-full">
   <section class="px-6 pt-10 pb-20 lg:pt-16 lg:pb-10 flex justify-center items-center bg-gradient-to-b from-gray-600 to-gray-800 relative">
     <div class="flex justify-center items-center relative h-40 w-full">
       <svg class="w-32 h-32 rounded-full absolute stroke-[10] stroke-round fill-none">

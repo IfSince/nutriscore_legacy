@@ -3,6 +3,7 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\FileMapper;
+use NutriScore\DataMappers\UserMapper;
 use NutriScore\Models\File\File;
 use NutriScore\Models\File\FileType;
 use NutriScore\Validators\FileValidator;
@@ -10,9 +11,16 @@ use NutriScore\Validators\ValidationObject;
 
 class FileService {
     private FileMapper $fileMapper;
+    private UserMapper $userMapper;
 
     public function __construct() {
         $this->fileMapper = new FileMapper();
+        $this->userMapper = new UserMapper();
+    }
+
+    public function findProfileImageByUserId(int $userId): ?File {
+        $profileImageId = $this->userMapper->findById($userId)->getProfileImageId();
+        return ($profileImageId != null) ? $this->fileMapper->findById($profileImageId) : null;
     }
 
     public function findById(int $fileId): File {
