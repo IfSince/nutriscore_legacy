@@ -2267,6 +2267,10 @@ a.menu-link:focus * {
     width: auto;
   }
 
+  .md\:w-1\/2 {
+    width: 50%;
+  }
+
   .md\:max-w-5xl {
     max-width: 64rem;
   }
@@ -2481,6 +2485,10 @@ a.menu-link:focus * {
     width: 100vw;
   }
 
+  .lg\:w-2\/3 {
+    width: 66.666667%;
+  }
+
   .lg\:max-w-fit {
     max-width: -moz-fit-content;
     max-width: fit-content;
@@ -2636,6 +2644,10 @@ a.menu-link:focus * {
 }
 
 @media (min-width: 1280px) {
+  .xl\:w-2\/3 {
+    width: 66.666667%;
+  }
+
   .xl\:basis-1\/2 {
     flex-basis: 50%;
   }

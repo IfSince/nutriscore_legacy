@@ -1,3 +1,6 @@
+<!-- usually use node_modules to use chart.js, but because we don't have a js builder or similar I temporarily import it like this -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 <?php
 $messages = $messages = [];
 
@@ -17,8 +20,8 @@ getTemplatePart('header', ['active' => 'statistics']);
       <div class="border-b border-b-gray-200 pb-3 px-2">
         <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Weight')?></h3>
       </div>
-      <div class="border border-red-300">
-        <canvas class="border border-green" id="acquisitions"></canvas>
+      <div class="xl:w-2/3">
+        <canvas id="weightRecordings"></canvas>
       </div>
 
     </div>
