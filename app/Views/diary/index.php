@@ -1,5 +1,14 @@
 <?php
+
+use NutriScore\Models\Diary\DiaryRecording;
+use NutriScore\Models\Diary\TimeOfDay;
+
 $messages = $messages = [];
+
+$breakFastRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $recording) => $recording->timeOfDay === TimeOfDay::BREAKFAST);
+$lunchRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $recording) => $recording->timeOfDay === TimeOfDay::LUNCH);
+$dinnerRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $recording) => $recording->timeOfDay === TimeOfDay::DINNER);
+$snacksRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $recording) => $recording->timeOfDay === TimeOfDay::SNACKS);
 
 getTemplatePart('head', ['title' => 'diary', 'module' => 'diary']);
 getTemplatePart('header', ['active' => 'diary']);
@@ -29,37 +38,31 @@ getTemplatePart('header', ['active' => 'diary']);
             <div class="border-b border-b-gray-200 pb-3 px-2">
               <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Breakfast')?></h3>
             </div>
-            <div class="pt-2 flex flex-col gap-1">
-              <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
+            <div class="relative overflow-x-auto pt-4">
+              <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
+                <thead>
+                  <tr>
+                    <th class="block px-2" scope="col">Title</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Protein</th>
+                    <th scope="col">Carbs</th>
+                    <th scope="col">Fat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($breakFastRecordings as $recording): ?>
+                    <tr class="rounded-lg even:bg-gray-200">
+                      <th class="block px-2 py-2" scope="row"><?=ucfirst($recording->title)?></th>
+                      <td><?=$recording->amount?></td>
+                      <td><?=$recording->calories?></td>
+                      <td><?=$recording->protein?></td>
+                      <td><?=$recording->carbohydrates?></td>
+                      <td><?=$recording->fat?></td>
+                    </tr>
+                  <?php endforeach;?>
+                </tbody>
+              </table>
             </div>
           </div>
 
@@ -67,27 +70,31 @@ getTemplatePart('header', ['active' => 'diary']);
             <div class="border-b border-b-gray-200 pb-3 px-2">
               <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Lunch')?></h3>
             </div>
-            <div class="pt-2 flex flex-col gap-1">
-              <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
+            <div class="relative overflow-x-auto pt-4">
+              <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
+                <thead>
+                  <tr>
+                    <th class="block px-2" scope="col">Title</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Protein</th>
+                    <th scope="col">Carbs</th>
+                    <th scope="col">Fat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($lunchRecordings as $recording): ?>
+                    <tr class="rounded-lg even:bg-gray-200">
+                      <th class="block px-2 py-2" scope="row"><?=ucfirst($recording->title)?></th>
+                      <td><?=$recording->amount?></td>
+                      <td><?=$recording->calories?></td>
+                      <td><?=$recording->protein?></td>
+                      <td><?=$recording->carbohydrates?></td>
+                      <td><?=$recording->fat?></td>
+                    </tr>
+                  <?php endforeach;?>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -97,27 +104,31 @@ getTemplatePart('header', ['active' => 'diary']);
             <div class="border-b border-b-gray-200 pb-3 px-2">
               <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Dinner')?></h3>
             </div>
-            <div class="pt-2 flex flex-col gap-1">
-              <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
+            <div class="relative overflow-x-auto pt-4">
+              <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
+                <thead>
+                  <tr>
+                    <th class="block px-2" scope="col">Title</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Protein</th>
+                    <th scope="col">Carbs</th>
+                    <th scope="col">Fat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($dinnerRecordings as $recording): ?>
+                    <tr class="rounded-lg even:bg-gray-200">
+                      <th class="block px-2 py-2" scope="row"><?=ucfirst($recording->title)?></th>
+                      <td><?=$recording->amount?></td>
+                      <td><?=$recording->calories?></td>
+                      <td><?=$recording->protein?></td>
+                      <td><?=$recording->carbohydrates?></td>
+                      <td><?=$recording->fat?></td>
+                    </tr>
+                  <?php endforeach;?>
+                </tbody>
+              </table>
             </div>
           </div>
 
@@ -125,27 +136,31 @@ getTemplatePart('header', ['active' => 'diary']);
             <div class="border-b border-b-gray-200 pb-3 px-2">
               <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Snacks')?></h3>
             </div>
-            <div class="pt-2 flex flex-col gap-1">
-              <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="bg-gray-200 rounded-lg px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
-              <div class="px-3 py-2 flex">
-                <span class="basis-1/5">Egg</span>
-                <span class="basis-1/5">50g</span>
-                <span class="basis-3/5 text-end">100kcal</span>
-              </div>
+            <div class="relative overflow-x-auto pt-4">
+              <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
+                <thead>
+                  <tr>
+                    <th class="block px-2" scope="col">Title</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Protein</th>
+                    <th scope="col">Carbs</th>
+                    <th scope="col">Fat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($snacksRecordings as $recording): ?>
+                    <tr class="rounded-lg even:bg-gray-200">
+                      <th class="block px-2 py-2" scope="row"><?=ucfirst($recording->title)?></th>
+                      <td><?=$recording->amount?></td>
+                      <td><?=$recording->calories?></td>
+                      <td><?=$recording->protein?></td>
+                      <td><?=$recording->carbohydrates?></td>
+                      <td><?=$recording->fat?></td>
+                    </tr>
+                  <?php endforeach;?>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

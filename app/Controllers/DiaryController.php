@@ -33,7 +33,10 @@ final class DiaryController extends AbstractController {
     }
 
     protected function getRequest(): void {
-        $this->view->render(self::DIARY_TEMPLATE);
+        $userId = Session::get('id');
+        $recordings = $this->diaryRecordingService->findAllByUserId($userId);
+
+        $this->view->render(self::DIARY_TEMPLATE, ['diaryRecordings' => $recordings]);
     }
 
     public function search(): void {
@@ -57,7 +60,7 @@ final class DiaryController extends AbstractController {
         $id = $routeParams[1];
         $type = DiaryRecordingType::from($routeParams[0]);
 
-        $diaryRecording = $this->diaryRecordingService->loadDiaryRecordingByEntityIdAndType($id, $type);
+        $diaryRecording = $this->diaryRecordingService->findDiaryRecordingByEntityIdAndType($id, $type);
 
 
         $this->view->render(self::ADD_RECORDING_TEMPLATE, ['diaryRecording' => $diaryRecording]);
@@ -71,6 +74,6 @@ final class DiaryController extends AbstractController {
         $userId =  Session::get('id');
 
         $this->diaryRecordingService->save($type, $id, $userId, $data);
-        $this->redirectTo('/diary/search/');
+        $this->redirectTo('/diary');
     }
 }

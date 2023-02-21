@@ -9,17 +9,24 @@ use NutriScore\Models\Diary\DiaryRecordingType;
 use NutriScore\Models\Food\Food;
 use NutriScore\Models\FoodRecording\FoodRecording;
 use NutriScore\Models\Model;
+use NutriScore\Repositories\DiaryRecordingRepository;
 
 class DiaryRecordingService {
     private FoodMapper $foodMapper;
     private FoodRecordingMapper $foodRecordingMapper;
+    private DiaryRecordingRepository $diaryRecordingRepository;
 
     public function __construct() {
         $this->foodMapper = new FoodMapper();
         $this->foodRecordingMapper = new FoodRecordingMapper();
+        $this->diaryRecordingRepository = new DiaryRecordingRepository();
     }
 
-    public function loadDiaryRecordingByEntityIdAndType(int $id, DiaryRecordingType $type): DiaryRecording {
+    public function findAllByUserId(int $userId): array {
+        return $this->diaryRecordingRepository->findAllByUserId($userId);
+    }
+
+    public function findDiaryRecordingByEntityIdAndType(int $id, DiaryRecordingType $type): DiaryRecording {
         $data = match ($type) {
             DiaryRecordingType::FOOD => $this->foodMapper->findById($id)
         };
@@ -42,7 +49,7 @@ class DiaryRecordingService {
                 $model->getCalories(),
                 $model->getProtein(),
                 $model->getCarbohydrates(),
-                $model->getFat()
+                $model->getFat(),
             );
         } else {
             //this should never be the case
