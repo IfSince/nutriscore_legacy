@@ -1,5 +1,4 @@
 <?php
-
 $messages = $messages ?? null;
 
 getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);

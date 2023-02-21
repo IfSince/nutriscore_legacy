@@ -1,6 +1,5 @@
 <?php
 $messages = $messages ?? [];
-$searchResult = $searchResult ?? [];
 
 getTemplatePart('head', ['title' => 'diary']);
 getTemplatePart('header', ['active' => 'diary', 'previousPage' => '/diary']);

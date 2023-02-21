@@ -6,18 +6,22 @@ use NutriScore\DataMappers\WeightRecordingMapper;
 use NutriScore\Models\WeightRecording\WeightRecording;
 
 class WeightRecordingService {
-    private WeightRecordingMapper $weightRecordingDataMapper;
+    private WeightRecordingMapper $weightRecordingMapper;
 
     public function __construct() {
-        $this->weightRecordingDataMapper = new WeightRecordingMapper();
+        $this->weightRecordingMapper = new WeightRecordingMapper();
+    }
+
+    public function findAllByUserId(int $userId): array {
+        return $this->weightRecordingMapper->findAllByUserId($userId);
     }
 
     public function findLatestByUserId(int $userId): WeightRecording {
-        return $this->weightRecordingDataMapper->findLatestByUserId($userId);
+        return $this->weightRecordingMapper->findLatestByUserId($userId);
     }
 
     public function save(WeightRecording $weightRecording): WeightRecording {
-        $this->weightRecordingDataMapper->save($weightRecording);
+        $this->weightRecordingMapper->save($weightRecording);
         return $weightRecording;
     }
 }

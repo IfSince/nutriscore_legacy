@@ -12,6 +12,15 @@ class WeightRecordingMapper extends DataMapper {
         parent::__construct(self::RELATED_TABLE);
     }
 
+    public function findAllByUserId(int $userId): array {
+        $sql = 'SELECT *
+                  FROM weight_recordings wr
+                 WHERE wr.user_id = :userId';
+        $params = ['userId' => $userId];
+        
+        return $this->loadAll($sql, $params);
+    }
+
     public function findLatestByUserId(int $userId): WeightRecording {
         $sql = 'SELECT *
                   FROM weight_recordings wr

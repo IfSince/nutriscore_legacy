@@ -1,5 +1,3 @@
-<?php $searchResult = $searchResult ?? null; ?>
-
 <?php if($searchResult != null && $searchResult->getRowCount() > 0): ?>
   <div class="relative overflow-x-auto pt-4">
     <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">

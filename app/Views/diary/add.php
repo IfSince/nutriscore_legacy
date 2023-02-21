@@ -4,8 +4,6 @@ use NutriScore\Models\Diary\TimeOfDay;
 
 $messages = $messages ?? [];
 
-$diaryRecording = $diaryRecording ?? [];
-
 getTemplatePart('head', ['title' => 'diary']);
 getTemplatePart('header', ['active' => 'diary']);
 ?>
