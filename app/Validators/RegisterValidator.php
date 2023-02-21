@@ -18,7 +18,7 @@ class RegisterValidator extends AbstractValidator {
                     'noWhitespaces'
                 ]
             ),
-            new ValidationRule('repeatPassword', $this->data['repeatPassword'], ['matches' => $this->data['password']]),
+            new ValidationRule('repeatPassword', $this->data['repeatPassword'], ['required', 'matches' => $this->data['password']]),
         );
     }
 }

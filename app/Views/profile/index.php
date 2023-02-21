@@ -130,7 +130,7 @@ getTemplatePart('header', ['active' => 'profile']);
       <div class="border-b border-b-gray-200 pb-3"></div>
       <div class="mt-3 flex flex-col md:flex-row sm:gap-6">
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
-          <a href="#" class="flex items-center">
+          <a href="/profile/change-password" class="flex items-center">
             <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Change Password')?></h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
@@ -139,7 +139,7 @@ getTemplatePart('header', ['active' => 'profile']);
           <a class="inline-flex transition-colors items-center px-3 py-2 sm:text-sm font-medium text-center text-green
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
-             href="#">
+             href="/profile/change-password">
             <?=_('Edit Data')?>
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>

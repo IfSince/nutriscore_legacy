@@ -7,6 +7,7 @@ use NutriScore\Enums\InputType;
 use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
+use NutriScore\Services\ChangePasswordService;
 use NutriScore\Services\FileService;
 use NutriScore\Services\PersonService;
 use NutriScore\Services\UserService;
@@ -19,10 +20,12 @@ final class ProfileController extends AbstractController {
     private const USER_DATA_TEMPLATE = 'profile/user-data';
     private const PERSONAL_DATA_TEMPLATE = 'profile/personal-data';
     private const NUTRITIONAL_DATA_TEMPLATE = 'profile/nutritional-data';
+    private const CHANGE_PASSWORD_DATA_TEMPLATE = 'profile/change-password';
 
     private UserService $userService;
     private PersonService $personService;
     private FileService $fileService;
+    private ChangePasswordService $changePasswordService;
 
     public function __construct(Request $request) {
         parent::__construct($request);
@@ -30,6 +33,7 @@ final class ProfileController extends AbstractController {
         $this->userService = new UserService();
         $this->personService = new PersonService();
         $this->fileService = new FileService();
+        $this->changePasswordService = new ChangePasswordService();
     }
 
     protected function preAuthorize(): void {
@@ -170,5 +174,29 @@ final class ProfileController extends AbstractController {
                 'person' => $person,
             ]
         );
+    }
+
+    public function changePassword(): void {
+        $this->handleRequest(getFunction: $this->getChangePassword(...), postFunction: $this->postChangePassword(...));
+    }
+
+    private function getChangePassword(): void {
+        $this->view->render(self::CHANGE_PASSWORD_DATA_TEMPLATE);
+    }
+
+    private function postChangePassword(): void {
+        $userId = Session::get('id');
+        $data = $this->request->getInput(InputType::POST);
+
+        $validationObject = $this->changePasswordService->changePassword($userId, $data);
+
+        if ($validationObject->isValid()) {
+            Session::flash('change-success', _('Your password was changed successfully'), MessageType::SUCCESS);
+            $this->redirectTo('/profile');
+        } else {
+            Session::flash('change-error', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
+            $this->view->render(self::CHANGE_PASSWORD_DATA_TEMPLATE, ['messages' => $validationObject->getMessages()]);
+        }
+
     }
 }
