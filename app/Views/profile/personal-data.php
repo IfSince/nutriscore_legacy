@@ -4,7 +4,7 @@ use NutriScore\Models\Person\Gender;
 
 $messages = $messages ?? [];
 
-getTemplatePart('head', ['title' => 'Profile']);
+getTemplatePart('head', ['title' => 'Personal Data']);
 getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile']);
 ?>
 

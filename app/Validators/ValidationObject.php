@@ -49,7 +49,7 @@ class ValidationObject {
         $this->errors[] = new ValidationField($field, $message);
     }
 
-    public function renderMessages(): array {
+    public function getMessages(): array {
         return [
             'errors' => $this->getErrors(),
             'warnings' => $this->getWarnings(),

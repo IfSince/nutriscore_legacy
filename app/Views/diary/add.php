@@ -50,7 +50,7 @@ getTemplatePart('header', ['active' => 'diary']);
 
       <div>
         <label class="default-input__label" for="amount"><?=_('Amount')?></label>
-        <input class="default-input" type="number" name="amount" id="amount" <?php renderRequestValue('dateOfRecording', altValue: 1);?>>
+        <input class="default-input" type="number" name="amount" id="amount" <?php renderRequestValue('amount', altValue: 1);?>>
         <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
           <?php renderValidationFieldMessages('amount', $messages);?>
         </ul>

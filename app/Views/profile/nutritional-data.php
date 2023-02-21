@@ -7,7 +7,7 @@ use NutriScore\Models\Person\NutritionType;
 
 $messages = $messages ?? [];
 
-getTemplatePart('head', ['title' => 'Profile']);
+getTemplatePart('head', ['title' => 'Nutritional Data']);
 getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile']);
 ?>
 

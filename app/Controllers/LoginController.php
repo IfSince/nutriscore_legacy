@@ -39,7 +39,7 @@ final class LoginController extends AbstractController {
             Session::flash('login', _('You have been successfully signed in.'), MessageType::SUCCESS);
             $this->redirectTo('/overview');
         } else {
-            $this->view->render(self::LOGIN_TEMPLATE, ['messages' => $validationObject->renderMessages()]);
+            $this->view->render(self::LOGIN_TEMPLATE, ['messages' => $validationObject->getMessages()]);
         }
     }
 }

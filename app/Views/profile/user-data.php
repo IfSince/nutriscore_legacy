@@ -2,7 +2,7 @@
 
 $messages = $messages ?? null;
 
-getTemplatePart('head', ['title' => 'Profile']);
+getTemplatePart('head', ['title' => 'User Data']);
 getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile']);
 
 ?>

@@ -42,7 +42,7 @@ final class RegisterController extends AbstractController {
             Session::flash('success', _('Your registration was successful. You can log in.'), MessageType::SUCCESS);
             $this->redirectTo('/login');
         } else {
-            $this->view->render(self::REGISTER_TEMPLATE, ['messages' => $validationObject->renderMessages()]);
+            $this->view->render(self::REGISTER_TEMPLATE, ['messages' => $validationObject->getMessages()]);
         }
     }
 

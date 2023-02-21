@@ -72,7 +72,7 @@ final class ProfileController extends AbstractController {
                 [
                     'person' => $this->personService->findByUserId($userId),
                     'profileImage' => $existingImage,
-                    'messages' => $validationObject->renderMessages()
+                    'messages' => $validationObject->getMessages()
                 ]
             );
         }
@@ -111,7 +111,7 @@ final class ProfileController extends AbstractController {
         $this->view->render(
             self::USER_DATA_TEMPLATE,
             [
-                'messages' => $validationObject->renderMessages(),
+                'messages' => $validationObject->getMessages(),
                 'user' => $user
             ]
         );
@@ -150,7 +150,7 @@ final class ProfileController extends AbstractController {
         $this->view->render(
             self::PERSONAL_DATA_TEMPLATE,
             [
-                'messages' => $validationObject->renderMessages(),
+                'messages' => $validationObject->getMessages(),
                 'person' => $validationObject->getData()
             ]
         );

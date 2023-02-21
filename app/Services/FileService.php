@@ -62,7 +62,6 @@ class FileService {
 
                 $validator->getValidationObject()->setData($file);
             }
-
         }
 
         return $validator->getValidationObject();

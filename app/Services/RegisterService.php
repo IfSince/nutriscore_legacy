@@ -24,7 +24,9 @@ class RegisterService {
         $this->weightRecordingMapper = new WeightRecordingMapper();
     }
 
-
+    // unsauber, da doppelt validiert wird. Allerdings notwendig, da beim Speichern selber noch Fehler auftreten können.
+    // TODO: In der DB mit Transactions arbeiten, damit angelegte Entitäten bei Fehler wieder Rollbacked werden können.
+    // Dann muss nicht separat vorher validiert werden, sondern es kann direkt auf die save Methoden im jeweiligen Service zugegriffen werden.
     public function register(array $data): ValidationObject {
         $user = User::create($data);
         $person = Person::create($data);
