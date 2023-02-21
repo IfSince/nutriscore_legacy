@@ -10,7 +10,9 @@ use NutriScore\Request;
 use NutriScore\Services\FileService;
 use NutriScore\Services\PersonService;
 use NutriScore\Services\UserService;
+use NutriScore\Utils\PersonUtil;
 use NutriScore\Utils\Session;
+use NutriScore\Utils\UserUtil;
 
 final class ProfileController extends AbstractController {
     private const PROFILE_TEMPLATE = 'profile/index';
@@ -77,15 +79,7 @@ final class ProfileController extends AbstractController {
     }
 
     public function userData(): void {
-        $this->handleRequest(getFunction: $this->getUserData(...));
-    }
-
-    public function personalData(): void {
-        $this->handleRequest(getFunction: $this->getPersonalData(...));
-    }
-
-    public function nutritionalData(): void {
-        $this->handleRequest(getFunction: $this->getNutritionalData(...));
+        $this->handleRequest(getFunction: $this->getUserData(...), postFunction: $this->postUserData(...));
     }
 
     private function getUserData(): void {
@@ -98,6 +92,33 @@ final class ProfileController extends AbstractController {
                 'user' => $user
             ]
         );
+    }
+
+    private function postUserData(): void {
+        $data = $this->request->getInput(InputType::POST);
+        $userId = Session::get('id');
+
+        $user = UserUtil::createOrUpdateByForm($data, $userId);
+
+        $validationObject = $this->userService->save($user);
+
+        if ($validationObject->isValid()) {
+            Session::flash('success', _('The changes were saved successfully'), MessageType::SUCCESS);
+        } else {
+            Session::flash('error', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
+        }
+
+        $this->view->render(
+            self::USER_DATA_TEMPLATE,
+            [
+                'messages' => $validationObject->renderMessages(),
+                'user' => $user
+            ]
+        );
+    }
+
+    public function personalData(): void {
+        $this->handleRequest(getFunction: $this->getPersonalData(...), postFunction: $this->postPersonalData(...));
     }
 
     private function getPersonalData(): void {
@@ -114,6 +135,29 @@ final class ProfileController extends AbstractController {
 
     private function postPersonalData(): void {
         $userId = Session::get('id');
+        $data = $this->request->getInput(InputType::POST);
+        $personId = $this->personService->findByUserId($userId)->getId();
+
+        $person = PersonUtil::createOrUpdateByForm($data, $personId);
+        $validationObject = $this->personService->save($person);
+
+        if ($validationObject->isValid()) {
+            Session::flash('success', _('The changes were saved successfully.'), MessageType::SUCCESS);
+        } else {
+            Session::flash('error', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
+        }
+
+        $this->view->render(
+            self::PERSONAL_DATA_TEMPLATE,
+            [
+                'messages' => $validationObject->renderMessages(),
+                'person' => $validationObject->getData()
+            ]
+        );
+    }
+
+    public function nutritionalData(): void {
+        $this->handleRequest(getFunction: $this->getNutritionalData(...));
     }
 
     private function getNutritionalData(): void {

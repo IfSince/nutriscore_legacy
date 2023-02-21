@@ -931,16 +931,16 @@ a.menu-link:focus * {
   margin-right: 0.5rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
 
 .ml-auto {
   margin-left: auto;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
 }
 
 .ml-4 {
@@ -1622,9 +1622,9 @@ a.menu-link:focus * {
   padding-bottom: 0.625rem;
 }
 
-.px-7 {
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
+.py-3\.5 {
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
 }
 
 .py-3 {
@@ -1632,14 +1632,14 @@ a.menu-link:focus * {
   padding-bottom: 0.75rem;
 }
 
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.py-3\.5 {
-  padding-top: 0.875rem;
-  padding-bottom: 0.875rem;
 }
 
 .pt-16 {
