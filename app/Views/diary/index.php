@@ -13,7 +13,6 @@ $snacksRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $reco
 getTemplatePart('head', ['title' => 'diary', 'module' => 'diary']);
 getTemplatePart('header', ['active' => 'diary']);
 ?>
-
 <div class="pt-14 lg:pt-0 lg:pl-60 h-full w-full">
   <section class="px-6 py-4 lg:pt-16 lg:pb-10 flex justify-center items-center bg-gradient-to-b from-gray-600 to-gray-800 relative">
     <div class="flex justify-center items-center relative w-48 h-48">
@@ -35,8 +34,14 @@ getTemplatePart('header', ['active' => 'diary']);
       <div class="flex flex-col lg:flex-row lg:flex-wrap flex-grow basis-4/6 h-fit">
         <div class="w-full flex flex-col 2xl:flex-row gap-8 pb-8">
           <div class="bg-white md:rounded-md px-2 py-4 shadow-border flex-grow basis-1/2 min-w-[300px]">
-            <div class="border-b border-b-gray-200 pb-3 px-2">
+            <div class="border-b border-b-gray-200 pb-3 px-2 flex justify-between items-center">
               <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Breakfast')?></h3>
+              <a class="text-white bg-green outline-none transition-colors font-medium rounded-full text-sm p-1.5 sm:p-2.5 text-center
+                      inline-flex items-center mr-2 sm:mr-4 hover:bg-green-dark focus:outline focus:border-green-dark"
+                 href="/diary/search">
+                <span class="w-4 h-4 material-icons text-lg">add</span>
+                <span class="sr-only">Icon description</span>
+              </a>
             </div>
             <div class="relative overflow-x-auto pt-4">
               <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
@@ -63,12 +68,21 @@ getTemplatePart('header', ['active' => 'diary']);
                   <?php endforeach;?>
                 </tbody>
               </table>
+              <?php if(count($breakFastRecordings) === 0):?>
+                <span class="pt-6 block text-center text-sm text-gray-500">No entries have been found.</span>
+              <?php endif;?>
             </div>
           </div>
 
           <div class="bg-white md:rounded-md px-2 py-4 shadow-border flex-grow basis-1/2 min-w-[300px]">
-            <div class="border-b border-b-gray-200 pb-3 px-2">
+            <div class="border-b border-b-gray-200 pb-3 px-2 flex justify-between items-center">
               <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Lunch')?></h3>
+              <a class="text-white bg-green outline-none transition-colors font-medium rounded-full text-sm p-1.5 sm:p-2.5 text-center
+                      inline-flex items-center mr-2 sm:mr-4 hover:bg-green-dark focus:outline focus:border-green-dark"
+                 href="/diary/search">
+                <span class="w-4 h-4 material-icons text-lg">add</span>
+                <span class="sr-only">Icon description</span>
+              </a>
             </div>
             <div class="relative overflow-x-auto pt-4">
               <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
@@ -95,14 +109,23 @@ getTemplatePart('header', ['active' => 'diary']);
                   <?php endforeach;?>
                 </tbody>
               </table>
+              <?php if(count($lunchRecordings) === 0):?>
+              <span class="pt-6 block text-center text-sm text-gray-500">No entries have been found.</span>
+              <?php endif;?>
             </div>
           </div>
         </div>
 
         <div class="w-full flex flex-col 2xl:flex-row gap-8">
           <div class="bg-white md:rounded-md px-2 py-4 shadow-border lg:basis-1/2 min-w-[300px]">
-            <div class="border-b border-b-gray-200 pb-3 px-2">
+            <div class="border-b border-b-gray-200 pb-3 px-2 flex justify-between items-center">
               <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Dinner')?></h3>
+              <a class="text-white bg-green outline-none transition-colors font-medium rounded-full text-sm p-1.5 sm:p-2.5 text-center
+                      inline-flex items-center mr-2 sm:mr-4 hover:bg-green-dark focus:outline focus:border-green-dark"
+                 href="/diary/search">
+                <span class="w-4 h-4 material-icons text-lg">add</span>
+                <span class="sr-only">Icon description</span>
+              </a>
             </div>
             <div class="relative overflow-x-auto pt-4">
               <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
@@ -129,12 +152,21 @@ getTemplatePart('header', ['active' => 'diary']);
                   <?php endforeach;?>
                 </tbody>
               </table>
+              <?php if(count($dinnerRecordings) === 0):?>
+                <span class="pt-6 block text-center text-sm text-gray-500">No entries have been found.</span>
+              <?php endif;?>
             </div>
           </div>
 
           <div class="bg-white md:rounded-md px-2 py-4 shadow-border lg:basis-1/2 min-w-[300px]">
-            <div class="border-b border-b-gray-200 pb-3 px-2">
+            <div class="border-b border-b-gray-200 pb-3 px-2 flex justify-between items-center">
               <h3 class="text-xl md:text-2xl text-gray-800"><?=_('Snacks')?></h3>
+              <a class="text-white bg-green outline-none transition-colors font-medium rounded-full text-sm p-1.5 sm:p-2.5 text-center
+                      inline-flex items-center mr-2 sm:mr-4 hover:bg-green-dark focus:outline focus:border-green-dark"
+                 href="/diary/search">
+                <span class="w-4 h-4 material-icons text-lg">add</span>
+                <span class="sr-only">Icon description</span>
+              </a>
             </div>
             <div class="relative overflow-x-auto pt-4">
               <table class="w-full text-sm text-left text-gray-500" aria-label="Search results">
@@ -161,6 +193,9 @@ getTemplatePart('header', ['active' => 'diary']);
                   <?php endforeach;?>
                 </tbody>
               </table>
+              <?php if(count($snacksRecordings) === 0):?>
+                <span class="pt-6 block text-center text-sm text-gray-500">No entries have been found.</span>
+              <?php endif;?>
             </div>
           </div>
         </div>
