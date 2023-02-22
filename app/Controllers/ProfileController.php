@@ -5,15 +5,16 @@ namespace NutriScore\Controllers;
 use NutriScore\AbstractController;
 use NutriScore\Enums\InputType;
 use NutriScore\Enums\MessageType;
+use NutriScore\Models\MacroDistribution\MacroDistribution;
+use NutriScore\Models\Person\Person;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\ChangePasswordService;
 use NutriScore\Services\FileService;
+use NutriScore\Services\MacroDistributionService;
 use NutriScore\Services\PersonService;
 use NutriScore\Services\UserService;
-use NutriScore\Utils\PersonUtil;
 use NutriScore\Utils\Session;
-use NutriScore\Utils\UserUtil;
 
 final class ProfileController extends AbstractController {
     private const PROFILE_TEMPLATE = 'profile/index';
@@ -26,6 +27,7 @@ final class ProfileController extends AbstractController {
     private PersonService $personService;
     private FileService $fileService;
     private ChangePasswordService $changePasswordService;
+    private MacroDistributionService $macroDistributionService;
 
     public function __construct(Request $request) {
         parent::__construct($request);
@@ -34,6 +36,7 @@ final class ProfileController extends AbstractController {
         $this->personService = new PersonService();
         $this->fileService = new FileService();
         $this->changePasswordService = new ChangePasswordService();
+        $this->macroDistributionService = new MacroDistributionService();
     }
 
     protected function preAuthorize(): void {
@@ -102,7 +105,8 @@ final class ProfileController extends AbstractController {
         $data = $this->request->getInput(InputType::POST);
         $userId = Session::get('id');
 
-        $user = UserUtil::createOrUpdateByForm($data, $userId);
+        $user = $this->userService->findById($userId);
+        User::update($user, $data);
 
         $validationObject = $this->userService->save($user);
 
@@ -140,9 +144,10 @@ final class ProfileController extends AbstractController {
     private function postPersonalData(): void {
         $userId = Session::get('id');
         $data = $this->request->getInput(InputType::POST);
-        $personId = $this->personService->findByUserId($userId)->getId();
 
-        $person = PersonUtil::createOrUpdateByForm($data, $personId);
+        $person = $this->personService->findByUserId($userId);
+        Person::update($person, $data);
+
         $validationObject = $this->personService->save($person);
 
         if ($validationObject->isValid()) {
@@ -161,19 +166,65 @@ final class ProfileController extends AbstractController {
     }
 
     public function nutritionalData(): void {
-        $this->handleRequest(getFunction: $this->getNutritionalData(...));
+        $this->handleRequest(getFunction: $this->getNutritionalData(...), postFunction: $this->postNutritionalData(...));
     }
 
     private function getNutritionalData(): void {
         $userId = Session::get('id');
         $person = $this->personService->findByUserId($userId);
 
+        if ($person->getNutritionType()->getMacroDistribution() === null) {
+            $macroDistribution = $this->macroDistributionService->findByUserId($userId);
+        }
+
         $this->view->render(
             self::NUTRITIONAL_DATA_TEMPLATE,
             [
                 'person' => $person,
+                'macroDistribution' => $macroDistribution ?? null,
             ]
         );
+    }
+
+    private function postNutritionalData(): void {
+        $userId = Session::get('id');
+        $data = $this->request->getInput(InputType::POST);
+
+        $person = $this->personService->findByUserId($userId);
+        Person::update($person, $data);
+
+        $macroDistribution = $this->macroDistributionService->findByUserId($userId);
+        $macroDistribution = MacroDistribution::createOrUpdate($macroDistribution, $data);
+
+        $personValidationObject = $this->personService->save($person);
+
+        if ($person->getNutritionType()->getMacroDistribution() === null) {
+            // was changed to manual nutrition type and has to be saved in db
+            $macroDistribution->setUserId($person->getUserId());
+            $this->macroDistributionService->save($macroDistribution);
+        } else if (!$macroDistribution->isNew()) {
+            // was changed from manual nutrition type and has to be deleted from db
+            $this->macroDistributionService->delete($macroDistribution);
+            unset($macroDistribution);
+        } else {
+            unset($macroDistribution);
+        }
+
+        if ($personValidationObject->isValid()) {
+            Session::flash('success-person', _('The changes were saved successfully.'), MessageType::SUCCESS);
+        } else {
+            Session::flash('error-person', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
+        }
+
+        $this->view->render(
+            self::NUTRITIONAL_DATA_TEMPLATE, [
+                'messages' => $personValidationObject->getMessages(),
+                'person' => $person,
+                'macroDistribution' => $macroDistribution ?? null
+            ]
+        );
+
+
     }
 
     public function changePassword(): void {
@@ -197,6 +248,5 @@ final class ProfileController extends AbstractController {
             Session::flash('change-error', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
             $this->view->render(self::CHANGE_PASSWORD_DATA_TEMPLATE, ['messages' => $validationObject->getMessages()]);
         }
-
     }
 }

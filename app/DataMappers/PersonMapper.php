@@ -33,6 +33,7 @@ class PersonMapper extends DataMapper {
                              gender,
                              nutrition_type,
                              bmr_calculation_type,
+                             pal_level,
                              activity_level,
                              goal,
                              accepted_tos
@@ -46,6 +47,7 @@ class PersonMapper extends DataMapper {
                            :gender,
                            :nutritionType,
                            :bmrCalculationType,
+                           :palLevel,
                            :activityLevel,
                            :goal,
                            :acceptedTos
@@ -59,6 +61,7 @@ class PersonMapper extends DataMapper {
             'gender' => $obj->getGender()->value,
             'nutritionType' => $obj->getNutritionType()->value,
             'bmrCalculationType' => $obj->getBmrCalculationType()->value,
+            'palLevel' => $obj->getPalLevel(),
             'activityLevel' => $obj->getActivityLevel()->value,
             'goal' => $obj->getGoal()->value,
             'acceptedTos' => $obj->hasAcceptedTos()
@@ -79,6 +82,7 @@ class PersonMapper extends DataMapper {
                        pp.nutrition_type = :nutritionType,
                        pp.bmr_calculation_type = :bmrCalculationType,
                        pp.activity_level = :activityLevel,
+                       pp.pal_level = :palLevel,
                        pp.goal = :goal,
                        pp.accepted_tos = :acceptedTos
                  WHERE pp.id = :id';
@@ -92,6 +96,7 @@ class PersonMapper extends DataMapper {
             'nutritionType' => $obj->getNutritionType()->value,
             'bmrCalculationType' => $obj->getBmrCalculationType()->value,
             'activityLevel' => $obj->getActivityLevel()->value,
+            'palLevel' => $obj->getPalLevel(),
             'goal' => $obj->getGoal()->value,
             'acceptedTos' => $obj->hasAcceptedTos(),
             'id' => $obj->getId()

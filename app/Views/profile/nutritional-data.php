@@ -27,7 +27,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
         My Nutritional Data
       </h3>
       <div class="border-b border-b-gray-200 pb-3 mb-6"></div>
-      <form method="post" action="/person/save/<?=$person->getId()?>">
+      <form method="post">
         <div class="pb-8">
           <div class="flex flex-wrap gap-4 sm:gap-6 md:gap-8">
             <div class="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
@@ -42,7 +42,8 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
             <div class="basis-full md:basis-1/2 lg:basis-2/3 xl:basis-1/2 2xl:basis-1/3 flex flex-row gap-4 sm:gap-6 md:gap-8">
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="protein"><?=_('Protein')?></label>
-                <input class="default-input" type="number" name="protein" id="protein" <?php renderRequestValue('protein');?>>
+                <input class="default-input" type="number" name="protein" id="protein"
+                       value="<?=$macroDistribution?->getProtein() ?? $person->getNutritionType()->getMacroDistribution()->getProtein()?>">
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('protein', $messages);?>
                 </ul>
@@ -50,7 +51,9 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
 
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="carbohydrates"><?=_('Carbs')?></label>
-                <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderRequestValue('carbohydrates');?>>
+                <input class="default-input" type="number" name="carbohydrates" id="carbohydrates"
+                       value="<?=$macroDistribution?->getCarbohydrates() ??
+                               $person->getNutritionType()->getMacroDistribution()->getCarbohydrates()?>">
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('carbohydrates', $messages);?>
                 </ul>
@@ -58,7 +61,8 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
 
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="fat"><?=_('Fat')?></label>
-                <input class="default-input" type="number" name="fat" id="fat" <?php renderRequestValue('fat');?>>
+                <input class="default-input" type="number" name="fat" id="fat"
+                       value="<?=$macroDistribution?->getFat() ?? $person->getNutritionType()->getMacroDistribution()->getFat()?>">
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('fat', $messages);?>
                 </ul>

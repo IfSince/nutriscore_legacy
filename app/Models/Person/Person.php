@@ -17,6 +17,7 @@ class Person extends Model {
     private Gender $gender = Gender::MALE;
     private NutritionType $nutritionType = NutritionType::NORMAL;
     private BmrCalculationType $bmrCalculationType = BmrCalculationType::EASY;
+    private ?float $palLevel = null;
     private ActivityLevel $activityLevel = ActivityLevel::NO_SPORTS;
     private Goal $goal = Goal::KEEP;
     private bool $acceptedTos = false;
@@ -112,6 +113,14 @@ class Person extends Model {
 
     public function setBmrCalculationType(BmrCalculationType|string $bmrCalculationType): void {
         $this->bmrCalculationType = EnumUtil::mapEnumValue(BmrCalculationType::class, $bmrCalculationType);
+    }
+
+    public function getPalLevel(): ?float {
+        return $this->palLevel;
+    }
+
+    public function setPalLevel(float|string|null $palLevel): void {
+        $this->palLevel = (empty($palLevel)) ? null : (float) $palLevel;
     }
 
     public function getActivityLevel(): ActivityLevel {

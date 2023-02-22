@@ -2,9 +2,11 @@
 
 namespace NutriScore\Services;
 
+use NutriScore\DataMappers\MacroDistributionMapper;
 use NutriScore\DataMappers\PersonMapper;
 use NutriScore\DataMappers\UserMapper;
 use NutriScore\DataMappers\WeightRecordingMapper;
+use NutriScore\Models\MacroDistribution\MacroDistribution;
 use NutriScore\Models\Person\Person;
 use NutriScore\Models\User\User;
 use NutriScore\Models\WeightRecording\WeightRecording;
@@ -17,11 +19,13 @@ class RegisterService {
     private UserMapper $userMapper;
     private PersonMapper $personMapper;
     private WeightRecordingMapper $weightRecordingMapper;
+    private MacroDistributionMapper $macroDistributionMapper;
 
     public function __construct() {
         $this->userMapper = new UserMapper();
         $this->personMapper = new PersonMapper();
         $this->weightRecordingMapper = new WeightRecordingMapper();
+        $this->macroDistributionMapper = new MacroDistributionMapper();
     }
 
     // unsauber, da doppelt validiert wird. Allerdings notwendig, da beim Speichern selber noch Fehler auftreten können.
@@ -31,6 +35,7 @@ class RegisterService {
         $user = User::create($data);
         $person = Person::create($data);
         $weightRecording = WeightRecording::create($data);
+        $macroDistribution = MacroDistribution::create($data);
 
         $registerValidator = new RegisterValidator($data);
         $registerValidator->validate();
@@ -53,6 +58,11 @@ class RegisterService {
 
             $weightRecording->setUserId($user->getId());
             $this->weightRecordingMapper->save($weightRecording);
+
+            if ($person->getNutritionType()->getMacroDistribution() === null) {
+                $macroDistribution->setUserId($user->getId());
+                $this->macroDistributionMapper->save($macroDistribution);
+            }
         }
 
         return new ValidationObject(
