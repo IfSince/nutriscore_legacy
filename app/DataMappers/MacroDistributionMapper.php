@@ -2,14 +2,17 @@
 
 namespace NutriScore\DataMappers;
 
+use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\MacroDistribution\MacroDistribution;
 
 class MacroDistributionMapper extends DataMapper {
     private const RELATED_TABLE = 'macro_distributions';
 
-    public function __construct() {
-        parent::__construct(self::RELATED_TABLE);
+    public function __construct(
+        protected Database $database
+    ) {
+        parent::__construct(self::RELATED_TABLE, $database);
     }
 
     public function findByUserId(int $userId): ?MacroDistribution {

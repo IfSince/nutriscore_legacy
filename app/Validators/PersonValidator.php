@@ -4,32 +4,28 @@ namespace NutriScore\Validators;
 
 use NutriScore\Models\Person\ActivityLevel;
 use NutriScore\Models\Person\NutritionType;
-use NutriScore\Models\Person\Person;
 
 class PersonValidator extends AbstractValidator {
-
-    public function __construct(Person $person) {
-        parent::__construct($person);
-
-        $this->addFieldRules(
-            new ValidationRule('firstName', $person->getFirstName(), ['required', 'minLength'  => 2, 'maxLength' => 100]),
-            new ValidationRule('surname', $person->getSurname(), ['required', 'minLength'  => 2, 'maxLength' => 100]),
-            new ValidationRule('gender', $person->getGender() ?? null, ['required']),
-            new ValidationRule('dateOfBirth', $person->getDateOfBirth(), ['required']),
-            new ValidationRule('height', $person->getHeight(), ['required']),
-            new ValidationRule('nutritionType', $person->getNutritionType(), ['required']),
-            new ValidationRule('bmrCalculationType', $person->getBmrCalculationType(), ['required']),
-            new ValidationRule('activityLevel', $person->getActivityLevel(), ['required']),
-            new ValidationRule('goal', $person->getGoal(), ['required']),
-            new ValidationRule('acceptedTos', $person->hasAcceptedTos() ?? null, ['required']),
-        );
-    }
-
-    public function validate(): void {
-        parent::validate();
+    public function validate(mixed $data): void {
+        parent::validate($data);
 
         $this->validateNutritionTypeManuallyAndNoMacros();
         $this->validateActivityLevelPalLevelAndPalLevelEmpty();
+    }
+
+    protected function setFieldRules(): void {
+        $this->addFieldRules(
+            new ValidationRule('firstName', $this->data->getFirstName(), ['required', 'minLength'  => 2, 'maxLength' => 100]),
+            new ValidationRule('surname', $this->data->getSurname(), ['required', 'minLength'  => 2, 'maxLength' => 100]),
+            new ValidationRule('gender', $this->data->getGender() ?? null, ['required']),
+            new ValidationRule('dateOfBirth', $this->data->getDateOfBirth(), ['required']),
+            new ValidationRule('height', $this->data->getHeight(), ['required']),
+            new ValidationRule('nutritionType', $this->data->getNutritionType(), ['required']),
+            new ValidationRule('bmrCalculationType', $this->data->getBmrCalculationType(), ['required']),
+            new ValidationRule('activityLevel', $this->data->getActivityLevel(), ['required']),
+            new ValidationRule('goal', $this->data->getGoal(), ['required']),
+            new ValidationRule('acceptedTos', $this->data->hasAcceptedTos() ?? null, ['required']),
+        );
     }
 
     private function validateNutritionTypeManuallyAndNoMacros(): void {

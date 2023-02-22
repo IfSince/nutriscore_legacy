@@ -7,22 +7,20 @@ use NutriScore\Validators\ChangePasswordValidator;
 use NutriScore\Validators\ValidationObject;
 
 class ChangePasswordService {
-    private UserMapper $userMapper;
-
-    public function __construct() {
-        $this->userMapper = new UserMapper();
-    }
+    public function __construct(
+        private readonly UserMapper $userMapper,
+        private readonly ChangePasswordValidator $validator,
+    ) { }
 
     public function changePassword(int $userId, array $data): ValidationObject {
-        $user = $this->userMapper->findById($userId);
+        $user = $this->userMapper->findByIdOrThrow($userId);
+        $data['user'] = $user;
+        $this->validator->validate($data);
 
-        $validator = new ChangePasswordValidator($data, $user);
-        $validator->validate();
-
-        if ($validator->isValid()) {
+        if ($this->validator->isValid()) {
             $user->setPassword($data['newPassword']);
             $this->userMapper->save($user);
         }
-        return $validator->getValidationObject();
+        return $this->validator->getValidationObject();
     }
 }

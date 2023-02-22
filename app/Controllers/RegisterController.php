@@ -9,15 +9,17 @@ use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\RegisterService;
 use NutriScore\Utils\Session;
+use NutriScore\View;
 
 final class RegisterController extends AbstractController {
     private const REGISTER_TEMPLATE = 'register/index';
 
-    private RegisterService $registerService;
-
-    public function __construct(Request $request) {
-        parent::__construct($request);
-        $this->registerService = new RegisterService();
+    public function __construct(
+        protected Request                $request,
+        protected View                   $view,
+        private readonly RegisterService $registerService,
+    ) {
+        parent::__construct($request, $view);
     }
 
     protected function preAuthorize(): void {

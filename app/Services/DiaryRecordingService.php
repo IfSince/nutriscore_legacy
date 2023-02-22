@@ -12,15 +12,11 @@ use NutriScore\Models\Model;
 use NutriScore\Repositories\DiaryRecordingRepository;
 
 class DiaryRecordingService {
-    private FoodMapper $foodMapper;
-    private FoodRecordingMapper $foodRecordingMapper;
-    private DiaryRecordingRepository $diaryRecordingRepository;
-
-    public function __construct() {
-        $this->foodMapper = new FoodMapper();
-        $this->foodRecordingMapper = new FoodRecordingMapper();
-        $this->diaryRecordingRepository = new DiaryRecordingRepository();
-    }
+    public function __construct(
+        private readonly FoodMapper               $foodMapper,
+        private readonly FoodRecordingMapper      $foodRecordingMapper,
+        private readonly DiaryRecordingRepository $diaryRecordingRepository,
+    ) { }
 
     public function findAllByUserId(int $userId): array {
         return $this->diaryRecordingRepository->findAllByUserId($userId);

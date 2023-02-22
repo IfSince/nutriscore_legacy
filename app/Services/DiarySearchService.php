@@ -10,11 +10,9 @@ use NutriScore\Models\Search\SearchResult;
 class DiarySearchService {
     private const DIARY_SEARCH_RESULT_FIELDS = ['description', 'calories', 'protein', 'carbohydrates', 'fat'];
 
-    private FoodMapper $foodMapper;
-
-    public function __construct() {
-        $this->foodMapper = new FoodMapper();
-    }
+    public function __construct(
+        private readonly FoodMapper $foodMapper
+    ) { }
 
     public function findAllByQuery(string $query): SearchResult {
         $searchResult = new SearchResult(

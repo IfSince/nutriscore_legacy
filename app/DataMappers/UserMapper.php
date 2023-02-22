@@ -2,16 +2,18 @@
 
 namespace NutriScore\DataMappers;
 
+use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\Model;
 use NutriScore\Models\User\User;
 
-
 class UserMapper extends DataMapper {
     private const RELATED_TABLE = 'users';
 
-    public function __construct() {
-        parent::__construct(self::RELATED_TABLE);
+    public function __construct(
+        protected Database $database
+    ) {
+        parent::__construct(self::RELATED_TABLE, $database);
     }
 
     public function findByUsername(?string $username): ?User {

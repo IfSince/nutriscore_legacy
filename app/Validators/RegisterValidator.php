@@ -3,9 +3,8 @@
 namespace NutriScore\Validators;
 
 class RegisterValidator extends AbstractValidator {
-    public function __construct(array $formInput) {
-        parent::__construct($formInput);
 
+    public function setFieldRules(): void {
         $this->addFieldRules(
             new ValidationRule('password', $this->data['password'], [
                     'required',

@@ -6,11 +6,10 @@ use NutriScore\DataMappers\MacroDistributionMapper;
 use NutriScore\Models\MacroDistribution\MacroDistribution;
 
 class MacroDistributionService {
-    private MacroDistributionMapper $macroDistributionMapper;
 
-    public function __construct() {
-        $this->macroDistributionMapper = new MacroDistributionMapper();
-    }
+    public function __construct(
+        private readonly MacroDistributionMapper $macroDistributionMapper
+    ) { }
 
     public function findByUserId(int $userId): ?MacroDistribution {
         return $this->macroDistributionMapper->findByUserId($userId);

@@ -2,16 +2,15 @@
 
 namespace NutriScore\Validators;
 
-use NutriScore\Models\User\User;
-
 class ChangePasswordValidator extends AbstractValidator {
-    private User $user;
 
-    public function __construct(array $data, $user) {
-        parent::__construct($data);
+    public function validate(mixed $data): void {
+        parent::validate($data);
 
-        $this->user = $user;
+        $this->validateOldPasswordCorrect();
+    }
 
+    protected function setFieldRules(): void {
         $this->addFieldRules(
             new ValidationRule('password', $this->data['password'], ['required']),
             new ValidationRule('repeatPassword', $this->data['repeatPassword'], ['required', 'matches' => $this->data['newPassword']]),
@@ -27,17 +26,9 @@ class ChangePasswordValidator extends AbstractValidator {
         );
     }
 
-
-    public function validate(): void {
-        parent::validate();
-
-        $this->validateOldPasswordCorrect();
-    }
-
     private function validateOldPasswordCorrect(): void {
-        if (!password_verify($this->data['password'], $this->user->getPassword())) {
+        if (!password_verify($this->data['password'], $this->data['user']->getPassword())) {
             $this->validationObject->addError('password', _('The password is not correct'));
         }
     }
-
 }

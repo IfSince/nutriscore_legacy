@@ -9,16 +9,17 @@ use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\LoginService;
 use NutriScore\Utils\Session;
+use NutriScore\View;
 
 final class LoginController extends AbstractController {
     private const LOGIN_TEMPLATE = 'login/index';
 
-    private LoginService $loginService;
-
-    public function __construct(Request $request) {
-        parent::__construct($request);
-
-        $this->loginService = new LoginService();
+    public function __construct(
+        protected Request             $request,
+        protected View                $view,
+        private readonly LoginService $loginService
+    ) {
+        parent::__construct($request, $view);
     }
 
     protected function preAuthorize(): void {

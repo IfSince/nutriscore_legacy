@@ -10,16 +10,17 @@ use NutriScore\Models\WeightRecording\WeightRecording;
 use NutriScore\Request;
 use NutriScore\Services\WeightRecordingService;
 use NutriScore\Utils\Session;
+use NutriScore\View;
 
 class WeightController extends AbstractController {
     private const ADD_WEIGHT_TEMPLATE = 'weight/add';
 
-    private WeightRecordingService $weightRecordingService;
-
-    public function __construct(Request $request) {
-        parent::__construct($request);
-
-        $this->weightRecordingService = new WeightRecordingService();
+    public function __construct(
+        protected Request                       $request,
+        protected View                          $view,
+        private readonly WeightRecordingService $weightRecordingService
+    ) {
+        parent::__construct($request, $view);
     }
 
     protected function preAuthorize(): void {
@@ -45,7 +46,7 @@ class WeightController extends AbstractController {
 
         $validationObject = $this->weightRecordingService->saveWithImage($weightRecording, $image, $data['imageDescription']);
 
-        if ($validationObject ->isValid()) {
+        if ($validationObject->isValid()) {
             Session::flash('success', _('The weight recording was saved successfully'), MessageType::SUCCESS);
             $this->redirectTo('/profile');
         } else {

@@ -5,22 +5,23 @@ namespace NutriScore\Validators;
 
 class FileValidator extends AbstractValidator {
     private int $MAX_ALLOWED_FILE_SIZE;
-    private array $ALLOWED_FILE_TYPES;
+    private array $ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png'];
 
-    public function __construct(mixed $data, array $allowedTypes = ['image/jpeg', 'image/png']) {
-        parent::__construct($data);
+    public function __construct() {
+        parent::__construct();
 
         $this->MAX_ALLOWED_FILE_SIZE = (int) str_replace('M', '000000', ini_get('upload_max_filesize'));
-        $this->ALLOWED_FILE_TYPES = $allowedTypes;
     }
 
-    public function validate(): void {
-        parent::validate();
+    public function validate(mixed $data): void {
+        parent::validate($data);
 
         $this->validateNotEmpty();
         $this->validateFileTypeAllowed();
         $this->validateFileSize();
+    }
 
+    protected function setFieldRules(): void {
         $this->addFieldRules(
             new ValidationRule('text', $this->data['text'], ['required', 'minLength' => 4, 'maxLength' => 100])
         );

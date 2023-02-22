@@ -8,21 +8,20 @@ use NutriScore\Validators\LoginValidator;
 use NutriScore\Validators\ValidationObject;
 
 class LoginService {
-    private UserMapper $userMapper;
 
-    public function __construct() {
-        $this->userMapper = new UserMapper();
-    }
+    public function __construct(
+        private readonly UserMapper $userMapper,
+        private readonly LoginValidator $validator,
+    ) { }
 
     public function login(array $formInput): ValidationObject {
-        $validator = new LoginValidator($formInput, $this->userMapper);
-        $validator->validate();
+        $this->validator->validate($formInput);
 
-        if ($validator->isValid()) {
+        if ($this->validator->isValid()) {
             $user = $this->userMapper->findByUsername($formInput['username']);
             Session::set('id', $user->getId());
         }
-        return $validator->getValidationObject();
+        return $this->validator->getValidationObject();
     }
 
 }

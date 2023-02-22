@@ -8,24 +8,23 @@ use NutriScore\Validators\UserValidator;
 use NutriScore\Validators\ValidationObject;
 
 class UserService {
-    private UserMapper $userMapper;
 
-    public function __construct() {
-        $this->userMapper = new UserMapper();
-    }
+    public function __construct(
+        private readonly UserMapper $userMapper,
+        private readonly UserValidator $validator,
+    ) { }
 
     public function loadOrThrow(int $id): User {
         return $this->userMapper->findByIdOrThrow($id);
     }
 
     public function save(User $user): ValidationObject {
-        $validator = new UserValidator($user);
-        $validator->validate();
+        $this->validator->validate($user);
 
-        if ($validator->isValid()) {
+        if ($this->validator->isValid()) {
             $this->userMapper->save($user);
         }
-        return $validator->getValidationObject();
+        return $this->validator->getValidationObject();
     }
 
     public function linkUserToProfileImage(int $userId, int $imageId): void {

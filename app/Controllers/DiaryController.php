@@ -10,20 +10,20 @@ use NutriScore\Request;
 use NutriScore\Services\DiaryRecordingService;
 use NutriScore\Services\DiarySearchService;
 use NutriScore\Utils\Session;
+use NutriScore\View;
 
 final class DiaryController extends AbstractController {
     private const DIARY_TEMPLATE = 'diary/index';
     private const SEARCH_TEMPLATE = 'diary/search';
     private const ADD_RECORDING_TEMPLATE = 'diary/add';
 
-    private DiarySearchService $diarySearchService;
-    private DiaryRecordingService $diaryRecordingService;
-
-    public function __construct(Request $request) {
-        parent::__construct($request);
-
-        $this->diarySearchService = new DiarySearchService();
-        $this->diaryRecordingService = new DiaryRecordingService();
+    public function __construct(
+        protected Request                      $request,
+        protected View                         $view,
+        private readonly DiarySearchService    $diarySearchService,
+        private readonly DiaryRecordingService $diaryRecordingService,
+    ) {
+        parent::__construct($request, $view);
     }
 
     protected function preAuthorize(): void {
@@ -71,7 +71,7 @@ final class DiaryController extends AbstractController {
         $data = $this->request->getInput(InputType::POST);
         $id = $routeParams[1];
         $type = DiaryRecordingType::from($routeParams[0]);
-        $userId =  Session::get('id');
+        $userId = Session::get('id');
 
         $this->diaryRecordingService->save($type, $id, $userId, $data);
         $this->redirectTo('/diary');

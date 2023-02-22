@@ -5,16 +5,15 @@ namespace NutriScore\Validators;
 use NutriScore\DataMappers\UserMapper;
 
 class LoginValidator extends AbstractValidator {
-    private Usermapper $userMapper;
 
-    public function __construct(array $formInput, UserMapper $userMapper) {
-        parent::__construct($formInput);
-
-        $this->userMapper = $userMapper;
+    public function __construct(
+        private readonly Usermapper $userMapper,
+    ) {
+        parent::__construct();
     }
 
-    public function validate(): void {
-        parent::validate();
+    public function validate(mixed $data): void {
+        parent::validate($data);
 
         $this->validateLoginData();
     }

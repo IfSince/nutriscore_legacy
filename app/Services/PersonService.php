@@ -8,23 +8,22 @@ use NutriScore\Validators\PersonValidator;
 use NutriScore\Validators\ValidationObject;
 
 class PersonService {
-    private PersonMapper $personMapper;
 
-    public function __construct() {
-        $this->personMapper = new PersonMapper();
-    }
+    public function __construct(
+        private readonly PersonMapper $personMapper,
+        private readonly PersonValidator $validator,
+    ) { }
 
     public function findByUserId(int $userId): Person {
         return $this->personMapper->findByUserId($userId);
     }
 
     public function save(Person $person): ValidationObject {
-        $validator = new PersonValidator($person);
-        $validator->validate();
+        $this->validator->validate($person);
 
-        if ($validator->isValid()) {
+        if ($this->validator->isValid()) {
             $this->personMapper->save($person);
         }
-        return $validator->getValidationObject();
+        return $this->validator->getValidationObject();
     }
 }

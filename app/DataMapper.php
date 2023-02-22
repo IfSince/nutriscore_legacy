@@ -5,19 +5,19 @@ namespace NutriScore;
 use Exception;
 use NutriScore\Exceptions\NotFoundException;
 use NutriScore\Models\Model;
-use Throwable;
 
 abstract class DataMapper {
-    protected Database $database;
     private readonly string $table;
 
-    public function __construct(string $table) {
+    public function __construct(
+        string             $table,
+        protected Database $database
+    ) {
         $this->table = $table;
-        $this->database = new Database();
     }
 
     public function findById(int $id): ?Model {
-        $sql = "SELECT * FROM {$this->table} t WHERE t.id = :id";
+        $sql = "SELECT * FROM $this->table t WHERE t.id = :id";
         $data = $this->database->fetch($sql, ['id' => $id]);
 
         return $this->returnOptionalOf($data);
@@ -28,7 +28,7 @@ abstract class DataMapper {
      */
     public function findByIdOrThrow(int $id): Model {
         try {
-            $sql = "SELECT * FROM {$this->table} t WHERE t.id = :id";
+            $sql = "SELECT * FROM $this->table t WHERE t.id = :id";
             $data = $this->database->fetch($sql, ['id' => $id]);
 
             if (!$data) {
@@ -62,7 +62,7 @@ abstract class DataMapper {
     }
 
     public function delete(Model $obj): void {
-        $sql = "DELETE FROM {$this->table} WHERE id = :id";
+        $sql = "DELETE FROM $this->table WHERE id = :id";
         $this->database->prepareAndExecute($sql, ['id' => $obj->getId()]);
     }
 

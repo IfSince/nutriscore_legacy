@@ -2,7 +2,6 @@
 
 namespace NutriScore\Services;
 
-use NutriScore\DataMappers\FileMapper;
 use NutriScore\DataMappers\WeightRecordingMapper;
 use NutriScore\Models\WeightRecording\WeightRecording;
 use NutriScore\Validators\FileValidator;
@@ -10,22 +9,17 @@ use NutriScore\Validators\ValidationObject;
 use NutriScore\Validators\WeightRecordingValidator;
 
 class WeightRecordingService {
-    private WeightRecordingMapper $weightRecordingMapper;
-    private FileService $fileService;
-    private FileMapper $fileMapper;
 
-    public function __construct() {
-        $this->weightRecordingMapper = new WeightRecordingMapper();
-        $this->fileService = new FileService();
-        $this->fileMapper = new FileMapper();
+    public function __construct(
+        private readonly WeightRecordingMapper $weightRecordingMapper,
+        private readonly FileService           $fileService,
+        private readonly FileValidator         $fileValidator,
+        private readonly WeightRecordingValidator $weightRecordingValidator,
+    ) {
     }
 
     public function findAllByUserId(int $userId): array {
         return $this->weightRecordingMapper->findAllByUserId($userId);
-    }
-
-    public function findLatestByUserId(int $userId): WeightRecording {
-        return $this->weightRecordingMapper->findLatestByUserId($userId);
     }
 
     // TODO Transactions in DB, damit beides nacheinander validiert und gespeichert werden kann. So sehr unschön.
@@ -36,17 +30,12 @@ class WeightRecordingService {
     ): ValidationObject {
         if ($imageData['size'] > 0) {
             $fileData = array_merge($imageData, ['text' => $imageDescription]);
-            $fileValidator = new FileValidator($fileData);
-            $fileValidator->validate();
+            $this->fileValidator->validate($fileData);
         }
 
-        $weightRecordingValidator = new WeightRecordingValidator($weightRecording);
-        $weightRecordingValidator->validate();
+        $this->weightRecordingValidator->validate($weightRecording);
 
-        if (
-            (isset($fileValidator) && $fileValidator->isValid() || !isset($fileValidator)) &&
-            $weightRecordingValidator->isValid()
-        ) {
+        if ($this->fileValidator->isValid() && $this->weightRecordingValidator->isValid()) {
 
             $file = ($imageData['size'] > 0) ? $this->fileService->save($imageData, $imageDescription)->getData() : null;
 
@@ -55,20 +44,20 @@ class WeightRecordingService {
         }
         return new ValidationObject(
             errors: [
-                ...isset($fileValidator) ? $fileValidator->getValidationObject()->getErrors() : [],
-                ...$weightRecordingValidator->getValidationObject()->getErrors(),
+                ...$this->fileValidator->getValidationObject()->getErrors(),
+                ...$this->weightRecordingValidator->getValidationObject()->getErrors(),
             ],
             warnings: [
-                ...isset($fileValidator) ? $fileValidator->getValidationObject()->getWarnings() : [],
-                ...$weightRecordingValidator->getValidationObject()->getWarnings(),
+                ...$this->fileValidator->getValidationObject()->getWarnings(),
+                ...$this->weightRecordingValidator->getValidationObject()->getWarnings(),
             ],
             hints: [
-                ...isset($fileValidator) ? $fileValidator->getValidationObject()->getHints() : [],
-                ...$weightRecordingValidator->getValidationObject()->getHints(),
+                ...$this->fileValidator->getValidationObject()->getHints(),
+                ...$this->weightRecordingValidator->getValidationObject()->getHints(),
             ],
             success: [
-                ...isset($fileValidator) ? $fileValidator->getValidationObject()->getSuccess() : [],
-                ...$weightRecordingValidator->getValidationObject()->getSuccess(),
+                ...$this->fileValidator->getValidationObject()->getSuccess(),
+                ...$this->weightRecordingValidator->getValidationObject()->getSuccess(),
             ],
         );
     }

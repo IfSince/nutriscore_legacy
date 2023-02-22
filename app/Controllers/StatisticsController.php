@@ -7,16 +7,18 @@ use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\WeightRecordingService;
 use NutriScore\Utils\Session;
+use NutriScore\View;
 
 class StatisticsController extends AbstractController {
     private const STATISTICS_TEMPLATE = 'statistics/index';
 
-    private WeightRecordingService $weightRecordingService;
+    public function __construct(
+        protected Request                       $request,
+        protected View                          $view,
+        private readonly WeightRecordingService $weightRecordingService,
+    ) {
+        parent::__construct($request, $view);
 
-    public function __construct(Request $request) {
-        parent::__construct($request);
-
-        $this->weightRecordingService = new WeightRecordingService();
     }
 
     protected function preAuthorize(): void {

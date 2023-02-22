@@ -10,13 +10,11 @@ use NutriScore\Validators\FileValidator;
 use NutriScore\Validators\ValidationObject;
 
 class FileService {
-    private FileMapper $fileMapper;
-    private UserMapper $userMapper;
-
-    public function __construct() {
-        $this->fileMapper = new FileMapper();
-        $this->userMapper = new UserMapper();
-    }
+    public function __construct(
+        private readonly FileMapper $fileMapper,
+        private readonly UserMapper $userMapper,
+        private readonly FileValidator $validator,
+    ) { }
 
     public function findProfileImageByUserId(int $userId): ?File {
         $profileImageId = $this->userMapper->findById($userId)->getProfileImageId();
@@ -29,10 +27,9 @@ class FileService {
 
     public function save(?array $file, ?string $text = 'Uploaded File', int $existingImageId = null): ValidationObject {
         $fileData = array_merge($file, ['text' => $text]);
-        $validator = new FileValidator($fileData);
-        $validator->validate();
+        $this->validator->validate($fileData);
 
-        if ($validator->isValid()) {
+        if ($this->validator->isValid()) {
             $fileName = $this->createUniqueFilename($fileData['name']);
             $absolutePath = APP_UPLOADS_DIR . DIRECTORY_SEPARATOR . $this->createDateCodedPath();
             $relativePath = str_replace(APP_PUBLIC_DIR , '', $absolutePath);
@@ -43,7 +40,7 @@ class FileService {
             }
 
             if (!move_uploaded_file($fileData['tmp_name'], $uploadPath)) {
-                $validator->getValidationObject()->addError('file', _('Failed to upload file'));
+                $this->validator->getValidationObject()->addError('file', _('Failed to upload file'));
             } else {
                 $data = [
                     'path' => $relativePath . DIRECTORY_SEPARATOR . $fileName,
@@ -60,11 +57,11 @@ class FileService {
                 $file = File::create($data);
                 $this->fileMapper->save($file);
 
-                $validator->getValidationObject()->setData($file);
+                $this->validator->getValidationObject()->setData($file);
             }
         }
 
-        return $validator->getValidationObject();
+        return $this->validator->getValidationObject();
     }
 
     private function createDateCodedPath(): string {
@@ -79,7 +76,7 @@ class FileService {
         $time = time();
         $rand = rand(1234, 9876);
 
-        return "{$namePart}-{$time}-{$rand}.{$fileExt}";
+        return "$namePart-$time-$rand.$fileExt";
     }
 
     private function deleteFile(File $file): void {

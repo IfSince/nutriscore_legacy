@@ -8,14 +8,21 @@ use NutriScore\Models\Diary\DiaryRecordingType;
 use NutriScore\Models\Diary\TimeOfDay;
 
 class DiaryRecordingRepository {
-    private Database $database;
-
-    public function __construct() {
-        $this->database = new Database();
-    }
+    public function __construct(
+        private readonly Database $database
+    ) { }
 
     public function findAllByUserId(int $userId): array {
-        $sql = "SELECT fr.id, 'food' as type, fr.date_of_recording, fr.time_of_day, fr.amount , f.description as title, f.calories, f.protein, f.carbohydrates, f.fat
+        $sql = "SELECT fr.id,
+                       'food' as type,
+                       fr.date_of_recording,
+                       fr.time_of_day,
+                       fr.amount,
+                       f.description as title,
+                       f.calories,
+                       f.protein,
+                       f.carbohydrates,
+                       f.fat
                   FROM food_recordings fr
                   JOIN food f ON f.id = fr.food_id
                  WHERE fr.user_id = :userId";

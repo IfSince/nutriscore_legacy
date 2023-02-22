@@ -2,22 +2,18 @@
 
 namespace NutriScore\Validators;
 
-use NutriScore\Models\WeightRecording\WeightRecording;
-
 class WeightRecordingValidator extends AbstractValidator {
-    public function __construct(WeightRecording $weightRecording) {
-        parent::__construct($weightRecording);
-
-        $this->addFieldRules(
-            new ValidationRule('weight', $weightRecording->getWeight(), ['required']),
-            new ValidationRule('dateOfRecording', $weightRecording->getDateOfRecording(), ['required'])
-        );
-    }
-
-    public function validate(): void {
-        parent::validate();
+    public function validate(mixed $data): void {
+        parent::validate($data);
 
         $this->validateNegativeWeight();
+    }
+
+    protected function setFieldRules(): void {
+        $this->addFieldRules(
+            new ValidationRule('weight', $this->data->getWeight(), ['required']),
+            new ValidationRule('dateOfRecording', $this->data->getDateOfRecording(), ['required'])
+        );
     }
 
     private function validateNegativeWeight(): void {

@@ -6,11 +6,8 @@ use Exception;
 use NutriScore\AbstractController;
 
 class ErrorHandlerDecorator {
-    private AbstractController $component;
 
-    public function __construct(AbstractController $component) {
-        $this->component = $component;
-    }
+    public function __construct(private readonly AbstractController $component) { }
 
     public function __call($method, $args): mixed {
         try {

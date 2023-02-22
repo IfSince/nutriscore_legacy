@@ -15,6 +15,7 @@ use NutriScore\Services\MacroDistributionService;
 use NutriScore\Services\PersonService;
 use NutriScore\Services\UserService;
 use NutriScore\Utils\Session;
+use NutriScore\View;
 
 final class ProfileController extends AbstractController {
     private const PROFILE_TEMPLATE = 'profile/index';
@@ -23,20 +24,16 @@ final class ProfileController extends AbstractController {
     private const NUTRITIONAL_DATA_TEMPLATE = 'profile/nutritional-data';
     private const CHANGE_PASSWORD_DATA_TEMPLATE = 'profile/change-password';
 
-    private UserService $userService;
-    private PersonService $personService;
-    private FileService $fileService;
-    private ChangePasswordService $changePasswordService;
-    private MacroDistributionService $macroDistributionService;
-
-    public function __construct(Request $request) {
-        parent::__construct($request);
-
-        $this->userService = new UserService();
-        $this->personService = new PersonService();
-        $this->fileService = new FileService();
-        $this->changePasswordService = new ChangePasswordService();
-        $this->macroDistributionService = new MacroDistributionService();
+    public function __construct(
+        protected Request                         $request,
+        protected View                            $view,
+        private readonly UserService              $userService,
+        private readonly PersonService            $personService,
+        private readonly FileService              $fileService,
+        private readonly ChangePasswordService    $changePasswordService,
+        private readonly MacroDistributionService $macroDistributionService,
+    ) {
+        parent::__construct($request, $view);
     }
 
     protected function preAuthorize(): void {

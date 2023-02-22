@@ -7,15 +7,17 @@ use NutriScore\Models\User\User;
 use NutriScore\Request;
 use NutriScore\Services\PersonService;
 use NutriScore\Utils\Session;
+use NutriScore\View;
 
 final class OverviewController extends AbstractController {
     private const OVERVIEW_TEMPLATE = 'overview/index';
 
-    private PersonService $personService;
-
-    public function __construct(Request $request) {
-        parent::__construct($request);
-        $this->personService = new PersonService();
+    public function __construct(
+        protected Request              $request,
+        protected View                 $view,
+        private readonly PersonService $personService,
+    ) {
+        parent::__construct($request, $view);
     }
 
     protected function preAuthorize(): void {

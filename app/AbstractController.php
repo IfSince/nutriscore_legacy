@@ -6,11 +6,12 @@ class AbstractController {
     protected const GET_METHOD = 'GET';
     protected const POST_METHOD = 'POST';
 
-    protected View $view;
-    protected Request $request;
+    public function __construct(
+        protected Request $request,
+        protected View $view,
+    ) { }
 
-    public function __construct(Request $request) {
-        $this->view = new View();
+    public function setRequest(Request $request): void {
         $this->request = $request;
     }
 

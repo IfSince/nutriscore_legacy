@@ -2,20 +2,15 @@
 
 namespace NutriScore\Validators;
 
-class AbstractValidator {
+abstract class AbstractValidator {
     protected mixed $data;
 
-    /**
-     * @var array<ValidationRule>
-     */
     private array $fieldRules = [];
 
     protected ValidationObject $validationObject;
 
-    public function __construct(mixed $data) {
+    public function __construct() {
         $this->validationObject = new ValidationObject();
-        $this->validationObject->setData($data);
-        $this->data = $data;
     }
 
     public function getValidationObject(): ValidationObject {
@@ -30,10 +25,18 @@ class AbstractValidator {
         return $this->validationObject->isValid();
     }
 
-    public function validate(): void {
+    public function validate(mixed $data): void {
+        $this->data = $data;
+        $this->validationObject->setData($data);
+        $this->setFieldRules();
+
         foreach ($this->fieldRules as $fieldRule) {
             $this->validateField($fieldRule);
         }
+    }
+
+    protected function setFieldRules(): void {
+        // implement this in order to set field rules before validating
     }
 
     protected function validateField(ValidationRule $validationRule): void {
@@ -87,7 +90,7 @@ class AbstractValidator {
     }
 
     protected function specialchar(mixed $value, string $field): void {
-        if (!preg_match('/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};\':"\\|,.<>\/?]*$/', $value)) {
+        if (!preg_match('/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};\':"|,.<>\/?]*$/', $value)) {
             $this->validationObject->addError($field,  _("This field requires at least one special character."));
         }
     }
