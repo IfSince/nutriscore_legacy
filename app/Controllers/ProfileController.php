@@ -91,7 +91,7 @@ final class ProfileController extends AbstractController {
 
     private function getUserData(): void {
         $userId = Session::get('id');
-        $user = $this->userService->findById($userId);
+        $user = $this->userService->loadOrThrow($userId);
 
         $this->view->render(
             self::USER_DATA_TEMPLATE,
@@ -105,7 +105,7 @@ final class ProfileController extends AbstractController {
         $data = $this->request->getInput(InputType::POST);
         $userId = Session::get('id');
 
-        $user = $this->userService->findById($userId);
+        $user = $this->userService->loadOrThrow($userId);
         User::update($user, $data);
 
         $validationObject = $this->userService->save($user);

@@ -48,7 +48,7 @@ class AbstractController {
     }
 
     /**
-     * Function that can be implemented for logic that should be executed before anything else
+     * Hook that can be implemented for logic that should be executed before anything else
      * @return void
      */
     protected function preAuthorize(): void {}

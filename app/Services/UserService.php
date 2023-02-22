@@ -14,8 +14,8 @@ class UserService {
         $this->userMapper = new UserMapper();
     }
 
-    public function findById(int $id): User {
-        return $this->userMapper->findById($id);
+    public function loadOrThrow(int $id): User {
+        return $this->userMapper->findByIdOrThrow($id);
     }
 
     public function save(User $user): ValidationObject {

@@ -2,6 +2,8 @@
 
 namespace NutriScore;
 
+use NutriScore\Decorators\ErrorHandlerDecorator;
+
 class App {
     public function __construct() {
         $language = 'de_DE';
@@ -22,6 +24,8 @@ class App {
 
         $request = new Request($params);
         $controller = new $controller($request);
-        $controller->{$method}();
+
+        $errorHandlerDecorator = new ErrorHandlerDecorator($controller);
+        $errorHandlerDecorator->{$method}();
     }
 }
