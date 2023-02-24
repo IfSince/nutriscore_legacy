@@ -7,11 +7,11 @@ use ReflectionClass;
 class DIContainer {
     private array $services = [];
 
-    public function set($name, $service): void {
-        $this->services[$name] = $service;
+    public function set(mixed $service): void {
+        $this->services[$service::class] = $service;
     }
 
-    public function get($name, array $params = []): mixed {
+    public function get(string $name, array $params = []): mixed {
         if (!isset($this->services[$name])) {
             $this->services[$name] = $this->autowire($name, $params);
         }
@@ -19,14 +19,15 @@ class DIContainer {
         return $this->services[$name];
     }
 
-    public function autowire($className, $args = []) {
+    public function autowire(string $className, array $args = []): mixed {
         $reflectionClass = new ReflectionClass($className);
-
-        if (!$reflectionClass->getConstructor()) {
+        $reflectionConstructor = $reflectionClass->getConstructor();
+        
+        if (!$reflectionConstructor) {
             return new $className();
         }
 
-        $constructorParams = $reflectionClass->getConstructor()->getParameters();
+        $constructorParams = $reflectionConstructor->getParameters();
         foreach ($constructorParams as $param) {
             $class = $param->getClass();
             if ($class !== null) {

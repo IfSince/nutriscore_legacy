@@ -35,7 +35,7 @@ class UserValidator extends AbstractValidator {
     private function validateUserIsNewEmailExists(): void {
         $user = $this->userMapper->findByEmail($this->data->getEmail());
         if ($user !== null && $user->getId() !== $this->data->getId()) {
-            $this->validationObject->addError('username', _('This email is already taken.'));
+            $this->validationObject->addError('email', _('This email is already taken.'));
         }
     }
 }

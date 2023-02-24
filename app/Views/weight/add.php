@@ -54,12 +54,15 @@ getTemplatePart('header', ['active' => '', 'previousPage' => '/profile']);
                      accept="image/*"
                      id="image"
                      name="image">
+              <ul class="text-sm font-medium text-red-500 pl-2">
+                <?php renderValidationFieldMessages('file', $messages);?>
+              </ul>
             </div>
             <div class="basis-full sm:basis-1/3 md:basis-1/3 lg:basis-1/4">
               <label class="default-input__label" for="imageDescription"><?=_('Image Description')?></label>
               <input class="default-input" type="text" id="imageDescription" name="imageDescription">
               <ul class="text-sm font-medium text-red-500 pl-2">
-                <?php renderValidationFieldMessages('imageDescription', $messages);?>
+                <?php renderValidationFieldMessages('text', $messages);?>
               </ul>
             </div>
           </div>

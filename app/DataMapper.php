@@ -5,6 +5,7 @@ namespace NutriScore;
 use Exception;
 use NutriScore\Exceptions\NotFoundException;
 use NutriScore\Models\Model;
+use Throwable;
 
 abstract class DataMapper {
     private readonly string $table;
@@ -34,11 +35,11 @@ abstract class DataMapper {
             if (!$data) {
                 throw new NotFoundException("The entity with id $id could not be found.", 404);
             }
-
             return $this->_create($data);
+
         } catch (NotFoundException $e) {
             throw $e;
-        } catch (Exception $e) {
+        } catch (Throwable) {
             throw new Exception("Something went wrong when trying to access the database.", 404);
         }
     }

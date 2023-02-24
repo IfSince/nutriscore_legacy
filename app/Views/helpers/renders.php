@@ -36,14 +36,13 @@ function renderPostCheckedByValue(string $fieldName, $expectedValue): void {
 }
 
 // Other rendering
-function renderEnumSelectOptions(mixed $value, array $enum, bool $nullable = false): void {
+function renderEnumSelectOptions(mixed $value, string $enum, bool $nullable = false): void {
     if ($nullable) {
         echo "<option value=null></option>";
     }
-    foreach ($enum as $case) {
-        $selected = ($value === $case) ? 'selected' : null;
+    foreach ($enum::cases() as $case) {
+        $selected = ($value === $case || $enum::from($value) === $case) ? 'selected' : null;
         echo "<option value=$case->value $selected>" . _($case->value) . "</option>";
-
     }
 }
 

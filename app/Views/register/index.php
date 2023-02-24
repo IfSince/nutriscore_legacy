@@ -160,7 +160,7 @@ $messages = $messages ?? []; ?>
           <div class="w-full mt-8">
             <label class=default-input__label for="nutritionType"><?=_('Nutrition type')?></label>
             <select class="default-input" name="nutritionType" id="nutritionType">
-              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'nutritionType') ?? null, NutritionType::cases())?>
+              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'nutritionType') ?? null, NutritionType::class)?>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('nutritionType', $messages);?>
@@ -193,7 +193,7 @@ $messages = $messages ?? []; ?>
           <div class="w-full mt-8">
             <label class=default-input__label for="bmrCalculationType"><?=_('BMR Calculation Type')?></label>
             <select class="default-input" name="bmrCalculationType" id="bmrCalculationType">
-              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'bmrCalculationType') ?? null, BmrCalculationType::cases())?>
+              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'bmrCalculationType') ?? null, BmrCalculationType::class)?>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('bmrCalculationType', $messages);?>
@@ -202,7 +202,7 @@ $messages = $messages ?? []; ?>
           <div class="w-full mt-4">
             <label class=default-input__label for="activityLevel"><?=_('Activity Level')?></label>
             <select class="default-input" name="activityLevel" id="activityLevel">
-              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'activityLevel') ?? null, ActivityLevel::cases())?>
+              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'activityLevel') ?? null, ActivityLevel::class)?>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('activityLevel', $messages);?>
@@ -218,7 +218,7 @@ $messages = $messages ?? []; ?>
           <div class="w-full mt-4">
             <label class=default-input__label for="goal"><?=_('Objective')?></label>
             <select class="default-input" name="goal" id="goal">
-              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'goal') ?? null, Goal::cases())?>
+              <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'goal') ?? null, Goal::class)?>
             </select>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('goal', $messages);?>

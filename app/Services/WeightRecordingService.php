@@ -4,16 +4,14 @@ namespace NutriScore\Services;
 
 use NutriScore\DataMappers\WeightRecordingMapper;
 use NutriScore\Models\WeightRecording\WeightRecording;
-use NutriScore\Validators\FileValidator;
 use NutriScore\Validators\ValidationObject;
 use NutriScore\Validators\WeightRecordingValidator;
 
 class WeightRecordingService {
 
     public function __construct(
-        private readonly WeightRecordingMapper $weightRecordingMapper,
-        private readonly FileService           $fileService,
-        private readonly FileValidator         $fileValidator,
+        private readonly WeightRecordingMapper    $weightRecordingMapper,
+        private readonly FileService              $fileService,
         private readonly WeightRecordingValidator $weightRecordingValidator,
     ) {
     }
@@ -22,43 +20,41 @@ class WeightRecordingService {
         return $this->weightRecordingMapper->findAllByUserId($userId);
     }
 
-    // TODO Transactions in DB, damit beides nacheinander validiert und gespeichert werden kann. So sehr unschön.
     public function saveWithImage(
         WeightRecording $weightRecording,
-        array $imageData = null,
-        string $imageDescription = null
+        array           $imageData = null,
+        string          $imageDescription = null
     ): ValidationObject {
-        if ($imageData['size'] > 0) {
-            $fileData = array_merge($imageData, ['text' => $imageDescription]);
-            $this->fileValidator->validate($fileData);
-        }
+        $fileValidation = (isset($imageData['size']) && $imageData['size'] > 0) ? $this->fileService->save($imageData, $imageDescription) : null;
 
-        $this->weightRecordingValidator->validate($weightRecording);
+        $weightRecording->setImageId($fileValidation?->getData()->getId());
+        $weightRecordingValidation = $this->save($weightRecording);
 
-        if ($this->fileValidator->isValid() && $this->weightRecordingValidator->isValid()) {
-
-            $file = ($imageData['size'] > 0) ? $this->fileService->save($imageData, $imageDescription)->getData() : null;
-
-            $weightRecording->setImageId($file?->getId());
-            $this->weightRecordingMapper->save($weightRecording);
-        }
         return new ValidationObject(
             errors: [
-                ...$this->fileValidator->getValidationObject()->getErrors(),
-                ...$this->weightRecordingValidator->getValidationObject()->getErrors(),
+                ...$fileValidation?->getErrors() ?? [],
+                ...$weightRecordingValidation->getErrors(),
             ],
             warnings: [
-                ...$this->fileValidator->getValidationObject()->getWarnings(),
-                ...$this->weightRecordingValidator->getValidationObject()->getWarnings(),
+                ...$fileValidation?->getWarnings() ?? [],
+                ...$weightRecordingValidation->getWarnings(),
             ],
             hints: [
-                ...$this->fileValidator->getValidationObject()->getHints(),
-                ...$this->weightRecordingValidator->getValidationObject()->getHints(),
+                ...$fileValidation?->getHints() ?? [],
+                ...$weightRecordingValidation->getHints(),
             ],
             success: [
-                ...$this->fileValidator->getValidationObject()->getSuccess(),
-                ...$this->weightRecordingValidator->getValidationObject()->getSuccess(),
+                ...$fileValidation?->getSuccess() ?? [],
+                ...$weightRecordingValidation->getSuccess(),
             ],
         );
+    }
+
+    public function save(WeightRecording $weightRecording): ValidationObject {
+        $this->weightRecordingValidator->validate($weightRecording);
+        if ($this->weightRecordingValidator->isValid()) {
+            $this->weightRecordingMapper->save($weightRecording);
+        }
+        return $this->weightRecordingValidator->getValidationObject();
     }
 }

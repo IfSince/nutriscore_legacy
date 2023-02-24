@@ -59,6 +59,8 @@ class FileService {
 
                 $this->validator->getValidationObject()->setData($file);
             }
+        } else {
+            $this->validator->getValidationObject()->setData(File::create()); // TODO remove dummy file
         }
 
         return $this->validator->getValidationObject();

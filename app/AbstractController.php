@@ -15,6 +15,10 @@ class AbstractController {
         $this->request = $request;
     }
 
+    public function getView(): View {
+        return $this->view;
+    }
+
     public function index(): void {
         $this->handleRequest($this->getRequest(...), $this->postRequest(...));
     }

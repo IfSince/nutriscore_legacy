@@ -20,3 +20,4 @@ function requireAutoloader(): void {
 
 requireAutoloader();
 $app = new App();
+$app->init();

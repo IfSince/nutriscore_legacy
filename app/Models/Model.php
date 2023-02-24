@@ -7,7 +7,7 @@ use NutriScore\Utils\ArrayUtil;
 abstract class Model {
     private const NEW_ENTITY_ID = 0;
 
-    protected ?int $id = null;
+    protected ?int $id = self::NEW_ENTITY_ID;
 
     public function isNew(): bool {
         return $this->id === self::NEW_ENTITY_ID || $this->id === null;

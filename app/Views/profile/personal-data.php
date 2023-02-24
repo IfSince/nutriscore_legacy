@@ -47,7 +47,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
             <div class="basis-full sm:basis-1/4 md:basis-1/6 lg:basis-1/8">
               <label class="default-input__label" for="gender"><?=_('Gender')?></label>
               <select class="default-input" name="gender" id="gender">
-                <?php renderEnumSelectOptions($person->getGender() ?? null, Gender::cases())?>
+                <?php renderEnumSelectOptions($person->getGender() ?? null, Gender::class)?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2">
                 <?php renderValidationFieldMessages('gender', $messages);?>

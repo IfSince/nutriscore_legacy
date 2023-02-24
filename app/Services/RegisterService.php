@@ -2,10 +2,7 @@
 
 namespace NutriScore\Services;
 
-use NutriScore\DataMappers\MacroDistributionMapper;
-use NutriScore\DataMappers\PersonMapper;
-use NutriScore\DataMappers\UserMapper;
-use NutriScore\DataMappers\WeightRecordingMapper;
+use Exception;
 use NutriScore\Models\MacroDistribution\MacroDistribution;
 use NutriScore\Models\Person\Person;
 use NutriScore\Models\User\User;
@@ -15,69 +12,58 @@ use NutriScore\Validators\ValidationObject;
 class RegisterService {
 
     public function __construct(
-        private readonly UserMapper              $userMapper,
-        private readonly PersonMapper            $personMapper,
-        private readonly WeightRecordingMapper   $weightRecordingMapper,
-        private readonly MacroDistributionMapper $macroDistributionMapper,
+        private readonly UserService              $userService,
+        private readonly PersonService            $personService,
+        private readonly WeightRecordingService   $weightRecordingService,
+        private readonly MacroDistributionService $macroDistributionService,
     ) {
     }
 
-    // TODO Redo when Transaction Handling in DB is there
     public function register(array $data): ValidationObject {
         $user = User::create($data);
         $person = Person::create($data);
         $weightRecording = WeightRecording::create($data);
         $macroDistribution = MacroDistribution::create($data);
-//
-//        $registerValidator = new RegisterValidator($data);
-//        $registerValidator->validate();
-//
-//        $userValidator = new UserValidator($user);
-//        $userValidator->validate();
-//
-//        $personValidator = new PersonValidator($person);
-//        $personValidator->validate();
-//
-//        if (
-//            $registerValidator->isValid() &&
-//            $userValidator->isValid() &&
-//            $personValidator->isValid()
-//        ) {
-//            $this->userMapper->save($user);
-//
-//            $person->setUserId($user->getId());
-//            $this->personMapper->save($person);
-//
-//            $weightRecording->setUserId($user->getId());
-//            $this->weightRecordingMapper->save($weightRecording);
-//
-//            if ($person->getNutritionType()->getMacroDistribution() === null) {
-//                $macroDistribution->setUserId($user->getId());
-//                $this->macroDistributionMapper->save($macroDistribution);
-//            }
-//        }
 
+        $userValidation = $this->userService->save($user);
+
+        if ($userValidation->isValid()) {
+            $person->setUserId($user->getId());
+            $personValidation = $this->personService->save($person);
+
+            $weightRecording->setUserId($user->getId());
+            $weightRecordingValidation = $this->weightRecordingService->saveWithImage($weightRecording);
+
+            if ($person->getNutritionType()->getMacroDistribution() === null) {
+                $macroDistribution->setUserId($user->getId());
+                $macroDistributionValidation = $this->macroDistributionService->save($macroDistribution);
+            }
+        }
         return new ValidationObject(
-//            errors: [
-//                ...$registerValidator->getValidationObject()->getErrors(),
-//                ...$userValidator->getValidationObject()->getErrors(),
-//                ...$personValidator->getValidationObject()->getErrors()
-//            ],
-//            warnings: [
-//                ...$registerValidator->getValidationObject()->getWarnings(),
-//                ...$userValidator->getValidationObject()->getWarnings(),
-//                ...$personValidator->getValidationObject()->getWarnings()
-//            ],
-//            hints: [
-//                ...$registerValidator->getValidationObject()->getHints(),
-//                ...$userValidator->getValidationObject()->getHints(),
-//                ...$personValidator->getValidationObject()->getHints()
-//            ],
-//            success: [
-//                ...$registerValidator->getValidationObject()->getSuccess(),
-//                ...$userValidator->getValidationObject()->getSuccess(),
-//                ...$personValidator->getValidationObject()->getSuccess()
-//            ],
+            errors: [
+                ...$userValidation->getErrors(),
+                ...isset($personValidation) ? $personValidation->getErrors() : [],
+                ...isset($weightRecordingValidation) ? $weightRecordingValidation->getErrors() : [],
+                ...isset($macroDistributionValidation) ? $macroDistributionValidation->getErrors() : [],
+            ],
+            warnings: [
+                ...$userValidation->getWarnings(),
+                ...isset($personValidation) ? $personValidation->getWarnings() : [],
+                ...isset($weightRecordingValidation) ? $weightRecordingValidation->getWarnings() : [],
+                ...isset($macroDistributionValidation) ? $macroDistributionValidation->getWarnings() : [],
+            ],
+            hints: [
+                ...$userValidation->getHints(),
+                ...isset($personValidation) ? $personValidation->getHints() : [],
+                ...isset($weightRecordingValidation) ? $weightRecordingValidation->getHints() : [],
+                ...isset($macroDistributionValidation) ? $macroDistributionValidation->getHints() : [],
+            ],
+            success: [
+                ...$userValidation->getSuccess(),
+                ...isset($personValidation) ? $personValidation->getSuccess() : [],
+                ...isset($weightRecordingValidation) ? $weightRecordingValidation->getSuccess() : [],
+                ...isset($macroDistributionValidation) ? $macroDistributionValidation->getSuccess() : [],
+            ],
         );
     }
 }

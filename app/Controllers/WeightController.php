@@ -3,6 +3,7 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
+use NutriScore\Database;
 use NutriScore\Enums\InputType;
 use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
@@ -18,7 +19,8 @@ class WeightController extends AbstractController {
     public function __construct(
         protected Request                       $request,
         protected View                          $view,
-        private readonly WeightRecordingService $weightRecordingService
+        private readonly WeightRecordingService $weightRecordingService,
+        private readonly Database $database,
     ) {
         parent::__construct($request, $view);
     }
@@ -50,8 +52,8 @@ class WeightController extends AbstractController {
             Session::flash('success', _('The weight recording was saved successfully'), MessageType::SUCCESS);
             $this->redirectTo('/profile');
         } else {
+            $this->database->rollback();
             Session::flash('error', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
-
             $this->view->render(
                 self::ADD_WEIGHT_TEMPLATE,
                 [
