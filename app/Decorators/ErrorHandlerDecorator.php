@@ -25,9 +25,12 @@ class ErrorHandlerDecorator {
     protected function _dispatchException(Throwable $e): void {
         $this->db->rollBack();
         http_response_code($e->getCode());
-        var_dump($e->getMessage());
 
-        // TODO rendern von Error Component/View über die view in component
+        $this->component->getView()->render('exception/exception', [
+            'message' => $e->getMessage(),
+            'status' => $e->getCode(),
+            'trace' => $e->getTraceAsString(),
+        ]);
         exit();
     }
 
