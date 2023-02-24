@@ -43,7 +43,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="protein"><?=_('Protein')?></label>
                 <input class="default-input" type="number" name="protein" id="protein"
-                       value="<?=$macroDistribution?->getProtein() ?? $person->getNutritionType()->getMacroDistribution()->getProtein()?>">
+                       value="<?=$macroDistribution?->getProtein()?>">
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('protein', $messages);?>
                 </ul>
@@ -52,8 +52,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="carbohydrates"><?=_('Carbs')?></label>
                 <input class="default-input" type="number" name="carbohydrates" id="carbohydrates"
-                       value="<?=$macroDistribution?->getCarbohydrates() ??
-                               $person->getNutritionType()->getMacroDistribution()->getCarbohydrates()?>">
+                       value="<?=$macroDistribution?->getCarbohydrates()?>">
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('carbohydrates', $messages);?>
                 </ul>
@@ -62,7 +61,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
               <div class="basis-full md:basis-1/3">
                 <label class="default-input__label" for="fat"><?=_('Fat')?></label>
                 <input class="default-input" type="number" name="fat" id="fat"
-                       value="<?=$macroDistribution?->getFat() ?? $person->getNutritionType()->getMacroDistribution()->getFat()?>">
+                       value="<?=$macroDistribution?->getFat()?>">
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('fat', $messages);?>
                 </ul>

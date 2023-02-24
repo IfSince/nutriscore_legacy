@@ -15,11 +15,12 @@ $messages = $messages ?? []; ?>
 
   <link rel="stylesheet" type="text/css" href="assets/styles/material-icons.css">
   <link rel="stylesheet" type="text/css" href="assets/styles/dist/tailwind.css">
-  <script type="module" src="assets/scripts/registration/registration-quest.js" defer></script>
+
+  <script type="module" src="/assets/scripts/registration/registration-quest.js" defer></script>
 </head>
 <body class="flex md:justify-center md:items-center overflow-x-hidden lg:h-screen lg:w-screen">
   <div class="w-full md:min-h-screen flex flex-col md:flex-row md:max-w-5xl lg:min-h-[600px] lg:h-fit
-              lg:shadow-underlined lg:rounded-2xl lg:overflow-hidden test">
+              lg:shadow-underlined lg:rounded-2xl lg:overflow-hidden">
     <div class="fixed md:relative h-64 md:h-auto bg-green w-full pb-7 md:pb-0 px-7 shadow-lg md:shadow-none
                 flex flex-col justify-end md:items-end md:justify-center max-h-64 md:max-h-full md:max-w-xs">
       <h1 class="mt-28 text-5xl text-white font-medium md:hidden"><?=_('Register')?></h1>
@@ -175,7 +176,7 @@ $messages = $messages ?? []; ?>
           </div>
           <div class="w-full mt-4">
             <label class="default-input__label" for="carbohydrates"><?=_('Carbohydrates')?></label>
-            <input class="default-input" type="number" name="carbohydrates" id="carbohydrates" <?php renderRequestValue('carbohydrates');?>>
+            <input class="default-input" type="text" name="carbohydrates" id="carbohydrates" <?php renderRequestValue('carbohydrates');?>>
             <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
               <?php renderValidationFieldMessages('carbohydrates', $messages);?>
             </ul>
@@ -228,5 +229,7 @@ $messages = $messages ?? []; ?>
       </form>
     </div>
   </div>
+
+  <script type="module" src="/assets/scripts/registration/registration-quest.js" defer></script>
 </body>
 </html>

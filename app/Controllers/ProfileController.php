@@ -3,7 +3,6 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Database;
 use NutriScore\Enums\InputType;
 use NutriScore\Enums\MessageType;
 use NutriScore\Models\MacroDistribution\MacroDistribution;
@@ -27,15 +26,14 @@ final class ProfileController extends AbstractController {
     private const CHANGE_PASSWORD_DATA_TEMPLATE = 'profile/change-password';
 
     public function __construct(
-        protected Request                         $request,
-        protected View                            $view,
-        private readonly UserService              $userService,
-        private readonly PersonService            $personService,
-        private readonly FileService              $fileService,
-        private readonly ChangePasswordService    $changePasswordService,
-        private readonly MacroDistributionService $macroDistributionService,
+        protected Request                           $request,
+        protected View                              $view,
+        private readonly UserService                $userService,
+        private readonly PersonService              $personService,
+        private readonly FileService                $fileService,
+        private readonly ChangePasswordService      $changePasswordService,
+        private readonly MacroDistributionService   $macroDistributionService,
         private readonly NutritionalDataSaveService $nutritionalDataSaveService,
-        private readonly Database                 $database
     ) {
         parent::__construct($request, $view);
     }
@@ -172,10 +170,8 @@ final class ProfileController extends AbstractController {
     private function getNutritionalData(): void {
         $userId = Session::get('id');
         $person = $this->personService->findByUserId($userId);
-
-        if ($person->getNutritionType()->getMacroDistribution() === null) {
-            $macroDistribution = $this->macroDistributionService->findByUserId($userId);
-        }
+        $macroDistribution = $person->getNutritionType()->getMacroDistribution() ??
+            $this->macroDistributionService->findByUserId($userId);
 
         $this->view->render(
             self::NUTRITIONAL_DATA_TEMPLATE,
@@ -200,18 +196,17 @@ final class ProfileController extends AbstractController {
 
         if ($validationObject->isValid()) {
             Session::flash('success-person', _('The changes were saved successfully.'), MessageType::SUCCESS);
+            $this->redirectTo('/profile/nutritional-data');
         } else {
             Session::flash('error-person', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
-            $this->database->rollBack();
+            $this->view->render(
+                self::NUTRITIONAL_DATA_TEMPLATE, [
+                    'messages' => $validationObject->getMessages(),
+                    'person' => $person,
+                    'macroDistribution' => $macroDistribution
+                ]
+            );
         }
-
-        $this->view->render(
-            self::NUTRITIONAL_DATA_TEMPLATE, [
-                'messages' => $validationObject->getMessages(),
-                'person' => $person,
-                'macroDistribution' => $macroDistribution
-            ]
-        );
     }
 
     public function changePassword(): void {

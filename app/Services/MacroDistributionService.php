@@ -26,9 +26,4 @@ class MacroDistributionService {
         }
         return $this->validator->getValidationObject();
     }
-
-    public function delete(MacroDistribution $macroDistribution): void {
-        $this->macroDistributionMapper->delete($macroDistribution);
-    }
-
 }

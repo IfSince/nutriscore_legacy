@@ -13,7 +13,7 @@ class MacroDistributionValidator extends AbstractValidator {
     private function validateMacroDistributionsNot100(): void {
         $sum = $this->data->getProtein() + $this->data->getCarbohydrates() + $this->data->getFat();
         if ($sum !== 100) {
-            $this->validationObject->addError('protein', _('The macro nutrients must equal 100%.'));
+            $this->validationObject->addError('protein', _('The macro nutrient distribution must equal 100%.'));
         }
     }
 }

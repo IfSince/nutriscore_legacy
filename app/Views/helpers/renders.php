@@ -36,18 +36,20 @@ function renderPostCheckedByValue(string $fieldName, $expectedValue): void {
 }
 
 // Other rendering
-function renderEnumSelectOptions(mixed $value, string $enum, bool $nullable = false): void {
+function renderEnumSelectOptions(object|string $value, string $enum, bool $nullable = false): void {
     if ($nullable) {
         echo "<option value=null></option>";
     }
     foreach ($enum::cases() as $case) {
-        $selected = ($value === $case || $enum::from($value) === $case) ? 'selected' : null;
+        $selected = match (gettype($value)) {
+            'object' => ($value === $case) ? 'selected' : null,
+            'string' => $enum::tryFrom($value) === $case ? 'selected' : null
+        };
         echo "<option value=$case->value $selected>" . _($case->value) . "</option>";
     }
 }
 
 // Messaging
-
 function renderFieldErrors(?array $errors, string $fieldName): void {
     if (isset($errors[$fieldName])) {
         foreach ($errors[$fieldName] as $error) {

@@ -41,6 +41,7 @@ export class NutritionQuestStep extends QuestStep {
         const value = this.nutritionType.value
         const nutritionType = nutritionTypes[value]
 
+        //TODO dont null values when manually and not null (POST_REQUEST value)
         this.protein.value = nutritionType.protein
         this.fat.value = nutritionType.fat
         this.carbohydrates.value = nutritionType.carbohydrates

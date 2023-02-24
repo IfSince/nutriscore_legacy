@@ -3,7 +3,6 @@
 namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
-use NutriScore\Database;
 use NutriScore\Enums\InputType;
 use NutriScore\Enums\MessageType;
 use NutriScore\Models\User\User;
@@ -19,7 +18,6 @@ final class RegisterController extends AbstractController {
         protected Request                $request,
         protected View                   $view,
         private readonly RegisterService $registerService,
-        private readonly Database        $database,
     ) {
         parent::__construct($request, $view);
     }
@@ -35,15 +33,15 @@ final class RegisterController extends AbstractController {
     }
 
     protected function postRequest(): void {
-        $formInput = $this->request->getInput(InputType::POST);
+        $data = $this->request->getInput(InputType::POST);
 
-        $validationObject = $this->registerService->register($formInput);
+        $validationObject = $this->registerService->register($data);
 
         if ($validationObject->isValid()) {
-            Session::flash('success', _('Your registration was successful. You can log in.'), MessageType::SUCCESS);
+            Session::flash('register', _('Your registration was successful. You can log in.'), MessageType::SUCCESS);
             $this->redirectTo('/login');
         } else {
-            $this->database->rollBack();
+            Session::flash('register', _('The given data contains errors.'), MessageType::ERROR);
             $this->view->render(self::REGISTER_TEMPLATE, ['messages' => $validationObject->getMessages()]);
         }
     }

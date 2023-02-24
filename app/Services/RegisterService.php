@@ -2,68 +2,58 @@
 
 namespace NutriScore\Services;
 
-use Exception;
+use NutriScore\DataMappers\MacroDistributionMapper;
+use NutriScore\DataMappers\PersonMapper;
+use NutriScore\DataMappers\UserMapper;
+use NutriScore\DataMappers\WeightRecordingMapper;
 use NutriScore\Models\MacroDistribution\MacroDistribution;
 use NutriScore\Models\Person\Person;
 use NutriScore\Models\User\User;
 use NutriScore\Models\WeightRecording\WeightRecording;
+use NutriScore\Validators\RegisterValidator;
 use NutriScore\Validators\ValidationObject;
 
 class RegisterService {
 
     public function __construct(
-        private readonly UserService              $userService,
-        private readonly PersonService            $personService,
-        private readonly WeightRecordingService   $weightRecordingService,
-        private readonly MacroDistributionService $macroDistributionService,
-    ) {
-    }
+        private readonly RegisterValidator       $validator,
+        private readonly UserMapper              $userMapper,
+        private readonly PersonMapper            $personMapper,
+        private readonly WeightRecordingMapper   $weightRecordingMapper,
+        private readonly MacroDistributionMapper $macroDistributionMapper,
+    ) { }
 
     public function register(array $data): ValidationObject {
         $user = User::create($data);
         $person = Person::create($data);
         $weightRecording = WeightRecording::create($data);
-        $macroDistribution = MacroDistribution::create($data);
+        $macroDistribution = $person->getNutritionType()->getMacroDistribution() ?? MacroDistribution::create($data);
 
-        $userValidation = $this->userService->save($user);
+        $data = [
+            'user' => $user,
+            'person' => $person,
+            'weightRecording' => $weightRecording,
+            'macroDistribution' => $macroDistribution,
+            'repeatPassword' => $data['repeatPassword']
+        ];
 
-        if ($userValidation->isValid()) {
+        $this->validator->validate($data);
+
+        if ($this->validator->isValid()) {
+            $this->userMapper->save($user);
+
             $person->setUserId($user->getId());
-            $personValidation = $this->personService->save($person);
+            $this->personMapper->save($person);
 
             $weightRecording->setUserId($user->getId());
-            $weightRecordingValidation = $this->weightRecordingService->saveWithImage($weightRecording);
+            $this->weightRecordingMapper->save($weightRecording);
 
+            // if no mapping exists, the macro distribution has to be saved manually
             if ($person->getNutritionType()->getMacroDistribution() === null) {
                 $macroDistribution->setUserId($user->getId());
-                $macroDistributionValidation = $this->macroDistributionService->save($macroDistribution);
+                $this->macroDistributionMapper->save($macroDistribution);
             }
         }
-        return new ValidationObject(
-            errors: [
-                ...$userValidation->getErrors(),
-                ...isset($personValidation) ? $personValidation->getErrors() : [],
-                ...isset($weightRecordingValidation) ? $weightRecordingValidation->getErrors() : [],
-                ...isset($macroDistributionValidation) ? $macroDistributionValidation->getErrors() : [],
-            ],
-            warnings: [
-                ...$userValidation->getWarnings(),
-                ...isset($personValidation) ? $personValidation->getWarnings() : [],
-                ...isset($weightRecordingValidation) ? $weightRecordingValidation->getWarnings() : [],
-                ...isset($macroDistributionValidation) ? $macroDistributionValidation->getWarnings() : [],
-            ],
-            hints: [
-                ...$userValidation->getHints(),
-                ...isset($personValidation) ? $personValidation->getHints() : [],
-                ...isset($weightRecordingValidation) ? $weightRecordingValidation->getHints() : [],
-                ...isset($macroDistributionValidation) ? $macroDistributionValidation->getHints() : [],
-            ],
-            success: [
-                ...$userValidation->getSuccess(),
-                ...isset($personValidation) ? $personValidation->getSuccess() : [],
-                ...isset($weightRecordingValidation) ? $weightRecordingValidation->getSuccess() : [],
-                ...isset($macroDistributionValidation) ? $macroDistributionValidation->getSuccess() : [],
-            ],
-        );
+        return $this->validator->getValidationObject();
     }
 }
