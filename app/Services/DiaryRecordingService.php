@@ -24,7 +24,7 @@ class DiaryRecordingService {
 
     public function findDiaryRecordingByEntityIdAndType(int $id, DiaryRecordingType $type): DiaryRecording {
         $data = match ($type) {
-            DiaryRecordingType::FOOD => $this->foodMapper->findById($id)
+            DiaryRecordingType::FOOD => $this->foodMapper->loadById($id)
         };
 
         return $this->mapDiaryRecordings($data);

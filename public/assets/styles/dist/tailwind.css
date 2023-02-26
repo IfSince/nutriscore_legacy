@@ -977,10 +977,6 @@ a.menu-link:focus * {
   margin-right: 0.625rem;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .ml-4 {
   margin-left: 1rem;
 }
@@ -991,6 +987,10 @@ a.menu-link:focus * {
 
 .mb-5 {
   margin-bottom: 1.25rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
 }
 
 .-mr-1 {
@@ -1100,6 +1100,14 @@ a.menu-link:focus * {
 
 .h-64 {
   height: 16rem;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.h-24 {
+  height: 6rem;
 }
 
 .max-h-56 {
@@ -1590,6 +1598,11 @@ a.menu-link:focus * {
   stroke-width: 10;
 }
 
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1752,6 +1765,10 @@ a.menu-link:focus * {
   padding-bottom: 6rem;
 }
 
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+
 .pb-0 {
   padding-bottom: 0px;
 }
@@ -1778,10 +1795,6 @@ a.menu-link:focus * {
 
 .pl-0 {
   padding-left: 0px;
-}
-
-.pb-1 {
-  padding-bottom: 0.25rem;
 }
 
 .text-left {
@@ -1908,6 +1921,11 @@ a.menu-link:focus * {
   color: rgb(30 156 97 / var(--tw-text-opacity));
 }
 
+.text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
 .text-orange-900 {
   --tw-text-opacity: 1;
   color: rgb(124 45 18 / var(--tw-text-opacity));
@@ -1950,11 +1968,6 @@ a.menu-link:focus * {
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
-}
-
-.text-gray-600 {
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .accent-green {
@@ -2506,16 +2519,6 @@ a.menu-link:focus * {
     padding-right: 1rem;
   }
 
-  .md\:px-10 {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
-
-  .md\:py-10 {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-
   .md\:px-0 {
     padding-left: 0px;
     padding-right: 0px;
@@ -2524,6 +2527,16 @@ a.menu-link:focus * {
   .md\:py-3 {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+  }
+
+  .md\:px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .md\:py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
 
   .md\:pb-10 {
@@ -2597,20 +2610,20 @@ a.menu-link:focus * {
     margin-left: 24rem;
   }
 
-  .lg\:mt-16 {
-    margin-top: 4rem;
-  }
-
-  .lg\:ml-10 {
-    margin-left: 2.5rem;
-  }
-
   .lg\:mr-2 {
     margin-right: 0.5rem;
   }
 
   .lg\:ml-2 {
     margin-left: 0.5rem;
+  }
+
+  .lg\:mt-16 {
+    margin-top: 4rem;
+  }
+
+  .lg\:ml-10 {
+    margin-left: 2.5rem;
   }
 
   .lg\:block {
@@ -2723,10 +2736,6 @@ a.menu-link:focus * {
 
   .lg\:gap-2 {
     gap: 0.5rem;
-  }
-
-  .lg\:gap-4 {
-    gap: 1rem;
   }
 
   .lg\:gap-y-14 {

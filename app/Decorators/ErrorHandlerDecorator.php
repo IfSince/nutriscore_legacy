@@ -24,7 +24,7 @@ class ErrorHandlerDecorator {
 
     protected function _dispatchException(Throwable $e): void {
         $this->db->rollBack();
-        http_response_code($e->getCode());
+        http_response_code((int) $e->getCode());
 
         $this->component->getView()->render('exception/exception', [
             'message' => $e->getMessage(),

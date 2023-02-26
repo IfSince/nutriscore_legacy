@@ -15,7 +15,7 @@ class UserService {
     ) { }
 
     public function loadOrThrow(int $id): User {
-        return $this->userMapper->findByIdOrThrow($id);
+        return $this->userMapper->loadByIdOrThrow($id);
     }
 
     public function save(User $user): ValidationObject {

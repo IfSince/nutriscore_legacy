@@ -4,7 +4,9 @@ namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
 use NutriScore\Models\User\User;
+use NutriScore\Models\WeightRecording\WeightRecording;
 use NutriScore\Request;
+use NutriScore\Services\FileService;
 use NutriScore\Services\WeightRecordingService;
 use NutriScore\Utils\Session;
 use NutriScore\View;
@@ -16,9 +18,9 @@ class StatisticsController extends AbstractController {
         protected Request                       $request,
         protected View                          $view,
         private readonly WeightRecordingService $weightRecordingService,
+        private readonly FileService            $fileService,
     ) {
         parent::__construct($request, $view);
-
     }
 
     protected function preAuthorize(): void {
@@ -31,7 +33,15 @@ class StatisticsController extends AbstractController {
         $userId = Session::get('id');
         $weightRecordings = $this->weightRecordingService->findAllByUserId($userId);
 
-        $this->view->render(self::STATISTICS_TEMPLATE, ['weightRecordings' => $weightRecordings]);
+        $imageIds = array_map(fn(WeightRecording $row) => $row->getImageId(), $weightRecordings);
+        $imageIds = array_filter($imageIds); //filter nulls
+
+        $images = $this->fileService->findAllByIds($imageIds);
+
+        $this->view->render(self::STATISTICS_TEMPLATE, [
+            'weightRecordings' => $weightRecordings,
+            'images' => $images
+        ]);
     }
 
 }

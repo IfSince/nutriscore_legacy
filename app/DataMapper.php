@@ -17,7 +17,7 @@ abstract class DataMapper {
         $this->table = $table;
     }
 
-    public function findById(int $id): ?Model {
+    public function loadById(int $id): ?Model {
         $sql = "SELECT * FROM $this->table t WHERE t.id = :id";
         $data = $this->database->fetch($sql, ['id' => $id]);
 
@@ -27,7 +27,7 @@ abstract class DataMapper {
     /**
      * @throws NotFoundException|Exception
      */
-    public function findByIdOrThrow(int $id): Model {
+    public function loadByIdOrThrow(int $id): Model {
         try {
             $sql = "SELECT * FROM $this->table t WHERE t.id = :id";
             $data = $this->database->fetch($sql, ['id' => $id]);
@@ -42,6 +42,13 @@ abstract class DataMapper {
         } catch (Throwable) {
             throw new Exception("Something went wrong when trying to access the database.", 404);
         }
+    }
+
+    public function loadAllByIds(array $ids): array {
+        $sql = "SELECT * FROM $this->table t WHERE t.id IN (:ids)";
+        $params = ['ids' => implode(', ', $ids)];
+
+        return $this->loadAll($sql, $params);
     }
 
     public function load(string $sql, array $values): ?Model {

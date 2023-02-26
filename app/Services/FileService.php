@@ -16,13 +16,13 @@ class FileService {
         private readonly FileValidator $validator,
     ) { }
 
-    public function findProfileImageByUserId(int $userId): ?File {
-        $profileImageId = $this->userMapper->findById($userId)->getProfileImageId();
-        return ($profileImageId != null) ? $this->fileMapper->findById($profileImageId) : null;
+    public function findAllByIds(array $ids): array {
+        return $this->fileMapper->loadAllByIds($ids);
     }
 
-    public function findById(int $fileId): File {
-        return $this->fileMapper->findById($fileId);
+    public function findProfileImageByUserId(int $userId): ?File {
+        $profileImageId = $this->userMapper->loadById($userId)->getProfileImageId();
+        return ($profileImageId != null) ? $this->fileMapper->loadById($profileImageId) : null;
     }
 
     public function save(?array $file, ?string $text = 'Uploaded File', int $existingImageId = null): ValidationObject {
@@ -49,7 +49,7 @@ class FileService {
                 ];
 
                 if ($existingImageId) {
-                    $file = $this->findById($existingImageId);
+                    $file = $this->fileMapper->loadById($existingImageId);
                     $this->fileMapper->delete($file);
                     $this->deleteFile($file);
                 }

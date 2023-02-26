@@ -13,7 +13,7 @@ class ChangePasswordService {
     ) { }
 
     public function changePassword(int $userId, array $data): ValidationObject {
-        $user = $this->userMapper->findByIdOrThrow($userId);
+        $user = $this->userMapper->loadByIdOrThrow($userId);
         $data['user'] = $user;
         $this->validator->validate($data);
 

@@ -1,40 +1,26 @@
-
 import {addDateSelectorListeners, getSelectedDateRange} from '../date-range-selector.js';
 import {formatDateDot} from '../util/format-date.js';
 
 getSelectedDateRange();
 
 const chart = new Chart('weightRecordings', {
-    type: "line",
+    type: 'line',
     data: {
         labels: weightRecordingsData.map(row => formatDateDot(new Date(row.dateOfRecording))),
         datasets: [
             {
                 fill: false,
                 lineTension: 0,
-                backgroundColor: "#1E9C61",
-                borderColor: "#43E89B",
-                data: weightRecordingsData.map(row => row.weight)
-            }
-        ]
+                backgroundColor: '#1E9C61',
+                borderColor: '#43E89B',
+                data: weightRecordingsData.map(row => row.weight),
+            },
+        ],
     },
     options: {
-        legend: {display: false},
-        scales: {
-            yAxes: [
-                {
-                    ticks: {
-                        min: 0,
-                        max: Math.max(...weightRecordingsData.map(row => row.weight)) + 15
-                    }
-                }
-            ],
-        }
-    }
+        legend: { display: false },
+    },
 });
-
-
-addDateSelectorListeners(filterValues)
 
 function filterValues(fromDate, toDate) {
     if (fromDate != null && toDate != null) {
@@ -48,3 +34,5 @@ function filterValues(fromDate, toDate) {
         chart.update();
     }
 }
+
+addDateSelectorListeners(filterValues)
