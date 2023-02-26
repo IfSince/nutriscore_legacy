@@ -33,7 +33,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
             <div class="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
               <label class=default-input__label for="nutritionType"><?=_('Nutrition type')?></label>
               <select class="default-input" name="nutritionType" id="nutritionType">
-                <?php renderEnumSelectOptions($person->getNutritionType() ?? null, NutritionType::class)?>
+                <?php renderEnumSelectOptions($person->getNutritionType(), NutritionType::class)?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                 <?php renderValidationFieldMessages('nutritionType', $messages);?>
@@ -74,7 +74,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
               <div class="basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/2 2xl:basis-1/4 sm:grow-[3] md:grow-[2]">
                 <label class=default-input__label for="activityLevel"><?=_('Activity level')?></label>
                 <select class="default-input" name="activityLevel" id="activityLevel">
-                  <?php renderEnumSelectOptions($person->getActivityLevel() ?? null, ActivityLevel::class)?>
+                  <?php renderEnumSelectOptions($person->getActivityLevel(), ActivityLevel::class)?>
                 </select>
                 <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                   <?php renderValidationFieldMessages('activityLevel', $messages);?>
@@ -95,7 +95,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
             <div class="basis-full sm:basis-5/12 md:basis-1/3 lg:basis-1/4 2xl:basis-1/4">
               <label class=default-input__label for="bmrCalculationType"><?=_('BMR Calculation Type')?></label>
               <select class="default-input" name="bmrCalculationType" id="bmrCalculationType">
-                <?php renderEnumSelectOptions($person->getBmrCalculationType() ?? null, BmrCalculationType::class)?>
+                <?php renderEnumSelectOptions($person->getBmrCalculationType(), BmrCalculationType::class)?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                 <?php renderValidationFieldMessages('bmrCalculationType', $messages);?>
@@ -104,7 +104,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
             <div class="basis-full sm:basis-5/12 md:basis-1/3 lg:basis-1/4 2xl:basis-1/4">
               <label class=default-input__label for="goal"><?=_('Objective')?></label>
               <select class="default-input" name="goal" id="goal" <?php renderRequestValue('goal');?>>
-                <?php renderEnumSelectOptions($person->getGoal() ?? null, Goal::class)?>
+                <?php renderEnumSelectOptions($person->getGoal(), Goal::class)?>
               </select>
               <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
                 <?php renderValidationFieldMessages('goal', $messages);?>

@@ -5,7 +5,7 @@ export class FormField {
     /**
      *
      * @param id {string}
-     * @param validationObject {string[]}
+     * @param validationObject {{}}
      */
     constructor(id, validationObject) {
         this.init(id)

@@ -67,7 +67,7 @@ getTemplatePart('header', ['active' => 'diary']);
       <div>
         <label class=default-input__label for="timeOfDay"><?=_('Time of day')?></label>
         <select class="default-input" name="timeOfDay" id="timeOfDay">
-          <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'timeOfDay') ?? null, TimeOfDay::class)?>
+          <?php renderEnumSelectOptions(filter_input(INPUT_POST, 'timeOfDay') ?? TimeOfDay::BREAKFAST, TimeOfDay::class)?>
         </select>
         <ul class="text-sm font-medium text-red-500 pl-2 pt-1">
           <?php renderValidationFieldMessages('timeOfDay', $messages);?>
