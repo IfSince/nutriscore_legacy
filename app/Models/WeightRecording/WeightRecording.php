@@ -2,10 +2,10 @@
 
 namespace NutriScore\Models\WeightRecording;
 
-use JsonSerializable;
 use NutriScore\Models\Model;
 
-class WeightRecording extends Model implements JsonSerializable {
+class WeightRecording extends Model {
+
     private ?int $userId = null;
     private int $weight;
     private string $dateOfRecording;
@@ -42,7 +42,7 @@ class WeightRecording extends Model implements JsonSerializable {
     }
 
     public function setWeight(int|string $weight): void {
-        $this->weight = (int) $weight;
+        $this->weight = (int)$weight;
     }
 
     public function getDateOfRecording(): string {
@@ -60,16 +60,4 @@ class WeightRecording extends Model implements JsonSerializable {
     public function setImageId(?int $imageId): void {
         $this->imageId = $imageId;
     }
-
-    public function jsonSerialize(): array {
-        return [
-            'id' => $this->id,
-            'userId' => $this->userId,
-            'weight' => $this->weight,
-            'dateOfRecording' => $this->dateOfRecording,
-            'imageId' => $this->imageId,
-        ];
-    }
-
-
 }

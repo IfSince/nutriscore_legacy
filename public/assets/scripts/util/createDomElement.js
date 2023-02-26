@@ -5,6 +5,7 @@
  * @param classes {string[]?}
  * @param styles {Object?}
  * @param attributes {Object?}
+ * @param id {string | null}
  * @returns {HTMLElement}
  */
 export function createDomElement(
@@ -13,6 +14,7 @@ export function createDomElement(
     classes = [],
     styles = {},
     attributes = {},
+    id = null,
 ) {
     const element = document.createElement(type);
     element.innerHTML = innerHTML;
@@ -28,6 +30,10 @@ export function createDomElement(
         Object.keys(attributes).forEach((key) => {
             element.setAttribute(key, attributes[key]);
         });
+    }
+
+    if (id) {
+        element.id = id;
     }
 
     return element;

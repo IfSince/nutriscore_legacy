@@ -9,10 +9,15 @@ $breakFastRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $r
 $lunchRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $recording) => $recording->timeOfDay === TimeOfDay::LUNCH);
 $dinnerRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $recording) => $recording->timeOfDay === TimeOfDay::DINNER);
 $snacksRecordings = array_filter($diaryRecordings ?? [], fn(DiaryRecording $recording) => $recording->timeOfDay === TimeOfDay::SNACKS);
-
 getTemplatePart('head', ['title' => 'diary', 'module' => 'diary']);
 getTemplatePart('header', ['active' => 'diary']);
 ?>
+
+<script>
+  const data = '<?=json_encode($diaryRecordings)?>';
+  const recordingData = JSON.parse(data);
+</script>
+
 <div class="pt-14 lg:pt-0 lg:pl-60 h-full w-full">
   <section class="px-6 py-4 lg:pt-16 lg:pb-10 flex justify-center items-center bg-gradient-to-b from-gray-600 to-gray-800 relative">
     <div class="flex justify-center items-center relative w-48 h-48">
@@ -55,22 +60,8 @@ getTemplatePart('header', ['active' => 'diary']);
                     <th scope="col">Fat</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <?php foreach ($breakFastRecordings as $recording): ?>
-                    <tr class="rounded-lg even:bg-gray-200">
-                      <th class="block px-2 py-2" scope="row"><?=ucfirst($recording->title)?></th>
-                      <td><?=$recording->amount?></td>
-                      <td><?=$recording->calories?></td>
-                      <td><?=$recording->protein?></td>
-                      <td><?=$recording->carbohydrates?></td>
-                      <td><?=$recording->fat?></td>
-                    </tr>
-                  <?php endforeach;?>
-                </tbody>
+                <tbody id="breakfastContainer"></tbody>
               </table>
-              <?php if(count($breakFastRecordings) === 0):?>
-                <span class="pt-6 block text-center text-sm text-gray-500">No entries have been found.</span>
-              <?php endif;?>
             </div>
           </div>
 
@@ -96,22 +87,8 @@ getTemplatePart('header', ['active' => 'diary']);
                     <th scope="col">Fat</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <?php foreach ($lunchRecordings as $recording): ?>
-                    <tr class="rounded-lg even:bg-gray-200">
-                      <th class="block px-2 py-2" scope="row"><?=ucfirst($recording->title)?></th>
-                      <td><?=$recording->amount?></td>
-                      <td><?=$recording->calories?></td>
-                      <td><?=$recording->protein?></td>
-                      <td><?=$recording->carbohydrates?></td>
-                      <td><?=$recording->fat?></td>
-                    </tr>
-                  <?php endforeach;?>
-                </tbody>
+                <tbody id="lunchContainer"></tbody>
               </table>
-              <?php if(count($lunchRecordings) === 0):?>
-              <span class="pt-6 block text-center text-sm text-gray-500">No entries have been found.</span>
-              <?php endif;?>
             </div>
           </div>
         </div>
@@ -139,22 +116,8 @@ getTemplatePart('header', ['active' => 'diary']);
                     <th scope="col">Fat</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <?php foreach ($dinnerRecordings as $recording): ?>
-                    <tr class="rounded-lg even:bg-gray-200">
-                      <th class="block px-2 py-2" scope="row"><?=ucfirst($recording->title)?></th>
-                      <td><?=$recording->amount?></td>
-                      <td><?=$recording->calories?></td>
-                      <td><?=$recording->protein?></td>
-                      <td><?=$recording->carbohydrates?></td>
-                      <td><?=$recording->fat?></td>
-                    </tr>
-                  <?php endforeach;?>
-                </tbody>
+                <tbody id="dinnerContainer"></tbody>
               </table>
-              <?php if(count($dinnerRecordings) === 0):?>
-                <span class="pt-6 block text-center text-sm text-gray-500">No entries have been found.</span>
-              <?php endif;?>
             </div>
           </div>
 
@@ -180,22 +143,8 @@ getTemplatePart('header', ['active' => 'diary']);
                     <th scope="col">Fat</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <?php foreach ($snacksRecordings as $recording): ?>
-                    <tr class="rounded-lg even:bg-gray-200">
-                      <th class="block px-2 py-2" scope="row"><?=ucfirst($recording->title)?></th>
-                      <td><?=$recording->amount?></td>
-                      <td><?=$recording->calories?></td>
-                      <td><?=$recording->protein?></td>
-                      <td><?=$recording->carbohydrates?></td>
-                      <td><?=$recording->fat?></td>
-                    </tr>
-                  <?php endforeach;?>
-                </tbody>
+                <tbody id="snacksContainer"></tbody>
               </table>
-              <?php if(count($snacksRecordings) === 0):?>
-                <span class="pt-6 block text-center text-sm text-gray-500">No entries have been found.</span>
-              <?php endif;?>
             </div>
           </div>
         </div>

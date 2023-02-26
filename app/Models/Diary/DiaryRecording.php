@@ -2,7 +2,12 @@
 
 namespace NutriScore\Models\Diary;
 
-class DiaryRecording {
+use JsonSerializable;
+use NutriScore\Traits\JsonConvertable;
+
+class DiaryRecording implements JsonSerializable {
+    use JsonConvertable;
+
     public int $id;
     public DiaryRecordingType $type = DiaryRecordingType::FOOD;
     public string $title = '';
@@ -21,7 +26,7 @@ class DiaryRecording {
         ?float             $calories = 0,
         ?float             $protein = 0,
         ?float             $carbohydrates = 0,
-        ?float             $fat= 0,
+        ?float             $fat = 0,
         int                $amount = 1,
         ?string            $dateOfRecording = null,
         TimeOfDay          $timeOfDay = TimeOfDay::BREAKFAST
@@ -37,6 +42,4 @@ class DiaryRecording {
         $this->dateOfRecording = $dateOfRecording ?? date('Y-m-d');
         $this->timeOfDay = $timeOfDay;
     }
-
-
 }

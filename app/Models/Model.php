@@ -2,9 +2,13 @@
 
 namespace NutriScore\Models;
 
+use JsonSerializable;
+use NutriScore\Traits\JsonConvertable;
 use NutriScore\Utils\ArrayUtil;
 
-abstract class Model {
+abstract class Model implements JsonSerializable {
+    use JsonConvertable;
+
     private const NEW_ENTITY_ID = 0;
 
     protected ?int $id = self::NEW_ENTITY_ID;
