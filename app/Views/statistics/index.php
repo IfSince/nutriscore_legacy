@@ -9,8 +9,9 @@ getTemplatePart('header', ['active' => 'statistics']);
 ?>
 
 <div class="pt-14 lg:pt-0 lg:pl-60 h-full w-full">
-    <section class="px-6 py-4 lg:pt-16 lg:pb-10 flex justify-center items-center bg-gradient-to-b from-gray-600 to-gray-800 relative"></section>
+  <section class="px-6 py-4 lg:pt-16 lg:pb-10 flex justify-center items-center bg-gradient-to-b from-gray-600 to-gray-800 relative"></section>
 
+  <?php getTemplatePart('date-range-selector');?>
   <section class="w-full bg-gray-100 pb-20 md:pb-10 py-6 md:px-4">
     <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
 

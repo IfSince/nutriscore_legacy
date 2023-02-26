@@ -28,12 +28,8 @@ export function getSelectedDate() {
     const mondayOfWeek = new Date(week)
     mondayOfWeek.setDate(week.getDate() - dayOfWeek + 1)
 
-
     const sundayOfWeek = new Date(week)
     sundayOfWeek.setDate(week.getDate() - dayOfWeek + 7)
-
-    console.log(formatDateDot(mondayOfWeek))
-    console.log(formatDateDot(sundayOfWeek))
 
     document.querySelector('#dateRange').innerHTML = `${formatDateDot(mondayOfWeek)} - ${formatDateDot(sundayOfWeek)}`;
 
