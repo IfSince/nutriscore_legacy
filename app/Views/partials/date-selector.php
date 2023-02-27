@@ -45,7 +45,7 @@
       <label class="inline-block px-2 py-2.5 md:px-4 md:py-3 rounded-md cursor-pointer hover:text-gray-900 hover:bg-gray-100
                     peer-checked:bg-green peer-checked:text-white"
              for="thursday">
-        <span class="hidden xl:inline"><?=_('Thurs')?></span>
+        <span class="hidden xl:inline"><?=_('Thursday')?></span>
         <span class="hidden md:inline xl:hidden"><?=_('Thurs')?></span>
         <span class="inline md:hidden"><?=_('T')?></span>
       </label>

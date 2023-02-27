@@ -27,6 +27,10 @@ module.exports = {
           DEFAULT: '#2492DB',
         }
       },
+      boxShadow: {
+        'border': "rgba(99, 99, 99, 0.2) 0 2px 8px 0",
+        'underlined': "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+      },
       flexBasis: {
         '1/8': '12.5%',
       },
@@ -36,10 +40,9 @@ module.exports = {
         '800': '800ms',
         '900': '900ms'
       },
-      boxShadow: {
-        'border': "rgba(99, 99, 99, 0.2) 0 2px 8px 0",
-        'underlined': "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
-      },
+      transitionTimingFunction: {
+        'fill': 'cubic-bezier(.56,.41,.45,.82)'
+      }
     },
   },
   plugins: [],

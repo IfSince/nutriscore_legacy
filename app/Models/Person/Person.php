@@ -3,12 +3,9 @@
 namespace NutriScore\Models\Person;
 
 use NutriScore\Models\Model;
-use NutriScore\Utils\Calculations;
 use NutriScore\Utils\EnumUtil;
 
 class Person extends Model {
-    use Calculations;
-
     private ?int $userId = null;
     private string $firstName;
     private string $surname;

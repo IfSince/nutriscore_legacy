@@ -1102,10 +1102,6 @@ a.menu-link:focus * {
   height: 16rem;
 }
 
-.h-auto {
-  height: auto;
-}
-
 .h-24 {
   height: 6rem;
 }
@@ -2023,6 +2019,12 @@ a.menu-link:focus * {
   transition-duration: 150ms;
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .transition-transform {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -2033,6 +2035,14 @@ a.menu-link:focus * {
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
+.ease-fill {
+  transition-timing-function: cubic-bezier(.56,.41,.45,.82);
 }
 
 .stroke-round {
@@ -2752,6 +2762,11 @@ a.menu-link:focus * {
 
   .lg\:border-none {
     border-style: none;
+  }
+
+  .lg\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .lg\:py-14 {
