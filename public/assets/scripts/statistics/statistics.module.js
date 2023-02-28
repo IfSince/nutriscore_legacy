@@ -23,16 +23,21 @@ const chart = new Chart('weightRecordings', {
 });
 
 function filterValues(fromDate, toDate) {
-    if (fromDate != null && toDate != null) {
-        const filtered = weightRecordingsData.filter(recording => {
+    const newChartData = (
+        fromDate != null && toDate != null
+    ) ?
+        weightRecordingsData.filter(recording => {
             const dateValue = new Date(recording.dateOfRecording)
             return dateValue.valueOf() >= fromDate.valueOf() && dateValue.valueOf() <= toDate.valueOf()
-        });
+        }) : weightRecordingsData
 
-        chart.data.labels = filtered.map(row => formatDateDot(new Date(row.dateOfRecording)))
-        chart.data.datasets[0].data = filtered.map(row => row.weight)
-        chart.update();
-    }
+    chart.data.labels = newChartData.map(row => formatDateDot(new Date(row.dateOfRecording)))
+    chart.data.datasets[0].data = newChartData.map(row => row.weight)
+    chart.update();
 }
 
 addDateSelectorListeners(filterValues)
+
+//initial loading
+const { from, to } = getSelectedDateRange()
+filterValues(from, to)

@@ -21,8 +21,8 @@ getTemplatePart('header', ['active' => 'statistics']);
       </div>
       <div class="xl:w-2/3" >
         <script>
-          const data = '<?= json_encode($weightRecordings)?>';
-          const weightRecordingsData = JSON.parse(data);
+          const data = JSON.parse('<?= json_encode($weightRecordings)?>');
+          const weightRecordingsData = data.sort((a,b) =>  new Date(a.dateOfRecording) - new Date(b.dateOfRecording));
         </script>
 
         <canvas id="weightRecordings"></canvas>

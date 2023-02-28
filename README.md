@@ -43,5 +43,14 @@ Um das Projekt zu starten, muss der Apache Server gestartet werden. Anschließen
 Browser unter **localhost** geöffnet werden.
 
 ## Testdaten
+### User inkl. erfassten Testdaten:
+Username: mmustermann  
+Passwort: Passwort123!
 
+Beispiel Diary-Einträge erfasst am 27.02.
 
+### Beispiele für Nahrungsmittel-Suche:
+* Apple
+* Banana
+* Oatmeal
+* Skyr
