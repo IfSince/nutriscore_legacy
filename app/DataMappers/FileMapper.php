@@ -40,7 +40,7 @@ final class FileMapper extends DataMapper {
             'fileType' => $obj->getFileType()->value,
             'id' => $obj->getId()
         ];
-        
+
         $this->database->prepareAndExecute($sql, $params);
     }
 }

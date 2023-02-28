@@ -26,13 +26,13 @@ final class ProfileController extends AbstractController {
     private const CHANGE_PASSWORD_DATA_TEMPLATE = 'profile/change-password';
 
     public function __construct(
-        protected Request                           $request,
-        protected View                              $view,
-        private readonly UserService                $userService,
-        private readonly PersonService              $personService,
-        private readonly FileService                $fileService,
-        private readonly ChangePasswordService      $changePasswordService,
-        private readonly MacroDistributionService   $macroDistributionService,
+        protected Request $request,
+        protected View $view,
+        private readonly UserService $userService,
+        private readonly PersonService $personService,
+        private readonly FileService $fileService,
+        private readonly ChangePasswordService $changePasswordService,
+        private readonly MacroDistributionService $macroDistributionService,
         private readonly NutritionalDataSaveService $nutritionalDataSaveService,
     ) {
         parent::__construct($request, $view);
@@ -168,7 +168,10 @@ final class ProfileController extends AbstractController {
     }
 
     public function nutritionalData(): void {
-        $this->handleRequest(getFunction: $this->getNutritionalData(...), postFunction: $this->postNutritionalData(...));
+        $this->handleRequest(
+            getFunction: $this->getNutritionalData(...),
+            postFunction: $this->postNutritionalData(...)
+        );
     }
 
     private function getNutritionalData(): void {
@@ -204,7 +207,11 @@ final class ProfileController extends AbstractController {
             Session::flash('success-person', _('The changes were saved successfully.'), MessageType::SUCCESS);
             $this->redirectTo('/profile/nutritional-data');
         } else {
-            Session::flash('error-person', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
+            Session::flash(
+                'error-person',
+                _('The data contains one or more errors and was not saved.'),
+                MessageType::ERROR
+            );
             $this->view->render(
                 self::NUTRITIONAL_DATA_TEMPLATE, [
                     'messages' => $validationObject->getMessages(),
@@ -235,7 +242,11 @@ final class ProfileController extends AbstractController {
             Session::flash('change-success', _('Your password was changed successfully'), MessageType::SUCCESS);
             $this->redirectTo('/profile');
         } else {
-            Session::flash('change-error', _('The data contains one or more errors and was not saved.'), MessageType::ERROR);
+            Session::flash(
+                'change-error',
+                _('The data contains one or more errors and was not saved.'),
+                MessageType::ERROR
+            );
             $this->view->render(self::CHANGE_PASSWORD_DATA_TEMPLATE, ['messages' => $validationObject->getMessages()]);
         }
     }

@@ -52,7 +52,7 @@ final class FoodMapper extends DataMapper {
                        f.fat = :fat
                  WHERE f.id = :id';
         $params = [
-            'id'  => $obj->getId(),
+            'id' => $obj->getId(),
             'description' => $obj->getDescription(),
             'calories' => $obj->getCalories(),
             'protein' => $obj->getProtein(),

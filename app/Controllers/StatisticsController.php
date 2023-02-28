@@ -15,10 +15,10 @@ final class StatisticsController extends AbstractController {
     private const STATISTICS_TEMPLATE = 'statistics/index';
 
     public function __construct(
-        protected Request                       $request,
-        protected View                          $view,
+        protected Request $request,
+        protected View $view,
         private readonly WeightRecordingService $weightRecordingService,
-        private readonly FileService            $fileService,
+        private readonly FileService $fileService,
     ) {
         parent::__construct($request, $view);
     }
@@ -34,7 +34,7 @@ final class StatisticsController extends AbstractController {
         $weightRecordings = $this->weightRecordingService->findAllByUserId($userId);
 
         $imageIds = array_map(fn(WeightRecording $row) => $row->getImageId(), $weightRecordings);
-        $imageIds = array_filter($imageIds); //filter nulls
+        $imageIds = array_filter($imageIds); // filter nulls
 
         $images = $this->fileService->findAllByIds($imageIds);
 

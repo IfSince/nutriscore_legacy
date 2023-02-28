@@ -15,8 +15,8 @@ final class LoginController extends AbstractController {
     private const LOGIN_TEMPLATE = 'login/index';
 
     public function __construct(
-        protected Request             $request,
-        protected View                $view,
+        protected Request $request,
+        protected View $view,
         private readonly LoginService $loginService
     ) {
         parent::__construct($request, $view);

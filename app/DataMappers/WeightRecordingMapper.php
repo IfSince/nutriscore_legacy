@@ -20,7 +20,7 @@ final class WeightRecordingMapper extends DataMapper {
                   FROM weight_recordings wr
                  WHERE wr.user_id = :userId';
         $params = ['userId' => $userId];
-        
+
         return $this->loadAll($sql, $params);
     }
 

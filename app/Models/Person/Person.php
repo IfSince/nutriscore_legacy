@@ -45,7 +45,7 @@ class Person extends Model {
     public function getAge(): int {
         $today = date("Y-m-d");
         $diff = date_diff(date_create($this->dateOfBirth), date_create($today));
-        return (int) $diff->format('%y');
+        return (int)$diff->format('%y');
     }
 
     public function getUserId(): ?int {
@@ -85,7 +85,7 @@ class Person extends Model {
     }
 
     public function setHeight(int|string $height): void {
-        $this->height = (int) $height;
+        $this->height = (int)$height;
     }
 
     public function getGender(): Gender {
@@ -117,7 +117,7 @@ class Person extends Model {
     }
 
     public function setPalLevel(float|string|null $palLevel): void {
-        $this->palLevel = (empty($palLevel)) ? null : (float) $palLevel;
+        $this->palLevel = (empty($palLevel)) ? null : (float)$palLevel;
     }
 
     public function getActivityLevel(): ActivityLevel {

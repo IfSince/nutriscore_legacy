@@ -11,7 +11,8 @@ class MacroDistribution extends Model {
         private ?int $carbohydrates = null,
         private ?int $fat = null,
         private ?int $userId = null,
-    ) { }
+    ) {
+    }
 
     public static function createOrUpdate(Model $obj = null, array $data = null): MacroDistribution {
         if ($obj) {
@@ -41,7 +42,7 @@ class MacroDistribution extends Model {
     }
 
     public function setProtein(int|string|null $protein): void {
-        $this->protein = (int) $protein;
+        $this->protein = (int)$protein;
     }
 
     public function getCarbohydrates(): ?int {
@@ -49,7 +50,7 @@ class MacroDistribution extends Model {
     }
 
     public function setCarbohydrates(int|string|null $carbohydrates): void {
-        $this->carbohydrates = (int) $carbohydrates;
+        $this->carbohydrates = (int)$carbohydrates;
     }
 
     public function getFat(): ?int {
@@ -57,7 +58,7 @@ class MacroDistribution extends Model {
     }
 
     public function setFat(int|string|null $fat): void {
-        $this->fat = (int) $fat;
+        $this->fat = (int)$fat;
     }
 
     public function getUserId(): ?int {

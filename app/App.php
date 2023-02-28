@@ -20,10 +20,9 @@ final class App {
         $this->db->beginTransaction();
 
         $router = $container->get(Router::class);
-        $request = $container->get(Request::class, ['pageParams' => $router->getParams()]);
+        $container->get(Request::class, ['pageParams' => $router->getParams()]);
 
         $controller = $container->get($router->getController());
-        $controller->setRequest(($request));
 
         $errorHandlerDecorator = new ErrorHandlerDecorator($controller, $this->db);
         $errorHandlerDecorator->{$router->getMethod()}();

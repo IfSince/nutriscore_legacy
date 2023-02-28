@@ -9,7 +9,8 @@ class SearchResult {
         private array $rows = [],
         private bool $includeHeader = true,
         private bool $clickable = false,
-    ) { }
+    ) {
+    }
 
     public function addRows(array $rows): void {
         array_push($this->rows, ...$rows);
@@ -50,7 +51,6 @@ class SearchResult {
     public function setClickable(bool $clickable): void {
         $this->clickable = $clickable;
     }
-
 
 
 }

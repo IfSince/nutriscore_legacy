@@ -20,16 +20,16 @@ class DiaryRecording implements JsonSerializable {
     public TimeOfDay $timeOfDay = TimeOfDay::BREAKFAST;
 
     public function __construct(
-        int                $id,
+        int $id,
         DiaryRecordingType $type = DiaryRecordingType::FOOD,
-        ?string            $title = '',
-        ?float             $calories = 0,
-        ?float             $protein = 0,
-        ?float             $carbohydrates = 0,
-        ?float             $fat = 0,
-        int                $amount = 1,
-        ?string            $dateOfRecording = null,
-        TimeOfDay          $timeOfDay = TimeOfDay::BREAKFAST
+        ?string $title = '',
+        ?float $calories = 0,
+        ?float $protein = 0,
+        ?float $carbohydrates = 0,
+        ?float $fat = 0,
+        int $amount = 1,
+        ?string $dateOfRecording = null,
+        TimeOfDay $timeOfDay = TimeOfDay::BREAKFAST
     ) {
         $this->id = $id;
         $this->type = $type;

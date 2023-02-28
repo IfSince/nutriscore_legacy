@@ -11,7 +11,6 @@ use NutriScore\Request;
 use NutriScore\Services\DiaryRecordingService;
 use NutriScore\Services\DiarySearchService;
 use NutriScore\Services\PersonDTOCreateService;
-use NutriScore\Services\PersonService;
 use NutriScore\Utils\Session;
 use NutriScore\View;
 
@@ -21,11 +20,10 @@ final class DiaryController extends AbstractController {
     private const ADD_RECORDING_TEMPLATE = 'diary/add';
 
     public function __construct(
-        protected Request                       $request,
-        protected View                          $view,
-        private readonly DiarySearchService     $diarySearchService,
-        private readonly DiaryRecordingService  $diaryRecordingService,
-        private readonly PersonService          $personService,
+        protected Request $request,
+        protected View $view,
+        private readonly DiarySearchService $diarySearchService,
+        private readonly DiaryRecordingService $diaryRecordingService,
         private readonly PersonDTOCreateService $personDTOCreateService
     ) {
         parent::__construct($request, $view);

@@ -15,10 +15,6 @@ class AbstractController {
     ) {
     }
 
-    public function setRequest(Request $request): void {
-        $this->request = $request;
-    }
-
     public function getView(): View {
         return $this->view;
     }

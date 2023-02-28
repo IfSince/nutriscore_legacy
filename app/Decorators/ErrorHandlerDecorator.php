@@ -11,7 +11,8 @@ final class ErrorHandlerDecorator {
     public function __construct(
         private readonly AbstractController $component,
         private readonly Database $db,
-    ) { }
+    ) {
+    }
 
     public function __call($method, $args): mixed {
         try {
@@ -24,7 +25,7 @@ final class ErrorHandlerDecorator {
 
     protected function _dispatchException(Throwable $e): void {
         $this->db->rollBack();
-        http_response_code((int) $e->getCode());
+        http_response_code((int)$e->getCode());
 
         $this->component->getView()->render('exception/exception', [
             'message' => $e->getMessage(),

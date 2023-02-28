@@ -15,8 +15,8 @@ final class RegisterController extends AbstractController {
     private const REGISTER_TEMPLATE = 'register/index';
 
     public function __construct(
-        protected Request                $request,
-        protected View                   $view,
+        protected Request $request,
+        protected View $view,
         private readonly RegisterService $registerService,
     ) {
         parent::__construct($request, $view);

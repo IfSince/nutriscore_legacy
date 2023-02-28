@@ -17,8 +17,8 @@ final class WeightController extends AbstractController {
     private const ADD_WEIGHT_TEMPLATE = 'weight/add';
 
     public function __construct(
-        protected Request                       $request,
-        protected View                          $view,
+        protected Request $request,
+        protected View $view,
         private readonly WeightRecordingService $weightRecordingService,
         private readonly Database $database,
     ) {
@@ -48,7 +48,8 @@ final class WeightController extends AbstractController {
         $weightRecording = WeightRecording::create($data);
         $weightRecording->setUserId(Session::get('id'));
 
-        $validationObject = $this->weightRecordingService->saveWithImage($weightRecording, $image, $data['imageDescription']);
+        $validationObject =
+            $this->weightRecordingService->saveWithImage($weightRecording, $image, $data['imageDescription']);
 
         if ($validationObject->isValid()) {
             Session::flash('success', _('The weight recording was saved successfully'), MessageType::SUCCESS);

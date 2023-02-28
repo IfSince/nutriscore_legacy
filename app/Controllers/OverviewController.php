@@ -13,8 +13,8 @@ final class OverviewController extends AbstractController {
     private const OVERVIEW_TEMPLATE = 'overview/index';
 
     public function __construct(
-        protected Request              $request,
-        protected View                 $view,
+        protected Request $request,
+        protected View $view,
         private readonly PersonService $personService,
     ) {
         parent::__construct($request, $view);
