@@ -5,18 +5,11 @@ use NutriScore\Utils\CSRFToken;
 
 $messages = $messages ?? [];
 
-getTemplatePart('head', ['title' => 'diary']);
-getTemplatePart('header', ['active' => 'diary']);
+getTemplatePart('head', ['title' => 'diary', 'module' => 'diary-add']);
+getTemplatePart('header', ['active' => 'diary', 'previousPage' => '/diary/search']);
 ?>
 
 <div class="pt-16 lg:pt-0 lg:pl-60 h-full w-full">
-  <section class="w-full border-b border-b-gray-200 flex justify-start bg-white">
-    <div class="w-full flex justify-start items-center py-1 md:py-2 px-4 md:px-6 text-gray-400 max-w-2xl">
-      <a class="flex hover:text-gray-700 transition-colors" href="#">
-        <span class="material-icons text-2xl md:text-3xl">arrow_back</span>
-      </a>
-    </div>
-  </section>
   <section class="w-full bg-gray-100 pb-20 md:pb-10 py-6 md:px-4">
     <?php getTemplatePart('global-messages', ['messages' => $messages]);?>
 
@@ -24,30 +17,75 @@ getTemplatePart('header', ['active' => 'diary']);
           method="post"
           action="/diary/add/<?=$diaryRecording->type->value?>/<?=$diaryRecording->id?>?csrfToken=<?=CSRFToken::get()?>">
       <div class="border-b border-b-gray-200 pb-3 px-2">
-        <h3 class="text-xl md:text-2xl text-gray-800"><?=ucfirst($diaryRecording->title)?></h3>
+        <h3 class="text-xl md:text-2xl text-gray-800">Add <?=ucfirst($diaryRecording->title)?></h3>
       </div>
 
-      <div class="flex gap-4">
-        <div class="flex flex-col">
-          <span class="font-medium text-xl md:text-2xl text-gray-800"><?=$diaryRecording->calories?></span>
-          <span class="text-sm text-gray-400"><?=_('Calories')?></span>
+      <div class="flex justify-center lg:justify-start flex-wrap gap-x-2 gap-y-4">
+        <div class="flex flex-col items-center">
+          <div class="flex justify-center items-center relative w-28 h-28">
+            <div class="flex flex-col text-center text-gray-500">
+              <span class="font-medium text-2xl"><?=$diaryRecording->calories?></span>
+            </div>
+            <svg class="w-full h-full absolute stroke-[8] stroke-round fill-none">
+              <circle r="40" cx="50%" cy="50%" class="stroke-green/30"></circle>
+              <circle class="stroke-green transition-all ease-fill duration-500"
+                      id="calorieIntake"
+                      data-percentage="100"
+                      r="40" cx="50%" cy="50%"></circle>
+            </svg>
+          </div>
+          <span class="text-sm font-medium tracking-wide"><?=_('Calories')?></span>
         </div>
 
-        <div class="flex flex-col">
-          <span class="font-medium text-xl md:text-2xl text-gray-800"><?=$diaryRecording->protein?></span>
-          <span class="text-sm text-gray-400"><?=_('Protein')?></span>
+        <div class="flex flex-col items-center">
+          <div class="flex justify-center items-center relative w-28 h-28">
+            <div class="flex flex-col text-center text-gray-500">
+              <span class="font-medium text-2xl"><?=$diaryRecording->protein?></span>
+            </div>
+            <svg class="w-full h-full absolute stroke-[8] stroke-round fill-none">
+              <circle r="40" cx="50%" cy="50%" class="stroke-green/30"></circle>
+              <circle class="stroke-green transition-all ease-fill duration-500"
+                      id="calorieIntake"
+                      data-percentage="<?=$diaryRecording->protein / ($diaryRecording->protein + $diaryRecording->carbohydrates + $diaryRecording->fat) * 100?>"
+                      r="40" cx="50%" cy="50%"></circle>
+            </svg>
+          </div>
+          <span class="text-sm font-medium tracking-wide"><?=_('Protein')?></span>
         </div>
 
-        <div class="flex flex-col">
-          <span class="font-medium text-xl md:text-2xl text-gray-800"><?=$diaryRecording->carbohydrates?></span>
-          <span class="text-sm text-gray-400"><?=_('Carbs')?></span>
+        <div class="flex flex-col items-center">
+          <div class="flex justify-center items-center relative w-28 h-28">
+            <div class="flex flex-col text-center text-gray-500">
+              <span class="font-medium text-2xl"><?=$diaryRecording->carbohydrates?></span>
+            </div>
+            <svg class="w-full h-full absolute stroke-[8] stroke-round fill-none">
+              <circle r="40" cx="50%" cy="50%" class="stroke-blue/30"></circle>
+              <circle class="stroke-blue transition-all ease-fill duration-500"
+                      id="calorieIntake"
+                      data-percentage="<?=$diaryRecording->carbohydrates / ($diaryRecording->protein + $diaryRecording->carbohydrates + $diaryRecording->fat) * 100?>"
+                      r="40" cx="50%" cy="50%"></circle>
+            </svg>
+          </div>
+          <span class="text-sm font-medium tracking-wide"><?=_('Carbohydrates')?></span>
         </div>
 
-        <div class="flex flex-col">
-          <span class="font-medium text-xl md:text-2xl text-gray-800"><?=$diaryRecording->fat?></span>
-          <span class="text-sm text-gray-400"><?=_('Fat')?></span>
+        <div class="flex flex-col items-center">
+          <div class="flex justify-center items-center relative w-28 h-28">
+            <div class="flex flex-col text-center text-gray-500">
+              <span class="font-medium text-2xl"><?=$diaryRecording->fat?></span>
+            </div>
+            <svg class="w-full h-full absolute stroke-[8] stroke-round fill-none">
+              <circle r="40" cx="50%" cy="50%" class="stroke-orange/30"></circle>
+              <circle class="stroke-orange transition-all ease-fill duration-500"
+                      id="calorieIntake"
+                      data-percentage="<?=$diaryRecording->fat / ($diaryRecording->protein + $diaryRecording->carbohydrates + $diaryRecording->fat) * 100?>"
+                      r="40" cx="50%" cy="50%"></circle>
+            </svg>
+          </div>
+          <span class="text-sm font-medium tracking-wide"><?=_('Fat')?></span>
         </div>
       </div>
+
 
       <div>
         <label class="default-input__label" for="amount"><?=_('Amount')?></label>
