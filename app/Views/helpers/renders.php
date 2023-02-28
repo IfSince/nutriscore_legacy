@@ -1,6 +1,7 @@
 <?php
 
 use NutriScore\Enums\MessageType;
+use NutriScore\Utils\CSRFToken;
 use NutriScore\Validators\ValidationField;
 
 function getTemplatePart(string $name, ?array $data = []): void {

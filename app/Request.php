@@ -20,7 +20,7 @@ class Request {
             InputType::GET => $this->sanitizeInput($_GET),
             InputType::POST => $this->sanitizeInput($_POST),
             InputType::FILE => $_FILES,
-            InputType::PAGE => $this->pageParams
+            InputType::PAGE_PARAMS => $this->pageParams
         };
     }
 

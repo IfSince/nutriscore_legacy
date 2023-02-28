@@ -100,6 +100,8 @@ final class ProfileController extends AbstractController {
     }
 
     private function postUserData(): void {
+        $this->checkCSRF();
+
         $data = $this->request->getInput(InputType::POST);
         $userId = Session::get('id');
 
@@ -140,6 +142,8 @@ final class ProfileController extends AbstractController {
     }
 
     private function postPersonalData(): void {
+        $this->checkCSRF();
+
         $userId = Session::get('id');
         $data = $this->request->getInput(InputType::POST);
 
@@ -183,6 +187,8 @@ final class ProfileController extends AbstractController {
     }
 
     private function postNutritionalData(): void {
+        $this->checkCSRF();
+
         $userId = Session::get('id');
         $data = $this->request->getInput(InputType::POST);
 
@@ -218,6 +224,8 @@ final class ProfileController extends AbstractController {
     }
 
     private function postChangePassword(): void {
+        $this->checkCSRF();
+
         $userId = Session::get('id');
         $data = $this->request->getInput(InputType::POST);
 

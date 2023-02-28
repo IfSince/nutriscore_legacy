@@ -1,6 +1,7 @@
 <?php
 
 use NutriScore\Models\Diary\TimeOfDay;
+use NutriScore\Utils\CSRFToken;
 
 $messages = $messages ?? [];
 
@@ -21,7 +22,7 @@ getTemplatePart('header', ['active' => 'diary']);
 
     <form class="w-full bg-white p-3 pb-10 md:rounded-md flex flex-col gap-4 shadow-border mb-6"
           method="post"
-          action="/diary/add/<?=$diaryRecording->type->value?>/<?=$diaryRecording->id?>">
+          action="/diary/add/<?=$diaryRecording->type->value?>/<?=$diaryRecording->id?>?csrfToken=<?=CSRFToken::get()?>">
       <div class="border-b border-b-gray-200 pb-3 px-2">
         <h3 class="text-xl md:text-2xl text-gray-800"><?=ucfirst($diaryRecording->title)?></h3>
       </div>

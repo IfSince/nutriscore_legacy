@@ -4,6 +4,7 @@ namespace NutriScore\Controllers;
 
 use NutriScore\AbstractController;
 use NutriScore\Enums\InputType;
+use NutriScore\Enums\MessageType;
 use NutriScore\Models\Diary\DiaryRecordingType;
 use NutriScore\Models\User\User;
 use NutriScore\Request;
@@ -64,24 +65,26 @@ final class DiaryController extends AbstractController {
     }
 
     private function getAdd(): void {
-        $routeParams = $this->request->getInput(InputType::PAGE);
+        $routeParams = $this->request->getInput(InputType::PAGE_PARAMS);
         $id = $routeParams[1];
         $type = DiaryRecordingType::from($routeParams[0]);
 
         $diaryRecording = $this->diaryRecordingService->findDiaryRecordingByEntityIdAndType($id, $type);
 
-
         $this->view->render(self::ADD_RECORDING_TEMPLATE, ['diaryRecording' => $diaryRecording]);
     }
 
     private function postAdd(): void {
-        $routeParams = $this->request->getInput(InputType::PAGE);
+        $this->checkCSRF();
+
+        $routeParams = $this->request->getInput(InputType::PAGE_PARAMS);
         $data = $this->request->getInput(InputType::POST);
         $id = $routeParams[1];
         $type = DiaryRecordingType::from($routeParams[0]);
         $userId = Session::get('id');
 
         $this->diaryRecordingService->save($type, $id, $userId, $data);
+        Session::flash('add-entry', _('The recording was added successfully.'), MessageType::SUCCESS);
         $this->redirectTo('/diary');
     }
 }

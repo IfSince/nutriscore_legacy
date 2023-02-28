@@ -1,5 +1,7 @@
 <?php
 
+use NutriScore\Utils\CSRFToken;
+
 $messages = $messages ?? null;
 
 getTemplatePart('head', ['title' => 'New Weight Recording', 'module' => 'weight']);
@@ -21,6 +23,7 @@ getTemplatePart('header', ['active' => '', 'previousPage' => '/profile']);
       </h3>
       <div class="border-b border-b-gray-200 pb-3 mb-6"></div>
       <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrfToken" value="<?=CSRFToken::get()?>">
         <div class="pb-8">
           <div class="flex flex-wrap gap-4 sm:gap-6 md:gap-8">
             <div class="basis-full sm:basis-1/3 md:basis-1/4 lg:basis-1/6">

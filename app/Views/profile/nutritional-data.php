@@ -4,6 +4,7 @@ use NutriScore\Models\Person\ActivityLevel;
 use NutriScore\Models\Person\BmrCalculationType;
 use NutriScore\Models\Person\Goal;
 use NutriScore\Models\Person\NutritionType;
+use NutriScore\Utils\CSRFToken;
 
 $messages = $messages ?? [];
 
@@ -28,6 +29,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
       </h3>
       <div class="border-b border-b-gray-200 pb-3 mb-6"></div>
       <form method="post">
+        <input type="hidden" name="csrfToken" value="<?=CSRFToken::get()?>">
         <div class="pb-8">
           <div class="flex flex-wrap gap-4 sm:gap-6 md:gap-8">
             <div class="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">

@@ -1,4 +1,7 @@
 <?php
+
+use NutriScore\Utils\CSRFToken;
+
 $messages = $messages ?? null;
 
 getTemplatePart('head', ['title' => 'profile', 'module' => 'profile']);
@@ -146,7 +149,7 @@ getTemplatePart('header', ['active' => 'profile']);
         </div>
 
         <div class="md:max-w-sm px-6 sm:p-6 bg-white border border-gray-200 rounded-lg shadow flex justify-between sm:flex-col">
-          <a href="/user/logout" class="flex items-center">
+          <a href="/user/logout?csrfToken=<?=CSRFToken::get()?>" class="flex items-center">
             <h5 class="sm:mb-2 sm:text-2xl font-medium tracking-wide md:tracking-tight text-gray-700"><?=_('Sign Out')?></h5>
           </a>
           <p class="mb-5 font-normal text-gray-500 hidden sm:block">
@@ -155,7 +158,7 @@ getTemplatePart('header', ['active' => 'profile']);
           <a class="inline-flex transition-colors items-center px-3 py-2 sm:text-sm font-medium text-center text-green
                     sm:text-white sm:bg-green rounded-lg hover:text-green-hover sm:hover:text-white
                     sm:hover:bg-green-hover focus:outline-2 focus:outline-green-darker h-fit w-fit"
-             href="/user/logout">
+             href="/user/logout?csrfToken=<?=CSRFToken::get()?>">
             <?=_('Edit Data')?>
             <span class="material-icons ml-2 -mr-1 text-xl font-medium sm:text-lg">arrow_forward</span>
           </a>

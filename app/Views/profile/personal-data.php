@@ -1,6 +1,7 @@
 <?php
 
 use NutriScore\Models\Person\Gender;
+use NutriScore\Utils\CSRFToken;
 
 $messages = $messages ?? [];
 
@@ -26,6 +27,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
       <div class="border-b border-b-gray-200 pb-3 mb-6"></div>
       <form method="post">
         <div class="pb-8">
+          <input type="hidden" name="csrfToken" value="<?=CSRFToken::get()?>">
           <div class="flex flex-wrap gap-4 sm:gap-6">
             <div class="basis-full sm:basis-1/3 md:basis-1/3 lg:basis-1/4">
               <label class="default-input__label" for="firstName"><?=_('First name')?></label>

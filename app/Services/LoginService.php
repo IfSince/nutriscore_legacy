@@ -3,6 +3,7 @@
 namespace NutriScore\Services;
 
 use NutriScore\DataMappers\UserMapper;
+use NutriScore\Utils\CSRFToken;
 use NutriScore\Utils\Session;
 use NutriScore\Validators\LoginValidator;
 use NutriScore\Validators\ValidationObject;
@@ -20,6 +21,7 @@ class LoginService {
         if ($this->validator->isValid()) {
             $user = $this->userMapper->findByUsername($formInput['username']);
             Session::set('id', $user->getId());
+            CSRFToken::create();
         }
         return $this->validator->getValidationObject();
     }

@@ -40,6 +40,8 @@ class WeightController extends AbstractController {
     }
 
     public function postAdd(): void {
+        $this->checkCSRF();
+
         $data = $this->request->getInput(InputType::POST);
         $image = $this->request->getInput(InputType::FILE)['image'] ?? null;
 
