@@ -11,7 +11,7 @@
     </li>
 
     <li class="mr-2">
-      <input class="hidden peer" type="radio" name="dayOfWeek" id="monday" value="0" checked>
+      <input class="hidden peer" type="radio" name="dayOfWeek" id="monday" value="0">
       <label class="inline-block px-2 py-2.5 md:px-4 md:py-3 rounded-md cursor-pointer hover:text-gray-900 hover:bg-gray-100
                     peer-checked:bg-green peer-checked:text-white"
              for="monday">

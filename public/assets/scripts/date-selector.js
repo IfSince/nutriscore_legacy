@@ -2,6 +2,7 @@ import {formatDateDot, formatDateKebab} from './util/format-date.js';
 
 const today = new Date()
 let offsetWeeks = 0
+let initial = true
 
 export function addDateSelectorListeners(callback) {
     document.querySelectorAll('[name="dayOfWeek"]').forEach(element => {
@@ -20,6 +21,13 @@ export function addDateSelectorListeners(callback) {
 }
 
 export function getSelectedDate() {
+    if (initial) {
+        const initialIndex = today.getDay() -1
+        const inputElements = document.querySelectorAll('input[name="dayOfWeek"]')
+        inputElements[initialIndex].checked = true
+        initial = false
+    }
+
     const selectedDateIndex = parseInt(document.querySelector('input[name="dayOfWeek"]:checked').value)
 
     const week = new Date(today.getFullYear(), today.getMonth(), today.getDate() + offsetWeeks)
