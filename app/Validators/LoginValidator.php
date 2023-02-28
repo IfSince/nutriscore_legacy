@@ -4,7 +4,7 @@ namespace NutriScore\Validators;
 
 use NutriScore\DataMappers\UserMapper;
 
-class LoginValidator extends AbstractValidator {
+final class LoginValidator extends AbstractValidator {
 
     public function __construct(
         private readonly Usermapper $userMapper,

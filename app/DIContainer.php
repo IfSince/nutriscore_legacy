@@ -4,7 +4,7 @@ namespace NutriScore;
 
 use ReflectionClass;
 
-class DIContainer {
+final class DIContainer {
     private array $services = [];
 
     public function set(mixed $service): void {

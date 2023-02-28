@@ -2,7 +2,7 @@
 
 namespace NutriScore\Validators;
 
-class ChangePasswordValidator extends AbstractValidator {
+final class ChangePasswordValidator extends AbstractValidator {
 
     public function validate(mixed $data): void {
         parent::validate($data);

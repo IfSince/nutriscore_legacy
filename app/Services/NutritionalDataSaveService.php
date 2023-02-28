@@ -10,7 +10,7 @@ use NutriScore\Models\Person\Person;
 use NutriScore\Validators\NutritionalDataValidator;
 use NutriScore\Validators\ValidationObject;
 
-class NutritionalDataSaveService {
+final class NutritionalDataSaveService {
     public function __construct(
         private readonly NutritionalDataValidator $validator,
         private readonly PersonMapper $personMapper,

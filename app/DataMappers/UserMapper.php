@@ -7,7 +7,7 @@ use NutriScore\DataMapper;
 use NutriScore\Models\Model;
 use NutriScore\Models\User\User;
 
-class UserMapper extends DataMapper {
+final class UserMapper extends DataMapper {
     private const RELATED_TABLE = 'users';
 
     public function __construct(

@@ -6,7 +6,7 @@ use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\WeightRecording\WeightRecording;
 
-class WeightRecordingMapper extends DataMapper {
+final class WeightRecordingMapper extends DataMapper {
     private const RELATED_TABLE = 'weight_recordings';
 
     public function __construct(

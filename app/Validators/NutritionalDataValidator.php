@@ -2,7 +2,7 @@
 
 namespace NutriScore\Validators;
 
-class NutritionalDataValidator extends AbstractValidator {
+final class NutritionalDataValidator extends AbstractValidator {
     public function __construct(
         private readonly PersonValidator $personValidator,
         private readonly MacroDistributionValidator $macroDistributionValidator,

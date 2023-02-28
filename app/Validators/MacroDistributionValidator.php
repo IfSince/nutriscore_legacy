@@ -2,7 +2,7 @@
 
 namespace NutriScore\Validators;
 
-class MacroDistributionValidator extends AbstractValidator {
+final class MacroDistributionValidator extends AbstractValidator {
 
     public function validate(mixed $data): void {
         parent::validate($data);

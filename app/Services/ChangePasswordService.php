@@ -6,7 +6,7 @@ use NutriScore\DataMappers\UserMapper;
 use NutriScore\Validators\ChangePasswordValidator;
 use NutriScore\Validators\ValidationObject;
 
-class ChangePasswordService {
+final class ChangePasswordService {
     public function __construct(
         private readonly UserMapper $userMapper,
         private readonly ChangePasswordValidator $validator,

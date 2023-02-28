@@ -6,7 +6,7 @@ use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\File\File;
 
-class FileMapper extends DataMapper {
+final class FileMapper extends DataMapper {
     private const RELATED_TABLE = 'files';
 
     public function __construct(

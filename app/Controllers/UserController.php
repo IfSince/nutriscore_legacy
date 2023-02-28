@@ -8,7 +8,7 @@ use NutriScore\Models\User\User;
 use NutriScore\Utils\CSRFToken;
 use NutriScore\Utils\Session;
 
-class UserController extends AbstractController {
+final class UserController extends AbstractController {
     protected function preAuthorize(): void {
         if (!User::isLoggedIn()) {
             $this->redirectTo('/login');

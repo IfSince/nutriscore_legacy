@@ -7,7 +7,7 @@ use NutriScore\DataMappers\PersonMapper;
 use NutriScore\DataMappers\WeightRecordingMapper;
 use NutriScore\Models\Person\PersonDTO;
 
-class PersonDTOCreateService {
+final class PersonDTOCreateService {
     public function __construct(
         private readonly PersonMapper $personMapper,
         private readonly MacroDistributionMapper $macroDistributionMapper,

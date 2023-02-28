@@ -11,7 +11,7 @@ use NutriScore\Services\WeightRecordingService;
 use NutriScore\Utils\Session;
 use NutriScore\View;
 
-class StatisticsController extends AbstractController {
+final class StatisticsController extends AbstractController {
     private const STATISTICS_TEMPLATE = 'statistics/index';
 
     public function __construct(

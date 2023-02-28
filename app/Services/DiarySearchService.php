@@ -7,7 +7,7 @@ use NutriScore\Models\Diary\DiaryRecordingType;
 use NutriScore\Models\Food\Food;
 use NutriScore\Models\Search\SearchResult;
 
-class DiarySearchService {
+final class DiarySearchService {
     private const DIARY_SEARCH_RESULT_FIELDS = ['description', 'calories', 'protein', 'carbohydrates', 'fat'];
 
     public function __construct(

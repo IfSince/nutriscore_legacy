@@ -9,7 +9,7 @@ use NutriScore\Models\File\FileType;
 use NutriScore\Validators\FileValidator;
 use NutriScore\Validators\ValidationObject;
 
-class FileService {
+final class FileService {
     public function __construct(
         private readonly FileMapper $fileMapper,
         private readonly UserMapper $userMapper,

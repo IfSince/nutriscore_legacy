@@ -6,7 +6,7 @@ use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\MacroDistribution\MacroDistribution;
 
-class MacroDistributionMapper extends DataMapper {
+final class MacroDistributionMapper extends DataMapper {
     private const RELATED_TABLE = 'macro_distributions';
 
     public function __construct(

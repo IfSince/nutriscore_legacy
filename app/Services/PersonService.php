@@ -7,7 +7,7 @@ use NutriScore\Models\Person\Person;
 use NutriScore\Validators\PersonValidator;
 use NutriScore\Validators\ValidationObject;
 
-class PersonService {
+final class PersonService {
 
     public function __construct(
         private readonly PersonMapper $personMapper,

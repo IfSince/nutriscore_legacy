@@ -2,7 +2,7 @@
 
 namespace NutriScore\Validators;
 
-class RegisterValidator extends AbstractValidator {
+final class RegisterValidator extends AbstractValidator {
     public function __construct(
         private readonly UserValidator $userValidator,
         private readonly PersonValidator $personValidator,

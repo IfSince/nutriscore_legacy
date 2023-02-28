@@ -4,7 +4,7 @@ namespace NutriScore;
 
 use NutriScore\Decorators\ErrorHandlerDecorator;
 
-class App {
+final class App {
     private Database $db;
 
     public function init(): void {

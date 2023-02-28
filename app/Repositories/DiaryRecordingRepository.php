@@ -7,7 +7,7 @@ use NutriScore\Models\Diary\DiaryRecording;
 use NutriScore\Models\Diary\DiaryRecordingType;
 use NutriScore\Models\Diary\TimeOfDay;
 
-class DiaryRecordingRepository {
+final class DiaryRecordingRepository {
     public function __construct(
         private readonly Database $database
     ) { }

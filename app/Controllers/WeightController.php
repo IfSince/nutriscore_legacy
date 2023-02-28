@@ -13,7 +13,7 @@ use NutriScore\Services\WeightRecordingService;
 use NutriScore\Utils\Session;
 use NutriScore\View;
 
-class WeightController extends AbstractController {
+final class WeightController extends AbstractController {
     private const ADD_WEIGHT_TEMPLATE = 'weight/add';
 
     public function __construct(

@@ -6,7 +6,7 @@ use NutriScore\Controllers\LoginController;
 use NutriScore\Controllers\NotFoundController;
 use NutriScore\Utils\StringUtil;
 
-class Router {
+final class Router {
     private string $controller = LoginController::class;
     private string $method = 'index';
     private array $params = [];

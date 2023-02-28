@@ -7,7 +7,7 @@ use NutriScore\Models\MacroDistribution\MacroDistribution;
 use NutriScore\Validators\MacroDistributionValidator;
 use NutriScore\Validators\ValidationObject;
 
-class MacroDistributionService {
+final class MacroDistributionService {
 
     public function __construct(
         private readonly MacroDistributionMapper    $macroDistributionMapper,

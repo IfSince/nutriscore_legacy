@@ -6,7 +6,7 @@ use NutriScore\Database;
 use NutriScore\DataMapper;
 use NutriScore\Models\Food\Food;
 
-class FoodMapper extends DataMapper {
+final class FoodMapper extends DataMapper {
     private const RELATED_TABLE = 'food';
 
     public function __construct(

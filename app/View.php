@@ -2,8 +2,7 @@
 
 namespace NutriScore;
 
-class View {
-
+final class View {
     public function render(string $view, array $data = [], int $statusCode = 200): void {
         extract($data);
 

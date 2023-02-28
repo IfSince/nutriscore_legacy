@@ -3,7 +3,7 @@
 namespace NutriScore\Validators;
 
 
-class FileValidator extends AbstractValidator {
+final class FileValidator extends AbstractValidator {
     private int $MAX_ALLOWED_FILE_SIZE;
     private array $ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png'];
 

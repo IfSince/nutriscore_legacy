@@ -9,7 +9,7 @@ use NutriScore\Models\Person\Goal;
 use NutriScore\Models\Person\NutritionType;
 use NutriScore\Utils\CalculationsUtil;
 
-class PersonCalculationService {
+final class PersonCalculationService {
     public function getBodyMassIndex(int $height, int $weight): float {
         $heightInMeters = $height / 100;
         $divider = pow($heightInMeters, 2);

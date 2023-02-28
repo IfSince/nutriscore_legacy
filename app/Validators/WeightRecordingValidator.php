@@ -2,7 +2,7 @@
 
 namespace NutriScore\Validators;
 
-class WeightRecordingValidator extends AbstractValidator {
+final class WeightRecordingValidator extends AbstractValidator {
     public function validate(mixed $data): void {
         parent::validate($data);
 

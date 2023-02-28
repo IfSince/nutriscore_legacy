@@ -11,7 +11,7 @@ use NutriScore\Models\FoodRecording\FoodRecording;
 use NutriScore\Models\Model;
 use NutriScore\Repositories\DiaryRecordingRepository;
 
-class DiaryRecordingService {
+final class DiaryRecordingService {
     public function __construct(
         private readonly FoodMapper               $foodMapper,
         private readonly FoodRecordingMapper      $foodRecordingMapper,

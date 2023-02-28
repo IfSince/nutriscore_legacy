@@ -13,7 +13,7 @@ use NutriScore\Models\WeightRecording\WeightRecording;
 use NutriScore\Validators\RegisterValidator;
 use NutriScore\Validators\ValidationObject;
 
-class RegisterService {
+final class RegisterService {
 
     public function __construct(
         private readonly RegisterValidator       $validator,

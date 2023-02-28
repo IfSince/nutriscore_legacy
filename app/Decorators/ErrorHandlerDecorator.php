@@ -6,7 +6,7 @@ use NutriScore\AbstractController;
 use NutriScore\Database;
 use Throwable;
 
-class ErrorHandlerDecorator {
+final class ErrorHandlerDecorator {
 
     public function __construct(
         private readonly AbstractController $component,

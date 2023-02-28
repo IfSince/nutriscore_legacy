@@ -7,7 +7,7 @@ use NutriScore\Models\WeightRecording\WeightRecording;
 use NutriScore\Validators\ValidationObject;
 use NutriScore\Validators\WeightRecordingValidator;
 
-class WeightRecordingService {
+final class WeightRecordingService {
 
     public function __construct(
         private readonly WeightRecordingMapper    $weightRecordingMapper,

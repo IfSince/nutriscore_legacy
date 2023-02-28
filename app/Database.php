@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 use PDOStatement;
 
-class Database extends PDO {
+final class Database extends PDO {
     private string $host = 'localhost';
     private string $databaseName = 'nutriscore';
     private string $charset = 'utf8mb4';

@@ -8,7 +8,7 @@ use NutriScore\Utils\Session;
 use NutriScore\Validators\LoginValidator;
 use NutriScore\Validators\ValidationObject;
 
-class LoginService {
+final class LoginService {
 
     public function __construct(
         private readonly UserMapper $userMapper,

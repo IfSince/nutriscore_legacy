@@ -5,7 +5,7 @@ namespace NutriScore\Validators;
 use NutriScore\Models\Person\ActivityLevel;
 use NutriScore\Models\Person\NutritionType;
 
-class PersonValidator extends AbstractValidator {
+final class PersonValidator extends AbstractValidator {
     public function validate(mixed $data): void {
         parent::validate($data);
 
