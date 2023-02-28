@@ -31,7 +31,7 @@ final class FileService {
 
         if ($this->validator->isValid()) {
             $fileName = $this->createUniqueFilename($fileData['name']);
-            $absolutePath = APP_UPLOADS_DIR . DIRECTORY_SEPARATOR . $this->createDateCodedPath();
+            $absolutePath = APP_IMAGE_UPLOAD_DIR . DIRECTORY_SEPARATOR . $this->createDateCodedPath();
             $relativePath = str_replace(APP_PUBLIC_DIR , '', $absolutePath);
             $uploadPath = $absolutePath . DIRECTORY_SEPARATOR . $fileName;
 

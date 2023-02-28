@@ -13,10 +13,10 @@ final class UserController extends AbstractController {
         if (!User::isLoggedIn()) {
             $this->redirectTo('/login');
         }
-        CSRFToken::check($this->request->getInput(InputType::GET));
     }
 
     public function logout(): void {
+        $this->checkCSRF();
         $this->handleRequest(getFunction: $this->getLogout(...));
     }
 
