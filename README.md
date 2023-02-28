@@ -1,3 +1,4 @@
+
 # Voraussetzung
 ***
 Um das Projekt ausführen zu können ist ein Web-Server notwendig.
@@ -16,11 +17,31 @@ den dort hinterlegten Pfad anpassen, beispielsweise **"xampp/htdocs/my-project"*
 
 # Frontend Dependencies
 ***
-Für das Installieren der node_modules im Frontend ist [NodeJS](https://nodejs.org/en/) mit [npm](https://www.npmjs.com/) notwendig. Anschließend können in der Konsole mit dem Befehl **npm install** alle Dependencies installiert werden.
+Für das Installieren der Dependencies im Frontend ist [NodeJS](https://nodejs.org/en/) inkl. [npm](https://www.npmjs.com/) notwendig.
+Anschließend können in der Konsole mit dem Befehl ```npm install``` alle Dependencies installiert werden.
 
 ## Tailwind
-Für die Styles wird das CSS-Framework [Tailwind](https://tailwindcss.com/docs/installation) verwendet. Mit dem in der **package.json** hinterlegten **build-css** Skript kann tailwind gestartet werden. Dies ist nur notwendig, wenn die Styles der Seite angepasst werden sollen. In jedem neu angelegten Template ist außerdem die von Tailwind generierte **dist/tailwind.css** einzubinden. 
+Für die Styles wird das CSS-Framework [Tailwind](https://tailwindcss.com/docs/installation) verwendet.
+Mit dem in der **package.json** hinterlegten ```build-css``` Skript kann tailwind gestartet werden.
+Dies ist nur notwendig, wenn die Styles der Seite angepasst werden sollen.
+In jedem neu angelegten Template ist außerdem die von Tailwind generierte **dist/tailwind.css** einzubinden. 
+
+
+# Backend Dependencies
+***
+Für das Installieren der Dependencies im Backend ist der Paketmanager [Composer](https://getcomposer.org/) notwendig.
+Anschließend kann über das Terminal der Befehl ```composer install``` ausgeführt werden.
+
+# Setup
+***
+Bevor das Projekt gestartet werden kann, muss zunächst die Datenbank importiert und konfiguriert werden.
+Dafür muss die **.env.example** als **.env** kopiert werden und die Variablen müssen angepasst werden. 
 
 # Öffnen des Projekts
+***
 Um das Projekt zu starten, muss der Apache Server gestartet werden. Anschließend kann das Projekt beispielsweise im 
 Browser unter **localhost** geöffnet werden.
+
+## Testdaten
+
+
