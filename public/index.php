@@ -4,11 +4,8 @@ use NutriScore\App;
 
 session_start();
 
-const APP_ROOT_DIR = __DIR__;
-const APP_PUBLIC_DIR = APP_ROOT_DIR . DIRECTORY_SEPARATOR;
-const APP_UPLOADS_DIR = APP_PUBLIC_DIR . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'images';
-
-const AUTO_LOAD_PATH = __DIR__ . '/../vendor/autoload.php';
+const AUTO_LOAD_PATH = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+const CONFIG_PATH  = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config.php';
 
 function requireAutoloader(): void {
     if (!file_exists(AUTO_LOAD_PATH)) {
@@ -17,7 +14,9 @@ function requireAutoloader(): void {
         require_once AUTO_LOAD_PATH;
     }
 }
-
 requireAutoloader();
+
+require_once CONFIG_PATH;
+
 $app = new App();
 $app->init();

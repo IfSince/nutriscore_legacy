@@ -7,20 +7,14 @@ use PDOException;
 use PDOStatement;
 
 final class Database extends PDO {
-    private string $host = 'localhost';
-    private string $databaseName = 'nutriscore';
-    private string $charset = 'utf8mb4';
-    private string $username = 'root';
-    private string $password = '';
-
     private PDOStatement $statement;
 
     public function __construct() {
         try {
             parent::__construct(
-                "mysql:host=$this->host;dbname=$this->databaseName;charset=$this->charset",
-                $this->username,
-                $this->password,
+                $_ENV['DB_DNS'],
+                $_ENV['DB_USER'],
+                $_ENV['DB_PASSWORD'],
                 [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
             );
         } catch (PDOException $e) {

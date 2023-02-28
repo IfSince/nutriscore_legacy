@@ -2,6 +2,7 @@
 
 namespace NutriScore;
 
+use Dotenv\Dotenv;
 use NutriScore\Decorators\ErrorHandlerDecorator;
 
 final class App {
@@ -11,6 +12,8 @@ final class App {
         // Init Autowired Dependency Injection Container
         $container = new DIContainer();
         $this->setLanguage('de_DE');
+
+        $this->initEnv();
 
         $this->db = new Database();
         $container->set($this->db);
@@ -38,6 +41,15 @@ final class App {
         bindtextdomain($domain, 'locale');
         textdomain($domain);
         bind_textdomain_codeset($domain, 'UTF-8');
+    }
+
+    private function initEnv(): void {
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+
+        $dotenv->required('DB_DNS')->notEmpty();
+        $dotenv->required('DB_USER');
+        $dotenv->required('DB_PASSWORD');
     }
 
     private function commitTransaction(): void {
