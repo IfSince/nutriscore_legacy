@@ -1,5 +1,7 @@
 <?php
 
+use NutriScore\Utils\CSRFToken;
+
 $messages = $messages ?? null;
 
 getTemplatePart('head', ['title' => 'User Data']);
@@ -26,6 +28,7 @@ getTemplatePart('header', ['active' => 'profile', 'previousPage' => '/profile'])
       <p class="pb-8 text-gray-700"><?=_('Please enter your current password and your new password below.')?></p>
       <form method="post">
         <div class="pb-8">
+          <input type="hidden" name="csrfToken" value="<?=CSRFToken::get()?>">
           <div class="flex flex-wrap gap-4 sm:gap-6 md:gap-8">
             <div class="basis-full sm:basis-1/3 md:basis-1/3 lg:basis-1/4">
               <label class="default-input__label" for="password"><?=_('Password')?></label>
